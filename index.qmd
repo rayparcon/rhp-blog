@@ -1,5 +1,5 @@
 ---
-title: "Raymond Parcon, Ph.D. cand | UGA Plant Pathology"
+title: "Raymond Parcon"
 ---
 
 This is a Quarto website.
