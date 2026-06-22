@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Raymond Parcon, Ph.D. cand | UGA Plant Pathology"
+  title: "Raymond Parcon"
   navbar:
     left:
       - href: index.qmd
