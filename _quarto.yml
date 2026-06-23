@@ -24,7 +24,7 @@ website:
 format:
   html:
     theme:
-      - yeti 
+      - lux 
     css: styles.css
     toc: false
 
