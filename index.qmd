@@ -1,5 +1,5 @@
 ---
-title: "Hi, I'm Ray 👋🏽"
+title: "Hi, I'm Ray Parcon 👋🏽"
 image: avatar.jpg
 about:
   template: broadside
