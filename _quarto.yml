@@ -2,6 +2,7 @@ project:
   type: website
   resources:
     - resume.pdf
+    - CNAME
 
 website:
   title: "Raymond Parcon"
