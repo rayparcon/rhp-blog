@@ -24,8 +24,7 @@ website:
 format:
   html:
     theme:
-      - lux
-      - brand
+      - sandstone
     css: styles.css
     toc: false
 
