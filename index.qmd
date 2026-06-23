@@ -29,9 +29,9 @@ about:
 ---
 
 ::: {#intro}
-<div class="h1">Hi, I'm Ray 👋🏽!</div>
+<div class="h1">Hi, I'm Ray! 👋🏽</div>
 
-<div class="lead">
+<div class="lead" markdown="1">
 
 I'm a **Graduate Research Assistant** and a **Ph.D. candidate** in the Department of Plant Pathology at the University of Georgia.
 
