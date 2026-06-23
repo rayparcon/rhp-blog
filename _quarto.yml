@@ -1,6 +1,7 @@
 project:
   type: website
-  resourcess:
+  resources:
+    - resume.pdf
 
 website:
   title: "Raymond Parcon"
