@@ -9,7 +9,7 @@ website:
   site-url: https://rayparcon.com
   description: "Genetics of Plant Diseases"
   navbar:
-    title: "Ray Parcon's"
+    title: "Raymond Parcon"
     left:
       - href: index.qmd
         text: Bio
