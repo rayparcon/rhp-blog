@@ -19,12 +19,13 @@ website:
       - href: blog.qmd
         text: Blog
   page-footer:
-    center: Website made with [Quarto](https://quarto.org/) © 2026 Raymond Parcon [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
+    center: Website by [Quarto](https://quarto.org/) © 2026 Raymond Parcon [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
 
 format:
   html:
     theme:
-      - lux 
+      - lux
+      - brand
     css: styles.css
     toc: false
 
