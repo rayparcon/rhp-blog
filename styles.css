@@ -1,12 +1,12 @@
 /* css styles */
 
-/* Center and round the About image */
+/* Circular profile image */
 .about-image {
+  width: 18rem !important;
+  height: 18rem !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  object-position: center top;   /* adjust if needed */
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 20em;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 50%;
+  margin: 0 auto;
 }
