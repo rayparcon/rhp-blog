@@ -12,11 +12,11 @@
 }
 
 /* =========================
-   MODERN PORTFOLIO THEME
-   (Zephyr / Bootstrap override)
+   MODERN MONOCHROME PORTFOLIO
+   Quarto + Zephyr Theme Override
    ========================= */
 
-/* ---------- COLOR SYSTEM ---------- */
+/* ---------- DESIGN SYSTEM ---------- */
 :root {
   --bs-primary: #111111;
   --bs-link-color: #111111;
@@ -41,7 +41,7 @@ h1, h2, h3 {
   letter-spacing: -0.02em;
 }
 
-/* ---------- LINKS (NO BLUE) ---------- */
+/* ---------- LINKS (CONTENT ONLY) ---------- */
 a {
   color: var(--bs-link-color) !important;
   text-decoration: none;
@@ -51,21 +51,40 @@ a {
 
 a:hover {
   color: var(--bs-link-hover-color) !important;
-  border-bottom: 1px solid rgba(0,0,0,0.6);
+  border-bottom-color: rgba(0,0,0,0.6);
 }
 
 /* ---------- NAVBAR ---------- */
+.navbar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #eaeaea;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+/* navbar text */
 .navbar .navbar-brand,
-.navbar .nav-link {
-  color: #111111;
+.navbar .navbar-nav .nav-link {
+  color: #111111 !important;
   font-weight: 500;
-  border-bottom: none;
   transition: color 0.2s ease;
 }
 
-.navbar .nav-link:hover,
-.navbar .nav-link.active {
-  color: #444444;
+/* hover + active state */
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+  color: #444444 !important;
+}
+
+/* IMPORTANT FIX: mobile underline matches text width */
+.navbar .navbar-nav .nav-link {
+  display: inline-block;
+  width: auto;
+  border-bottom: 1px solid transparent;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+  border-bottom-color: currentColor;
 }
 
 /* ---------- BUTTONS ---------- */
@@ -83,16 +102,17 @@ a:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
-/* ---------- OPTIONAL SOFT SECTIONS ---------- */
+/* ---------- OPTIONAL SECTIONS ---------- */
 .section {
   padding: 2rem;
   border-radius: 10px;
   background: var(--bg-soft);
 }
 
-/* Mobile navbar toggle (hamburger) */
+/* ---------- MOBILE HAMBURGER MENU ---------- */
 .navbar-toggler {
   border: none;
+  border-radius: 6px;
   padding: 6px 10px;
   box-shadow: none;
 }
@@ -103,7 +123,7 @@ a:hover {
   outline: none;
 }
 
-/* Dark hamburger icon */
+/* black hamburger icon */
 .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280,0,0,0.8%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280,0,0,0.85%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
