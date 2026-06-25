@@ -39,18 +39,6 @@ My interest in host-pathogen interactions led me to work as a graduate research 
 
 </div>
 
-<div class="social-links">
-
-[{{< ai google-scholar >}}](https://scholar.google.com/citations?user=YOUR_ID)
-
-[{{< ai orcid >}}](https://orcid.org/0000-0000-0000-0000)
-
-[{{< fa brands github >}}](https://github.com/rayparcon)
-
-[{{< fa brands linkedin >}}](https://linkedin.com/in/YOUR_PROFILE)
-
-</div>
-
 :::
 
 ## About Me
@@ -66,3 +54,11 @@ I develop bioinformatics pipeline for SNP discovery from large genomic data sets
 My research aims to uncover new strategies to enhance plant health and promote sustainable farming practices. By understanding more about host-pathogen interactions and their implications for plant disease resistance, I aim to contribute valuable insights that support more resilient agricultural systems.
 
 ## This site is currently under construction, but you can find my research papers, presentations, and blog posts here: [rayparcon.github.io/ray-bio](https://rayparcon.github.io/ray-bio)
+
+::: {.academic-links}
+
+[{{< ai orcid >}} ORCID](https://orcid.org/0000-0002-3379-3698)
+
+[{{< ai google-scholar >}} Google Scholar](https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en)
+
+:::
