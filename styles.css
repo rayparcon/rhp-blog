@@ -172,38 +172,27 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.15rem;
+  gap: 0.9rem;
   flex-wrap: wrap;
-  margin-bottom: 0.75rem;
 }
 
-.footer-links a,
-.footer-links a:hover {
-  border-bottom: none !important;
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-color) !important;
   text-decoration: none;
-}
-
-.footer-links i {
-  font-size: 1.5rem;
-  color: var(--text-color);
+  border-bottom: none;
+  font-size: 1.15rem;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.footer-links a:hover i {
-  color: var(--bs-link-hover-color);
+.footer-links a:hover {
+  color: var(--bs-link-hover-color) !important;
   transform: translateY(-1px);
 }
 
 .footer-copyright {
+  margin-top: 0.5rem;
   color: var(--muted);
   font-size: 0.9rem;
-}
-
-.footer-copyright a {
-  color: var(--muted) !important;
-  border-bottom: none;
-}
-
-.footer-copyright a:hover {
-  color: var(--bs-link-hover-color) !important;
 }
