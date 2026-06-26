@@ -24,15 +24,14 @@ website:
     background: light
     center: >-
       <div class="footer-block">
-        <div class="footer-links">
-          <a href="mailto:rhparcon@uga.edu" title="Email">{{< fa solid envelope >}}</a>
-          <a href="https://orcid.org/0000-0002-3379-3698" title="ORCID" target="_blank" rel="noopener">{{< ai orcid >}}</a>
-          <a href="https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en" title="Google Scholar" target="_blank" rel="noopener">{{< ai google-scholar >}}</a>
-          <a href="https://github.com/rayparcon" title="GitHub" target="_blank" rel="noopener">{{< fa brands github >}}</a>
-          <a href="https://www.linkedin.com/in/rayparcon" title="LinkedIn" target="_blank" rel="noopener">{{< fa brands linkedin >}}</a>
-          <a href="https://www.instagram.com/ry.parcs/" title="Instagram" target="_blank" rel="noopener">{{< fa brands instagram >}}</a>
-          <a href="resume.pdf" title="Curriculum Vitae">{{< fa regular file-pdf >}}</a>
-        </div>
+        <a href="mailto:rhparcon@uga.edu" title="Email">{{< fa solid envelope >}}</a>
+        <a href="https://orcid.org/0000-0002-3379-3698" title="ORCID" target="_blank" rel="noopener">{{< ai orcid >}}</a>
+        <a href="https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en" title="Google Scholar" target="_blank" rel="noopener">{{< ai google-scholar >}}</a>
+        <a href="https://github.com/rayparcon" title="GitHub" target="_blank" rel="noopener">{{< fa brands github >}}</a>
+        <a href="https://www.linkedin.com/in/rayparcon" title="LinkedIn" target="_blank" rel="noopener">{{< fa brands linkedin >}}</a>
+        <a href="https://www.instagram.com/ry.parcs/" title="Instagram" target="_blank" rel="noopener">{{< fa brands instagram >}}</a>
+        <a href="resume.pdf" title="Curriculum Vitae">{{< fa regular file-pdf >}}</a>
+        
         <div class="footer-copyright">
           Website by [Quarto](https://quarto.org/) © 2026 Raymond ParconRaymond Parcon [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
         </div>
