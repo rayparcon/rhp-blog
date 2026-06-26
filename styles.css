@@ -172,8 +172,9 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.1rem;
+  gap: 1.15rem;
   flex-wrap: wrap;
+  margin-bottom: 0.75rem;
 }
 
 .footer-links a,
@@ -182,27 +183,27 @@ a:hover {
   text-decoration: none;
 }
 
-.footer-links a {
-  display: inline-flex;
-  align-items: center;
-  color: var(--text-color) !important;
-  font-size: 1.45rem;
-  line-height: 1;
+.footer-links i {
+  font-size: 1.5rem;
+  color: var(--text-color);
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.footer-links a:hover {
-  color: var(--bs-link-hover-color) !important;
+.footer-links a:hover i {
+  color: var(--bs-link-hover-color);
   transform: translateY(-1px);
 }
 
-.footer-links svg,
-.footer-links .ai {
-  font-size: 1.45rem;
-}
-
 .footer-copyright {
-  margin-top: 0.75rem;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.footer-copyright a {
+  color: var(--muted) !important;
+  border-bottom: none;
+}
+
+.footer-copyright a:hover {
+  color: var(--bs-link-hover-color) !important;
 }
