@@ -24,8 +24,8 @@ listing:
   
   - id: recent-presentation-listing
     contents:
-      - "presentation/*/*.qmd"
-      - "presentation/*/*.md"
+      - "presentations/*/*.qmd"
+      - "presentations/*/*.md"
     sort: "date desc"
     type: grid
     max-items: 9
@@ -37,8 +37,8 @@ listing:
   
   - id: recent-paper-listing
     contents:
-      - "paper/*/*.qmd"
-      - "paper/*/*.md"
+      - "papers/*/*.qmd"
+      - "papers/*/*.md"
     sort: "date desc"
     type: grid
     max-items: 9
@@ -127,12 +127,12 @@ listing:
 ::: {#recent-blog-listing}
 :::
 
-## Latest [Presentations](/presentation)
+## Latest [Presentations](/presentations)
 
 ::: {#recent-presentation-listing}
 :::
 
-## Latest [Papers](/paper)
+## Latest [Papers](/papers)
 
 ::: {#recent-paper-listing}
 :::

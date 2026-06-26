@@ -12,14 +12,14 @@ website:
     title: "Raymond Parcon"
     right:
       - href: about/index.qmd
-        text: Bio
+        text: About
       - href: papers/index.qmd
         text: Papers
       - href: presentations/index.qmd
         text: Presentations
       - href: tutorials/index.qmd
         text: Tutorials
-      - href: blog.qmd
+      - href: blog/index.qmd
         text: Blog
       - icon: linkedin
         href: https://www.linkedin.com/in/rayparcon
