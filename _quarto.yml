@@ -11,15 +11,15 @@ website:
   navbar:
     title: "Raymond Parcon"
     right:
-      - href: about/index.qmd
+      - href: about/about.qmd
         text: About
-      - href: papers/index.qmd
+      - href: papers/papers.qmd
         text: Papers
-      - href: presentations/index.qmd
+      - href: presentations/presentations.qmd
         text: Presentations
-      - href: tutorials/index.qmd
+      - href: tutorials/tutorials.qmd
         text: Tutorials
-      - href: blog/index.qmd
+      - href: blog/blog.qmd
         text: Blog
       - icon: linkedin
         href: https://www.linkedin.com/in/rayparcon
