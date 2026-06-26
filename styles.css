@@ -128,7 +128,7 @@ a:hover {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280,0,0,0.85%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
-/* ---------- SOCIAL LINKS ---------- */
+/* ---------- SOCIAL LINKS (HOMEPAGE) ---------- */
 
 .social-links {
   display: flex;
@@ -142,7 +142,7 @@ a:hover {
   align-items: center;
   gap: 0.45rem;
 
-  color: #111111;
+  color: var(--text-color) !important;
   text-decoration: none;
   border-bottom: none;
 
@@ -152,7 +152,7 @@ a:hover {
 }
 
 .social-links a:hover {
-  color: #444444;
+  color: var(--bs-link-hover-color) !important;
   transform: translateY(-1px);
 }
 
@@ -160,4 +160,36 @@ a:hover {
 .social-links .ai {
   font-size: 1.1rem;
   vertical-align: middle;
+}
+
+/* ---------- FOOTER ---------- */
+
+.footer-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-icons > a {
+  display: inline-block;
+  margin: 0 0.45rem;
+
+  color: var(--text-color) !important;
+  text-decoration: none;
+  border-bottom: none;
+
+  font-size: 1.15rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-icons > a:hover {
+  color: var(--bs-link-hover-color) !important;
+  transform: translateY(-1px);
+}
+
+.footer-copyright {
+  margin-top: 0.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
