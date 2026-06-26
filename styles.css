@@ -161,30 +161,3 @@ a:hover {
   font-size: 1.1rem;
   vertical-align: middle;
 }
-
-/* ---------- FOOTER ---------- */
-
-.footer-block {
-  text-align: center;
-}
-
-.footer-block > a {
-  display: inline-block;
-  margin: 0 0.45rem;
-  color: var(--text-color);
-  font-size: 1.15rem;
-  text-decoration: none;
-  border-bottom: none;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.footer-block > a:hover {
-  color: var(--bs-link-hover-color);
-  transform: translateY(-1px);
-}
-
-.footer-copyright {
-  margin-top: 0.4rem;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
