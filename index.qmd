@@ -4,28 +4,6 @@ image: ray.jpg
 about:
   template: trestles
   id: intro
-  links:
-    - text: Email me
-      icon: envelope-paper
-      url: "mailto:rhparcon@uga.edu"
-    - text: LinkedIn
-      icon: linkedin
-      url: "https://www.linkedin.com/in/rayparcon"
-    - text: Instagram
-      icon: instagram
-      url: "https://www.instagram.com/ry.parcs/"
-    - text: GitHub
-      icon: github
-      url: "https://github.com/rayparcon"
-    - text: "ORCID"
-      icon: orcid
-      url: "https://orcid.org/0000-0002-3379-3698" 
-    - text: "Google Scholar"
-      icon: google-scholar
-      url: "https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en"
-    - text: Resume
-      url: "resume.pdf"
-
 ---
 
 ::: {#intro}
@@ -55,10 +33,20 @@ My research aims to uncover new strategies to enhance plant health and promote s
 
 ## This site is currently under construction, but you can find my research papers, presentations, and blog posts here: [rayparcon.github.io/ray-bio](https://rayparcon.github.io/ray-bio)
 
-::: {.academic-links}
+::: {.social-links}
+
+[{{< fa solid envelope >}} Email](mailto:rhparcon@uga.edu)
 
 [{{< ai orcid >}} ORCID](https://orcid.org/0000-0002-3379-3698)
 
 [{{< ai google-scholar >}} Google Scholar](https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en)
+
+[{{< fa brands github >}} GitHub](https://github.com/rayparcon)
+
+[{{< fa brands linkedin >}} LinkedIn](https://www.linkedin.com/in/rayparcon)
+
+[{{< fa brands instagram >}} Instagram](https://www.instagram.com/ry.parcs/)
+
+[{{< fa regular file-pdf >}} CV](resume.pdf)
 
 :::

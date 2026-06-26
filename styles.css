@@ -128,24 +128,36 @@ a:hover {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280,0,0,0.85%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
-.academic-links {
+/* ---------- SOCIAL LINKS ---------- */
+
+.social-links {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
   flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1.5rem;
 }
 
-.academic-links a {
-  color: #111111 !important;
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  color: #111111;
+  text-decoration: none;
   border-bottom: none;
+
   font-weight: 500;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.academic-links a:hover {
-  color: #444444 !important;
+.social-links a:hover {
+  color: #444444;
   transform: translateY(-1px);
 }
 
-.academic-links .ai {
-  margin-right: 0.35rem;
+.social-links svg,
+.social-links .ai {
+  font-size: 1.1rem;
+  vertical-align: middle;
 }
