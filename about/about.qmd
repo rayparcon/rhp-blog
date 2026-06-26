@@ -38,5 +38,3 @@ I develop bioinformatics pipeline for SNP discovery from large genomic data sets
         
 My research aims to uncover new strategies to enhance plant health and promote sustainable farming practices. By understanding more about host-pathogen interactions and their implications for plant disease resistance, I aim to contribute valuable insights that support more resilient agricultural systems.
 
-## This site is currently under construction, but you can find my research papers, presentations, and blog posts here: [rayparcon.github.io/ray-bio](https://rayparcon.github.io/ray-bio)
-

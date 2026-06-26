@@ -6,7 +6,7 @@ title-block-banner: false
 twitter-card:
   title: "Raymond Parcon"
   description: >-
-    Genetics of fungal diseases of plants | Ph.D. candidate in Plant Pathology at the University of Georgia
+    Genetics of fungal diseases of plants | Ph.D. cand. in Plant Pathology - University of Georgia
 
 listing: 
   - id: recent-blog-listing
@@ -113,11 +113,14 @@ listing:
     </div>
 
     <p class="site-intro fs-5">
-      I’m a <strong>Graduate Researcher Assistant</strong> and a <strong>Ph.D. candidate</strong> in Plant Pathology at the University of Georgia. My research combines genomics and bioinformatics to understand how fungal plant pathogens adapt and evole to overcome host resistance.
+      I’m a <strong>Graduate Research Assistant</strong> and a <strong>Ph.D. candidate</strong> in Plant Pathology at the University of Georgia. My research combines genomics and bioinformatics to understand how fungal plant pathogens adapt and evole to overcome host resistance.
     </p>
-    <a class="mt4 action text" href="/about/about.qmd">About Me →</a>
+    <a class="mt4 action text" href="/about/about.qmd"><em>About Me</em> →</a>
   </div>
 
+  <div class="site-photo">
+    <img src="/ray.jpg" alt="Portrait of Raymond Parcon">
+  </div>
   
 </div>
 ```
@@ -135,4 +138,8 @@ listing:
 ## Latest [Papers](/papers)
 
 ::: {#recent-paper-listing}
+:::
+
+:::
+## This site is currently under construction, but you can find my research papers, presentations, and blog posts here: [rayparcon.github.io/ray-bio](https://rayparcon.github.io/ray-bio)
 :::
