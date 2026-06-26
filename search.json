@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "\n      Raymond\n      Parcon\n    ",
     "section": "",
-    "text": "I’m a Graduate Researcher Assistant and a Ph.D. candidate in Plant Pathology at the University of Georgia. My research combines genomics and bioinformatics to understand how fungal plant pathogens adapt and evole to overcome host resistance.\n    \n    About Me →"
+    "text": "I’m a Graduate Research Assistant and a Ph.D. candidate in Plant Pathology at the University of Georgia. My research combines genomics and bioinformatics to understand how fungal plant pathogens adapt and evole to overcome host resistance.\n    \n    About Me →"
   },
   {
     "objectID": "index.html#latest-posts",
@@ -25,14 +25,7 @@
     "href": "index.html#latest-papers",
     "title": "\n      Raymond\n      Parcon\n    ",
     "section": "Latest Papers",
-    "text": "Latest Papers\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
+    "text": "Latest Papers\n\n\n\n\nNo matching items\n\n::: ## This site is currently under construction, but you can find my research papers, presentations, and blog posts here: rayparcon.github.io/ray-bio :::"
   },
   {
     "objectID": "about/about.html",
@@ -54,13 +47,6 @@
     "title": "Raymond Parcon",
     "section": "What I do",
     "text": "What I do\nHaving previously worked on developing biological control agents as an alternative to synthetic fungicides, I became fascinated with how microorganisms interact with their hosts, community, and surroundings to equip themselves with molecular tools for survival.\nI develop bioinformatics pipeline for SNP discovery from large genomic data sets, analyze genetic diversity using various R packages and software, and apply qualitative and quantitative tools to define races of C. sojina.\nMy research aims to uncover new strategies to enhance plant health and promote sustainable farming practices. By understanding more about host-pathogen interactions and their implications for plant disease resistance, I aim to contribute valuable insights that support more resilient agricultural systems."
-  },
-  {
-    "objectID": "about/about.html#this-site-is-currently-under-construction-but-you-can-find-my-research-papers-presentations-and-blog-posts-here-rayparcon.github.ioray-bio",
-    "href": "about/about.html#this-site-is-currently-under-construction-but-you-can-find-my-research-papers-presentations-and-blog-posts-here-rayparcon.github.ioray-bio",
-    "title": "Raymond Parcon",
-    "section": "This site is currently under construction, but you can find my research papers, presentations, and blog posts here: rayparcon.github.io/ray-bio",
-    "text": "This site is currently under construction, but you can find my research papers, presentations, and blog posts here: rayparcon.github.io/ray-bio"
   },
   {
     "objectID": "blog.html",
