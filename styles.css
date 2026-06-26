@@ -164,32 +164,45 @@ a:hover {
 
 /* ---------- FOOTER ---------- */
 
-.footer-icons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+.footer-block {
+  text-align: center;
 }
 
-.footer-icons > a {
-  display: inline-block;
-  margin: 0 0.45rem;
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+}
 
-  color: var(--text-color) !important;
+.footer-links a,
+.footer-links a:hover {
+  border-bottom: none !important;
   text-decoration: none;
-  border-bottom: none;
+}
 
-  font-size: 1.15rem;
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-color) !important;
+  font-size: 1.45rem;
+  line-height: 1;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.footer-icons > a:hover {
+.footer-links a:hover {
   color: var(--bs-link-hover-color) !important;
   transform: translateY(-1px);
 }
 
+.footer-links svg,
+.footer-links .ai {
+  font-size: 1.45rem;
+}
+
 .footer-copyright {
-  margin-top: 0.4rem;
+  margin-top: 0.75rem;
   color: var(--muted);
   font-size: 0.9rem;
 }
