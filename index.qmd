@@ -4,6 +4,13 @@ image: ray.jpg
 about:
   template: trestles
   id: intro
+  links:
+    - text: Email me
+      icon: envelope-paper
+      url: "mailto:rhparcon@uga.edu"
+    - text: CV
+      icon: filetype-pdf
+      url: "Parcon_Ray_CV.pdf"
 ---
 
 ::: {#intro}
