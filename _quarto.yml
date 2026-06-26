@@ -11,7 +11,7 @@ website:
   navbar:
     title: "Raymond Parcon"
     right:
-      - href: index.qmd
+      - href: about/index.qmd
         text: Bio
       - href: papers/index.qmd
         text: Papers
