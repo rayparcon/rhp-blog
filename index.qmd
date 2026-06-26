@@ -8,12 +8,12 @@ about:
     - text: Email me
       icon: envelope-paper
       url: "mailto:rhparcon@uga.edu"
-    - text: CV
+    - text: Curriculum Vitae
       icon: filetype-pdf
-      url: "Parcon_Ray_CV.pdf"
+      url: "parcon_ray_cv.pdf"
 ---
 
-::: {#intro}
+::: {#hero-heading}
 <div class="h1">Hi, I'm Ray! 👋🏽</div>
 
 <div class="lead">
