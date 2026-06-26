@@ -117,11 +117,6 @@ listing:
     </p>
     <a class="mt4 action text" href="/about/about.qmd"><em>About Me</em> →</a>
   </div>
-
-  <div class="site-photo">
-    <img src="/ray.jpg" alt="Portrait of Raymond Parcon">
-  </div>
-  
 </div>
 ```
 
