@@ -168,31 +168,23 @@ a:hover {
   text-align: center;
 }
 
-.footer-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.9rem;
-  flex-wrap: wrap;
-}
-
-.footer-links a {
-  display: inline-flex;
-  align-items: center;
-  color: var(--text-color) !important;
+.footer-block > a {
+  display: inline-block;
+  margin: 0 0.45rem;
+  color: var(--text-color);
+  font-size: 1.15rem;
   text-decoration: none;
   border-bottom: none;
-  font-size: 1.15rem;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.footer-links a:hover {
-  color: var(--bs-link-hover-color) !important;
+.footer-block > a:hover {
+  color: var(--bs-link-hover-color);
   transform: translateY(-1px);
 }
 
 .footer-copyright {
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   color: var(--muted);
   font-size: 0.9rem;
 }
