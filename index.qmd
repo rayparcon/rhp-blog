@@ -140,6 +140,6 @@ listing:
 ::: {#recent-paper-listing}
 :::
 
-:::
+<div>
 ## This site is currently under construction, but you can find my research papers, presentations, and blog posts here: [rayparcon.github.io/ray-bio](https://rayparcon.github.io/ray-bio)
-:::
+</div>
