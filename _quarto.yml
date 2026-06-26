@@ -10,15 +10,20 @@ website:
   description: "Genetics of Plant Diseases"
   navbar:
     title: "Raymond Parcon"
-    left:
+    right:
       - href: index.qmd
         text: Bio
-      - href: papers
+      - href: papers/index.qmd
         text: Papers
-      - href: presentations
+      - href: presentations/index.qmd
         text: Presentations
+      - href: tutorials/index.qmd
+        text: Tutorials
       - href: blog.qmd
         text: Blog
+      - icon: linkedin
+        href: https://www.linkedin.com/in/rayparcon
+
   page-footer:
     border: false
     background: light
@@ -30,7 +35,7 @@ website:
         <a href="https://github.com/rayparcon" title="GitHub" target="_blank" rel="noopener">{{< fa brands github >}}</a>
         <a href="https://www.linkedin.com/in/rayparcon" title="LinkedIn" target="_blank" rel="noopener">{{< fa brands linkedin >}}</a>
         <a href="https://www.instagram.com/ry.parcs/" title="Instagram" target="_blank" rel="noopener">{{< fa brands instagram >}}</a>
-        <a href="resume.pdf" title="Curriculum Vitae">{{< fa regular file-pdf >}}</a>
+        <a href="parcon_ray_cv.pdf" title="Curriculum Vitae">{{< fa regular file-pdf >}}</a>
       </div>
         
       <div class="footer-copyright">

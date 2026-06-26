@@ -1,0 +1,42 @@
+---
+title: ""
+image: ray.jpg
+about:
+  template: trestles
+  id: hero-heading
+  links:
+    - text: Email me
+      icon: envelope-paper
+      url: "mailto:rhparcon@uga.edu"
+    - text: Curriculum Vitae
+      icon: filetype-pdf
+      url: "parcon_ray_cv.pdf"
+---
+
+::: {#hero-heading}
+<div class="h1">Hi, I'm Ray! 👋🏽</div>
+
+<div class="lead">
+
+I'm a **Graduate Research Assistant** and a **Ph.D. candidate** in the Department of Plant Pathology at the University of Georgia.
+
+My interest in host-pathogen interactions led me to work as a graduate research assistant in the Smith Lab. Together with my advisors, [Dr. Shavannor Smith](https://plantpath.caes.uga.edu/people/faculty/shavannor-smith.html) and [Dr. James Buck](https://plantpath.caes.uga.edu/people/faculty/james-buck.html), we study the genetic diversity of <em>Cercospora sojina</em>, the causal fungus of frogeye leaf spot disease in soybeans, and its implications for host resistance.
+
+</div>
+
+:::
+
+## About Me
+
+I'm a microbiologist passionate about fungal diseases of plants. I became particularly interested in plant pathology when I realized that every strong economy is built upon a robust agriculture. When I'm not in the lab or coding, I enjoy reading fantasy and coming-of-age novels, I think there is beauty both in escaping reality and in stories of self-discovery and personal growth. When experiments fail or my codes are not working, I find comfort and balance in taking care of my plants whether pruning, repotting, or transplanting them.
+
+## What I do
+
+Having previously worked on developing biological control agents as an alternative to synthetic fungicides, I became fascinated with how microorganisms interact with their hosts, community, and surroundings to equip themselves with molecular tools for survival.
+        
+I develop bioinformatics pipeline for SNP discovery from large genomic data sets, analyze genetic diversity using various R packages and software, and apply qualitative and quantitative tools to define races of <em>C. sojina</em>.
+        
+My research aims to uncover new strategies to enhance plant health and promote sustainable farming practices. By understanding more about host-pathogen interactions and their implications for plant disease resistance, I aim to contribute valuable insights that support more resilient agricultural systems.
+
+## This site is currently under construction, but you can find my research papers, presentations, and blog posts here: [rayparcon.github.io/ray-bio](https://rayparcon.github.io/ray-bio)
+
