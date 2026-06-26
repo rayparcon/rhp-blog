@@ -31,12 +31,13 @@ website:
         <a href="https://www.linkedin.com/in/rayparcon" title="LinkedIn" target="_blank" rel="noopener">{{< fa brands linkedin >}}</a>
         <a href="https://www.instagram.com/ry.parcs/" title="Instagram" target="_blank" rel="noopener">{{< fa brands instagram >}}</a>
         <a href="resume.pdf" title="Curriculum Vitae">{{< fa regular file-pdf >}}</a>
-        
-        <div class="footer-copyright">
-          Website by <a href="https://quarto.org/">Quarto</a> © 2026 Raymond Parcon
-          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-NC-SA 4.0</a>
-        </div>
       </div>
+        
+      <div class="footer-copyright">
+         Website by <a href="https://quarto.org/">Quarto</a> © 2026 Raymond Parcon
+         <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-NC-SA 4.0</a>
+      </div>
+   
 
 format:
   html:
