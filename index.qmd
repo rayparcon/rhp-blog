@@ -6,16 +6,16 @@ about:
   id: intro
 ---
 
-::: {#}
+::: {#intro}
 <div class="h1">Hi, I'm Ray! 👋🏽</div>
 
-<p class="site-into">
+<div class="lead">
 
 I'm a <strong>Graduate Research Assistant</strong> and a <strong>Ph.D. candidate</strong> in the Department of Plant Pathology at the University of Georgia.
 
 My interest in host-pathogen interactions led me to work as a graduate research assistant in the Smith Lab. Together with my advisors, [Dr. Shavannor Smith](https://plantpath.caes.uga.edu/people/faculty/shavannor-smith.html) and [Dr. James Buck](https://plantpath.caes.uga.edu/people/faculty/james-buck.html), we study the genetic diversity of <em>Cercospora sojina</em>, the causal fungus of frogeye leaf spot disease in soybeans, and its implications for host resistance.
 
-</p>
+</div>
 
 :::
 
@@ -33,20 +33,3 @@ My research aims to uncover new strategies to enhance plant health and promote s
 
 ## This site is currently under construction, but you can find my research papers, presentations, and blog posts here: [rayparcon.github.io/ray-bio](https://rayparcon.github.io/ray-bio)
 
-::: {.social-links}
-
-[{{< fa solid envelope >}} Email](mailto:rhparcon@uga.edu)
-
-[{{< ai orcid >}} ORCID](https://orcid.org/0000-0002-3379-3698)
-
-[{{< ai google-scholar >}} Google Scholar](https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en)
-
-[{{< fa brands github >}} GitHub](https://github.com/rayparcon)
-
-[{{< fa brands linkedin >}} LinkedIn](https://www.linkedin.com/in/rayparcon)
-
-[{{< fa brands instagram >}} Instagram](https://www.instagram.com/ry.parcs/)
-
-[{{< fa regular file-pdf >}} CV](resume.pdf)
-
-:::
