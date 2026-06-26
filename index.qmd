@@ -3,7 +3,7 @@ title: ""
 image: ray.jpg
 about:
   template: trestles
-  id: intro
+  id: hero-heading
   links:
     - text: Email me
       icon: envelope-paper
@@ -13,7 +13,7 @@ about:
       url: "parcon_ray_cv.pdf"
 ---
 
-::: {#hero}
+::: {#hero-heading}
 <div class="h1">Hi, I'm Ray! 👋🏽</div>
 
 <div class="lead">
