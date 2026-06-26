@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rayparcon.com/index.html</loc>
-    <lastmod>2026-06-26T18:13:19.911Z</lastmod>
+    <lastmod>2026-06-26T19:09:15.643Z</lastmod>
   </url>
   <url>
     <loc>https://rayparcon.com/about.html</loc>
-    <lastmod>2026-06-26T18:13:19.911Z</lastmod>
+    <lastmod>2026-06-26T19:09:15.639Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/about/index.html</loc>
+    <lastmod>2026-06-26T19:09:15.639Z</lastmod>
   </url>
   <url>
     <loc>https://rayparcon.com/blog.html</loc>
-    <lastmod>2026-06-26T18:13:19.911Z</lastmod>
+    <lastmod>2026-06-26T19:09:15.643Z</lastmod>
   </url>
 </urlset>
