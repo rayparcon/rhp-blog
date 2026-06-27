@@ -132,8 +132,8 @@ a:hover {
 
 .social-icon-links {
   display: flex;
-  justify-content: center;
-  gap: 1.25rem;
+  justify-content: left;
+  gap: 1.10rem;
   margin-top: 1.25rem;
 }
 
