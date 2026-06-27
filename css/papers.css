@@ -1,0 +1,22 @@
+.article-url {
+  margin-top: 0.5rem;
+}
+
+.article-url a {
+  color: #111111;
+  font-size: 1.25rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.article-url a:hover,
+.article-url a:focus {
+  color: #666666;
+  text-decoration: none;
+}
+
+.article-url i,
+.article-url svg {
+  line-height: 1;
+}
