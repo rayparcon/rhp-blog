@@ -6,15 +6,15 @@
       version="2.0">
 <channel>
 <title>Raymond Parcon</title>
-<link>https://rayparcon.com/blog.html#category=R</link>
-<atom:link href="https://rayparcon.com/blog-r.xml" rel="self" type="application/rss+xml"/>
+<link>https://rayparcon.com/blog/blog.html</link>
+<atom:link href="https://rayparcon.com/blog/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Genetics of fungal diseases of plants | Ph.D. candidate in Plant Pathology at the University of Georgia</description>
 <image>
-<url>https://rayparcon.com/about/ray.jpg</url>
+<url>https://rayparcon.com/../about/ray.jpg</url>
 <title>Raymond Parcon</title>
-<link>https://rayparcon.com/blog.html#category=R</link>
+<link>https://rayparcon.com/blog/blog.html</link>
 </image>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Sat, 27 Jun 2026 15:12:44 GMT</lastBuildDate>
+<lastBuildDate>Sat, 27 Jun 2026 18:28:04 GMT</lastBuildDate>
 </channel>
 </rss>

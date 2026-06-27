@@ -11,7 +11,7 @@
     "href": "index.html#latest-posts",
     "title": "\n      Raymond\n      Parcon\n    ",
     "section": "Latest Posts",
-    "text": "Latest Posts\n\n\n\n\nNo matching items"
+    "text": "Latest Posts\n\n\n\n\n\n\n\n\n\n\nStoked to be awarded with the Graduate School 2025 Summer Research Grant\n\n\nThis grant enables doctoral students to conduct research in support of their dissertations.\n\n\n\nApr 11, 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#latest-presentations",
@@ -56,10 +56,17 @@
     "text": "What I do\nHaving previously worked on developing biological control agents as an alternative to synthetic fungicides, I became fascinated with how microorganisms interact with their hosts, community, and surroundings to equip themselves with molecular tools for survival.\nI develop bioinformatics pipeline for SNP discovery from large genomic data sets, analyze genetic diversity using various R packages and software, and apply qualitative and quantitative tools to define races of C. sojina.\nMy research aims to uncover new strategies to enhance plant health and promote sustainable farming practices. By understanding more about host-pathogen interactions and their implications for plant disease resistance, I aim to contribute valuable insights that support more resilient agricultural systems."
   },
   {
-    "objectID": "blog.html",
-    "href": "blog.html",
+    "objectID": "blog/blog.html",
+    "href": "blog/blog.html",
     "title": "Raymond Parcon",
     "section": "",
     "text": "No matching items"
+  },
+  {
+    "objectID": "blog/2025-04-11-summer-grant/index.html",
+    "href": "blog/2025-04-11-summer-grant/index.html",
+    "title": "Stoked to be awarded with the Graduate School 2025 Summer Research Grant",
+    "section": "",
+    "text": "I am grateful to receive funding support from the Graduate School for my research this summer! Definitely a motivation to believe in and continue the work. A timely, great news as my virulence phenotyping assays are underway!"
   }
 ]

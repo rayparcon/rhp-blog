@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-title','listing-image','listing-description','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: [],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -224,19 +224,19 @@ window.Quarto = {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./papers/papers.qmd"> 
+    <a class="nav-link" href="./papers/papers.html"> 
 <span class="menu-text">Papers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./presentations/presentations.qmd"> 
+    <a class="nav-link" href="./presentations/presentations.html"> 
 <span class="menu-text">Presentations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./tutorials/tutorials.qmd"> 
+    <a class="nav-link" href="./tutorials/tutorials.html"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog/blog.qmd"> 
+    <a class="nav-link" href="./blog/blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item compact">
@@ -307,7 +307,27 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="latest-posts">Latest <a href="./blog">Posts</a></h2>
 <div id="listing-recent-blog-listing" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-
+<div class="g-col-1" data-index="0" data-categories="R3JhbnRzJTJDQWNhZGVtaWMlMkNBd2FyZHM=" data-listing-date-sort="1744329600000" data-listing-file-modified-sort="1782584865361" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="38">
+<a href="./blog/2025-04-11-summer-grant/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./blog/2025-04-11-summer-grant/featured.jpg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Stoked to be awarded with the Graduate School 2025 Summer Research Grant
+</h5>
+<div class="card-text listing-description delink">
+<p>This grant enables doctoral students to conduct research in support of their dissertations.</p>
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Apr 11, 2025
+</div>
+</div>
+</div>
+</div></a>
+</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
