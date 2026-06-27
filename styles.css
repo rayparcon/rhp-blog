@@ -352,6 +352,28 @@ footer a:focus {
   border-bottom-color: #9a9a9a !important;
 }
 
+/* ---------- REMOVE UNDERLINE FROM FOOTER ICON LINKS ---------- */
+
+.footer-block a,
+.footer-block a:link,
+.footer-block a:visited,
+.footer-block a:hover,
+.footer-block a:focus,
+.nav-footer .footer-block a,
+.page-footer .footer-block a,
+footer .footer-block a {
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+.footer-block a:hover,
+.footer-block a:focus,
+.nav-footer .footer-block a:hover,
+.page-footer .footer-block a:hover,
+footer .footer-block a:hover {
+  color: #9a9a9a !important;
+  transform: translateY(-2px);
+}
 
 /* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
