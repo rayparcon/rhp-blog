@@ -1,0 +1,18 @@
+---
+title: Excited to share my research with the public for the first time!
+author: "Ray Parcon"
+date: "2025-03-04"
+slug: "2025-03-04-gapp"
+categories: ["Academic", "Poster"]
+toc: true 
+description: >
+    Presented my poster at the Georgia Association of Plant Pathologists Annual Meeting at the Brasstown Valley Resort, Young Harris, Georgia.
+summary: 
+image: "featured.jpg"
+---
+
+::: {.post-image}
+![](featured.jpg){fig-alt="Ray standing beside his poster"}
+:::
+
+I had the opportunity to be one of the poster presenters at the recently concluded GAPP 2025. Listening to plenary speakers about their research was informative and inspiring, and talking to fellow plant pathologists about my research was exciting and fun! 
