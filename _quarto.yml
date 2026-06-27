@@ -1,7 +1,8 @@
 project:
   type: website
   resources:
-    - resume.pdf
+    - ray.jpg
+    - parcon_ray_cv.pdf
     - CNAME
 
 website:
@@ -53,7 +54,7 @@ format:
     open-graph: true
 
 metadata:
-  image: ray.jpg
+  image: /ray.jpg
 
 
 
