@@ -1,0 +1,112 @@
+/* =========================================================
+   BLOG / LISTING PAGE STYLING
+   ========================================================= */
+
+/* ---------- Blog listing title links ---------- */
+
+.quarto-listing a,
+.quarto-listing a:hover,
+.quarto-listing a:focus,
+.quarto-post a,
+.quarto-post a:hover,
+.quarto-post a:focus,
+.listing-title,
+.listing-title a,
+.listing-title a:hover,
+.listing-title a:focus {
+  color: var(--site-black) !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.listing-title a:hover,
+.quarto-post .listing-title a:hover {
+  color: var(--site-muted) !important;
+}
+
+/* ---------- Blog listing image crop ---------- */
+
+.quarto-listing .thumbnail,
+.quarto-post .thumbnail {
+  overflow: hidden;
+  max-width: 360px;
+}
+
+/* Main list-style thumbnails */
+.quarto-listing .thumbnail img,
+.quarto-post .thumbnail img,
+.quarto-listing .thumbnail-image,
+.quarto-post .thumbnail-image {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Grid/card-style thumbnails, in case you switch listing type later */
+.quarto-grid-item .card-img-top,
+.quarto-grid-item img.thumbnail-image,
+.card-img-top {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* ---------- Blog listing layout cleanup ---------- */
+
+.quarto-post {
+  margin-bottom: 2rem;
+}
+
+.quarto-post .body {
+  padding-left: 1rem;
+}
+
+.quarto-post .metadata {
+  color: var(--site-dark);
+  font-size: 0.95rem;
+}
+
+.quarto-post .listing-description {
+  color: var(--site-dark);
+  line-height: 1.7;
+}
+
+/* ---------- Blog category tags ---------- */
+
+.quarto-category,
+.listing-category {
+  color: var(--site-muted) !important;
+  background-color: #ffffff !important;
+  border: 1px solid var(--site-border) !important;
+  border-radius: 4px;
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+.quarto-category:hover,
+.listing-category:hover {
+  color: var(--site-black) !important;
+  background-color: var(--site-light) !important;
+}
+
+/* ---------- Filter and order controls ---------- */
+
+.quarto-listing-sort,
+.quarto-listing-filter,
+.listing-sort,
+.listing-filter {
+  border-color: var(--site-border) !important;
+  box-shadow: none !important;
+}
+
+.quarto-listing-sort:focus,
+.quarto-listing-filter:focus,
+.listing-sort:focus,
+.listing-filter:focus {
+  border-color: var(--site-muted) !important;
+  box-shadow: none !important;
+}
