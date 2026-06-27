@@ -1,0 +1,15 @@
+---
+title: Stoked to be awarded with the Graduate School 2025 Summer Research Grant
+subtitle:  
+author: "Ray Parcon"
+date: "2025-04-11"
+slug: "2025-04-11-summer-grant"
+categories: ["Grants", "Academic", "Awards"]
+toc: true 
+description: >
+    This grant enables doctoral students to conduct research in support of their dissertations.
+summary: 
+image: "featured.jpg"
+---
+
+I am grateful to receive funding support from the Graduate School for my research this summer! Definitely a motivation to believe in and continue the work. A timely, great news as my virulence phenotyping assays are underway! 
