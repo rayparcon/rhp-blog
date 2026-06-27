@@ -28,6 +28,6 @@ Microbial endophytes are microorganisms that live within plant tissues but do no
     rel="noopener"
   >
     {{< fa regular file-pdf >}}
-    <span>PDF</span>
+    <span> PDF </span>
   </a>
 </div>
