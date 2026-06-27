@@ -114,7 +114,7 @@ listing:
   </div>
 
   <div class="hero-photo">
-    <img src="images/initials.logo" alt="RP_icon">
+    <img src="images/initials_logo.png" alt="RP_icon">
   </div>  
 </div>
 ```
