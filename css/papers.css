@@ -53,3 +53,24 @@
   line-height: 1;
   flex-shrink: 0;
 }
+
+/* ---------- Mobile adjustment ---------- */
+
+@media (max-width: 576px) {
+  .article-links {
+    gap: 0.5rem;
+  }
+
+  .article-links .article-link {
+    min-height: 2rem;
+    padding: 0 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  .article-links .article-link i,
+  .article-links .article-link svg {
+    font-size: 1rem;
+    width: 1em;
+    height: 1em;
+  }
+}
