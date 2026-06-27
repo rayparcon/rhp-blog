@@ -13,7 +13,7 @@ listing:
   fields: [date, title, reading-time, image, description, categories]
   feed:
     categories: [R]
-  image-align: left
+  image-align: right
 page-layout: full
 title-block-banner: false
 ---

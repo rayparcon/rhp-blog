@@ -15,14 +15,12 @@ website:
     right:
       - href: about/about.qmd
         text: About
-      - href: papers/papers.qmd
-        text: Papers
-      - href: presentations/presentations.qmd
-        text: Presentations
-      - href: tutorials/tutorials.qmd
-        text: Tutorials
       - href: blog/blog.qmd
         text: Blog
+      - href: presentations/presentations.qmd
+        text: Presentations
+      - href: papers/papers.qmd
+        text: Papers
       - icon: linkedin
         href: https://www.linkedin.com/in/rayparcon
 

@@ -17,19 +17,6 @@ listing:
     filter-ui: false
     fields: [title, image, description, date]
   
-  - id: recent-presentation-listing
-    contents:
-      - "presentations/*/*.qmd"
-      - "presentations/*/*.md"
-    sort: "date desc"
-    type: grid
-    max-items: 9
-    page-size: 3
-    categories: false
-    sort-ui: false
-    filter-ui: false
-    fields: [title, image, description, date]
-  
   - id: recent-paper-listing
     contents:
       - "papers/*/*.qmd"
@@ -122,11 +109,6 @@ listing:
 ## Latest [Posts](/blog/blog.qmd)
 
 ::: {#recent-blog-listing}
-:::
-
-## [Presentations](/presentations/presentations.qmd)
-
-::: {#recent-presentation-listing}
 :::
 
 ## [Papers](/papers/papers.qmd)
