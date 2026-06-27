@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Thoughts, notes, and small discoveries from a Ph.D.&nbsp;student exploring fungi, genomes, research, and everything in between">
 
-<title>blog – Raymond Parcon</title>
+<title>Life, lately – Raymond Parcon</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -87,9 +88,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-reading-time','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -141,7 +142,8 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles.css">
-<link rel="alternate" type="application/rss+xml" title="Raymond Parcon" href="blog.xml" data-external="1"><meta property="og:title" content="– Raymond Parcon">
+<link rel="alternate" type="application/rss+xml" title="Raymond Parcon" href="blog.xml" data-external="1"><meta property="og:title" content="Life, lately – Raymond Parcon">
+<meta property="og:description" content="Thoughts, notes, and small discoveries from a Ph.D.&nbsp;student exploring fungi, genomes, research, and everything in between">
 <meta property="og:image" content="https://rayparcon.com/about/ray.jpg">
 <meta property="og:site_name" content="Raymond Parcon">
 </head>
@@ -200,23 +202,94 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="QWNhZGVtaWM=">Academic <span class="quarto-category-count">(1)</span></div><div class="category" data-category="QXdhcmRz">Awards <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R3JhbnRz">Grants <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<main class="content page-columns page-full column-body" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content column-page-left" id="quarto-document-content">
 
-
-
-
-<div class="column-page">
-
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Life, lately</h1>
 </div>
+
+<div>
+  <div class="description">
+    <p>Thoughts, notes, and small discoveries from a Ph.D.&nbsp;student exploring fungi, genomes, research, and everything in between</p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta column-page-left">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
 
 
 
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+    <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+    <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+      <option value="" disabled="" selected="" hidden="">Order By</option>
+      <option value="index" data-direction="asc">Default</option>
+      <option value="listing-title" data-direction="asc">
+        Title
+      </option>
+      <option value="listing-date-sort" data-direction="asc">
+        Date - Oldest
+      </option>
+      <option value="listing-date-sort" data-direction="desc">
+        Date - Newest
+      </option>
+    </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
 <div class="list quarto-listing-default">
+<div class="quarto-post image-left" data-index="0" data-categories="R3JhbnRzJTJDQWNhZGVtaWMlMkNBd2FyZHM=" data-listing-date-sort="1744329600000" data-listing-file-modified-sort="1782585576472" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="38">
+<div class="thumbnail"><a href="../blog/2025-04-11-summer-grant/index.html" class="no-external">
 
+<img loading="lazy" src="../blog/2025-04-11-summer-grant/featured.jpg" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../blog/2025-04-11-summer-grant/index.html" class="no-external">Stoked to be awarded with the Graduate School 2025 Summer Research Grant</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('R3JhbnRz'); return false;">Grants</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('QWNhZGVtaWM='); return false;">Academic</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('QXdhcmRz'); return false;">Awards</div>
+
+</div>
+<div class="delink listing-description"><a href="../blog/2025-04-11-summer-grant/index.html" class="no-external">
+<p>This grant enables doctoral students to conduct research in support of their dissertations.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="../blog/2025-04-11-summer-grant/index.html" class="no-external">
+<div class="listing-date">
+Apr 11, 2025
+</div>
+<div class="listing-reading-time">1 min</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div></main> <!-- /main -->

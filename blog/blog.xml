@@ -8,13 +8,35 @@
 <title>Raymond Parcon</title>
 <link>https://rayparcon.com/blog/blog.html</link>
 <atom:link href="https://rayparcon.com/blog/blog.xml" rel="self" type="application/rss+xml"/>
-<description>Genetics of fungal diseases of plants | Ph.D. candidate in Plant Pathology at the University of Georgia</description>
+<description>Thoughts, notes, and small discoveries from a Ph.D. student exploring fungi, genomes, research, and everything in between
+</description>
 <image>
 <url>https://rayparcon.com/../about/ray.jpg</url>
 <title>Raymond Parcon</title>
 <link>https://rayparcon.com/blog/blog.html</link>
 </image>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Sat, 27 Jun 2026 18:28:04 GMT</lastBuildDate>
+<lastBuildDate>Fri, 11 Apr 2025 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Stoked to be awarded with the Graduate School 2025 Summer Research Grant</title>
+  <dc:creator>Ray Parcon</dc:creator>
+  <link>https://rayparcon.com/blog/2025-04-11-summer-grant/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>I am grateful to receive funding support from the Graduate School for my research this summer! Definitely a motivation to believe in and continue the work. A timely, great news as my virulence phenotyping assays are underway!</p>
+
+
+
+ ]]></description>
+  <category>Grants</category>
+  <category>Academic</category>
+  <category>Awards</category>
+  <guid>https://rayparcon.com/blog/2025-04-11-summer-grant/</guid>
+  <pubDate>Fri, 11 Apr 2025 00:00:00 GMT</pubDate>
+  <media:content url="https://rayparcon.com/blog/2025-04-11-summer-grant/featured.jpg" medium="image" type="image/jpeg"/>
+</item>
 </channel>
 </rss>
