@@ -119,17 +119,17 @@ listing:
 </div>
 ```
 
-## Latest [Posts](/blog)
+## Latest [Posts](/blog/blog.qmd)
 
 ::: {#recent-blog-listing}
 :::
 
-## [Presentations](/presentations)
+## [Presentations](/presentations/presentations.qmd)
 
 ::: {#recent-presentation-listing}
 :::
 
-## [Papers](/papers)
+## [Papers](/papers/papers.qmd)
 
 ::: {#recent-paper-listing}
 :::
