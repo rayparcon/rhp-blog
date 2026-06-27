@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Raymond Parcon</title>
+<link>https://rayparcon.com/papers/papers.html</link>
+<atom:link href="https://rayparcon.com/papers/papers.xml" rel="self" type="application/rss+xml"/>
+<description>Research publications I have been a part of
+</description>
+<image>
+<url>https://rayparcon.com/../about/ray.jpg</url>
+<title>Raymond Parcon</title>
+<link>https://rayparcon.com/papers/papers.html</link>
+</image>
+<generator>quarto-1.9.38</generator>
+<lastBuildDate>Mon, 24 Jun 2019 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Bacillus amyloliquefaciens, a Narra (Pterocarpus indicus) leaf endophyte, possesses antifungal activity against phytopathogenic fungi due to laminarinase activity and production of antimicrobial compounds</title>
+  <dc:creator>&lt;strong&gt;Ray Parcon&lt;/strong&gt;</dc:creator>
+  <link>https://rayparcon.com/papers/2019-06-24-bam/</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="post-image">
+<p><img src="https://rayparcon.com/papers/2019-06-24-bam/featured.png" class="img-fluid" alt="dual culture plate assay"></p>
+</div>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<p>Microbial endophytes are microorganisms that live within plant tissues but do not confer disease. Endophytes benefit their host plant by promotion of plant growth, reduction of disease severity, induction of the defense mechanisms of plants, secretion of products that prevent herbivory, fixation of nitrogen, and increasing nutrient uptake. The benefits such as resistance to pathogens and insect herbivory that they confer on plants make them ideal sources of antimicrobial compounds which can be developed into biocontrol agents against phytopathogenic fungi or biofungicides. Laminarin or 1,3-β-glucan is a major component of fungal cell walls; thus one approach in identifying potential antifungal agents is to determine whether they secrete the enzyme laminarinase which hydrolyses laminarin into its component 1,3-linked β-D-glucose residues. As an initial step in the development of a biofungicide, 249 endophytic bacteria and yeasts were screened for the production of laminarinase. One isolate, N2B2, recovered from the leaves of Narra (<em>Pterocarpus indicus</em>), was able to grow with laminarin as sole carbon source and exhibit antifungal activity against three phytopathogenic fungi, namely, <em>Cladosporium</em> sp., <em>Diaporthe</em> sp., and <em>Fusarium oxysporum</em>. In vitro assays showed that the antifungal activity was correlated with laminarinase production. However, antifungal ability of N2B2 was sustained when grown in a medium that did not contain laminarin, suggesting that antimicrobial ability of the isolate may be due to multiple mechanisms. Identification of N2B2 by sequencing of its 16s rDNA revealed it to be <em>B. amyloliquefaciens</em>. This is the first mention in the literature of the isolation of <em>B. amyloliquefaciens</em> from Narra.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>Article</category>
+  <guid>https://rayparcon.com/papers/2019-06-24-bam/</guid>
+  <pubDate>Mon, 24 Jun 2019 00:00:00 GMT</pubDate>
+  <media:content url="https://rayparcon.com/papers/2019-06-24-bam/featured.png" medium="image" type="image/png"/>
+</item>
+</channel>
+</rss>

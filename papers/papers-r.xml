@@ -6,16 +6,16 @@
       version="2.0">
 <channel>
 <title>Raymond Parcon</title>
-<link>https://rayparcon.com/blog/blog.html#category=R</link>
-<atom:link href="https://rayparcon.com/blog/blog-r.xml" rel="self" type="application/rss+xml"/>
-<description>Thoughts, notes, and small discoveries from a Ph.D. student exploring fungi, genomes, research, and everything in between
+<link>https://rayparcon.com/papers/papers.html#category=R</link>
+<atom:link href="https://rayparcon.com/papers/papers-r.xml" rel="self" type="application/rss+xml"/>
+<description>Research publications I have been a part of
 </description>
 <image>
 <url>https://rayparcon.com/../about/ray.jpg</url>
 <title>Raymond Parcon</title>
-<link>https://rayparcon.com/blog/blog.html#category=R</link>
+<link>https://rayparcon.com/papers/papers.html#category=R</link>
 </image>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Sat, 27 Jun 2026 22:22:42 GMT</lastBuildDate>
+<lastBuildDate>Sat, 27 Jun 2026 22:22:39 GMT</lastBuildDate>
 </channel>
 </rss>

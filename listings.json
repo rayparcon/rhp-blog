@@ -6,7 +6,8 @@
       "/blog/2026-03-11-aps-sd/index.html",
       "/blog/2025-08-06-soy-aps/index.html",
       "/blog/2025-04-11-summer-grant/index.html",
-      "/blog/2025-03-04-gapp/index.html"
+      "/blog/2025-03-04-gapp/index.html",
+      "/papers/2019-06-24-bam/index.html"
     ]
   },
   {
@@ -17,6 +18,12 @@
       "/blog/2025-08-06-soy-aps/index.html",
       "/blog/2025-04-11-summer-grant/index.html",
       "/blog/2025-03-04-gapp/index.html"
+    ]
+  },
+  {
+    "listing": "/papers/papers.html",
+    "items": [
+      "/papers/2019-06-24-bam/index.html"
     ]
   }
 ]
