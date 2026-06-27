@@ -54,7 +54,7 @@ format:
     open-graph: true
 
 metadata:
-  image: /ray.jpg
+  image: about/ray.jpg
 
 
 
