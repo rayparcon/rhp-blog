@@ -112,6 +112,10 @@ listing:
     </p>
     <a class="mt4 action text" href="/about/about.qmd"><em>About Me</em> →</a>
   </div>
+
+  <div class="hero-photo">
+    <img src="images/initials.logo" alt="RP_icon">
+  </div>  
 </div>
 ```
 

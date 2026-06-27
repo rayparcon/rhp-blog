@@ -197,3 +197,46 @@ a:hover {
 .footer-block .fa-brands {
   font-size: 1.3rem;
 }
+
+
+/* landing page image */
+.site-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: center;
+  gap: 4rem;
+  margin-bottom: 5rem;
+}
+
+.site-intro {
+  min-width: 0;
+}
+
+.hero-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-photo img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .site-hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-photo img {
+    max-width: 220px;
+  }
+
+  .social-icon-links {
+    justify-content: center;
+  }
+}
