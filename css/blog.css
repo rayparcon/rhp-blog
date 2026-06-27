@@ -77,11 +77,19 @@
   line-height: 1.7;
 }
 
-.post-banner {
-  width: 100%;
-  max-height: 420px;
-  object-fit: cover;
-  object-position: center top;
+/* ---------- Blog post body image: full uncropped image ---------- */
+
+.post-image {
+  text-align: center;
+  margin: 1.5rem auto 2rem auto;
+}
+
+.post-image img {
   display: block;
-  margin: 1.5rem 0 2rem 0;
+  width: min(100%, 720px);
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+  margin: 0 auto;
 }

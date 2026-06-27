@@ -12,6 +12,8 @@ summary:
 image: "featured.jpg"
 ---
 
-![](featured.jpg){.post-banner fig-alt="Ray standing in a greenhouse with soybean plants"}
+::: {.post-image}
+![](featured.jpg){fig-alt="Ray standing in a greenhouse with soybean plants"}
+:::
 
 I am grateful to receive funding support from the Graduate School for my research this summer! Definitely a motivation to believe in and continue the work. A timely, great news as my virulence phenotyping assays are underway! 
