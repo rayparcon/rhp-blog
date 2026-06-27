@@ -108,34 +108,6 @@ ul.task-list li input[type="checkbox"] {
   
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-recent-presentation-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-image','listing-description','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: [],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-recent-presentation-listing'] = new List('listing-recent-presentation-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
     const listingTargetEl = window.document.querySelector('#listing-recent-paper-listing .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
@@ -225,20 +197,16 @@ window.Quarto = {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./papers/papers.html"> 
-<span class="menu-text">Papers</span></a>
+    <a class="nav-link" href="./blog/blog.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./presentations/presentations.html"> 
+    <a class="nav-link" href="./presentations/presentations.qmd"> 
 <span class="menu-text">Presentations</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./tutorials/tutorials.html"> 
-<span class="menu-text">Tutorials</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./blog/blog.html"> 
-<span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="./papers/papers.html"> 
+<span class="menu-text">Papers</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://www.linkedin.com/in/rayparcon"> <i class="bi bi-linkedin" role="img">
@@ -308,7 +276,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="latest-posts">Latest <a href="./blog/blog.html">Posts</a></h2>
 <div id="listing-recent-blog-listing" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="QWNhZGVtaWMlMkNQb3N0ZXI=" data-listing-date-sort="1754438400000" data-listing-file-modified-sort="1782594684718" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="234">
+<div class="g-col-1" data-index="0" data-categories="QWNhZGVtaWMlMkNQb3N0ZXI=" data-listing-date-sort="1754438400000" data-listing-file-modified-sort="1782595757602" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="234">
 <a href="./blog/2025-08-06-soy-aps/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -329,7 +297,7 @@ Aug 6, 2025
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="R3JhbnRzJTJDQWNhZGVtaWMlMkNBd2FyZHM=" data-listing-date-sort="1744329600000" data-listing-file-modified-sort="1782594684717" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="46">
+<div class="g-col-1" data-index="1" data-categories="R3JhbnRzJTJDQWNhZGVtaWMlMkNBd2FyZHM=" data-listing-date-sort="1744329600000" data-listing-file-modified-sort="1782595757600" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="46">
 <a href="./blog/2025-04-11-summer-grant/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -350,7 +318,7 @@ Apr 11, 2025
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="QWNhZGVtaWMlMkNQb3N0ZXI=" data-listing-date-sort="1741046400000" data-listing-file-modified-sort="1782594684711" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="47">
+<div class="g-col-1" data-index="2" data-categories="QWNhZGVtaWMlMkNQb3N0ZXI=" data-listing-date-sort="1741046400000" data-listing-file-modified-sort="1782595757593" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="47">
 <a href="./blog/2025-03-04-gapp/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -371,15 +339,6 @@ Mar 4, 2025
 </div>
 </div></a>
 </div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
-</section>
-<section id="presentations" class="level2">
-<h2 class="anchored" data-anchor-id="presentations"><a href="./presentations/presentations.html">Presentations</a></h2>
-<div id="listing-recent-presentation-listing" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
-
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
