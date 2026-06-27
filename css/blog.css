@@ -86,7 +86,7 @@
 
 .post-image img {
   display: block;
-  width: min(100%, 720px);
+  width: min(100%, 500px);
   height: auto;
   max-height: none;
   object-fit: contain;
