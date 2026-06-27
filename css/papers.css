@@ -1,3 +1,48 @@
+/* ---------- Article PDF link ---------- */
+
+.article-url {
+  margin-top: 1.25rem;
+}
+
+.article-url .article-pdf-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  width: fit-content;
+  padding: 0.4rem 0.7rem;
+
+  color: #111111 !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.02em;
+
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+
+  border: 1px solid #d9d9d9;
+  border-radius: 999px;
+}
+
+.article-url .article-pdf-link:hover,
+.article-url .article-pdf-link:focus {
+  color: #444444 !important;
+  background-color: #f5f5f5;
+  border-color: #bdbdbd;
+  text-decoration: none !important;
+}
+
+.article-url .article-pdf-link i,
+.article-url .article-pdf-link svg {
+  font-size: 1.15rem;
+  width: 1.15em;
+  height: 1.15em;
+  line-height: 1;
+}
+
 .article-url {
   margin-top: 0.5rem;
 }
