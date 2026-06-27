@@ -17,8 +17,6 @@ website:
         text: About
       - href: blog/blog.qmd
         text: Blog
-      - href: presentations/presentations.qmd
-        text: Presentations
       - href: papers/papers.qmd
         text: Papers
       - icon: linkedin

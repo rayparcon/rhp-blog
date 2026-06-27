@@ -106,12 +106,12 @@ listing:
 </div>
 ```
 
-## Latest [Posts](/blog/blog.qmd)
+## Recent [Posts](/blog/blog.qmd)
 
 ::: {#recent-blog-listing}
 :::
 
-## [Papers](/papers/papers.qmd)
+## Recent [Papers](/papers/papers.qmd)
 
 ::: {#recent-paper-listing}
 :::
