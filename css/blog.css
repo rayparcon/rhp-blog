@@ -4,12 +4,14 @@
 
 /* ---------- Blog listing title links ---------- */
 
-.quarto-listing a,
-.quarto-listing a:hover,
-.quarto-listing a:focus,
-.quarto-post a,
-.quarto-post a:hover,
-.quarto-post a:focus,
+/* Remove underlines/borders from normal blog listing links,
+   but do not target category/tag buttons here. */
+.quarto-listing a:not(.quarto-category):not(.listing-category),
+.quarto-listing a:not(.quarto-category):not(.listing-category):hover,
+.quarto-listing a:not(.quarto-category):not(.listing-category):focus,
+.quarto-post a:not(.quarto-category):not(.listing-category),
+.quarto-post a:not(.quarto-category):not(.listing-category):hover,
+.quarto-post a:not(.quarto-category):not(.listing-category):focus,
 .listing-title,
 .listing-title a,
 .listing-title a:hover,
@@ -41,7 +43,7 @@
   width: 100%;
   height: 260px;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
   display: block;
 }
 
@@ -52,7 +54,7 @@
   width: 100%;
   height: 220px;
   object-fit: cover;
-  object-position: center top;
+  object-position: center center;
 }
 
 /* ---------- Blog listing layout cleanup ---------- */
@@ -77,20 +79,46 @@
 
 /* ---------- Blog category tags ---------- */
 
+/* Category/tag buttons with clearly visible box border */
 .quarto-category,
-.listing-category {
-  color: var(--site-muted) !important;
+.listing-category,
+a.quarto-category,
+a.listing-category,
+.quarto-listing .quarto-category,
+.quarto-listing .listing-category,
+.quarto-post .quarto-category,
+.quarto-post .listing-category,
+.listing-categories .listing-category,
+.quarto-categories .quarto-category {
+  display: inline-block;
+  color: #333333 !important;
   background-color: #ffffff !important;
-  border: 1px solid var(--site-border) !important;
-  border-radius: 4px;
+  border: 1px solid #777777 !important;
+  border-bottom: 1px solid #777777 !important;
+  border-radius: 6px !important;
+  padding: 0.2rem 0.55rem !important;
+  line-height: 1.3;
   text-decoration: none !important;
   box-shadow: none !important;
 }
 
+/* Category/tag hover state */
 .quarto-category:hover,
-.listing-category:hover {
+.listing-category:hover,
+a.quarto-category:hover,
+a.listing-category:hover,
+.quarto-listing .quarto-category:hover,
+.quarto-listing .listing-category:hover,
+.quarto-post .quarto-category:hover,
+.quarto-post .listing-category:hover,
+.listing-categories .listing-category:hover,
+.quarto-categories .quarto-category:hover {
   color: var(--site-black) !important;
   background-color: var(--site-light) !important;
+  border-color: #555555 !important;
+  border-bottom-color: #555555 !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
 }
 
 /* ---------- Filter and order controls ---------- */
@@ -99,7 +127,7 @@
 .quarto-listing-filter,
 .listing-sort,
 .listing-filter {
-  border-color: var(--site-border) !important;
+  border-color: #999999 !important;
   box-shadow: none !important;
 }
 
@@ -107,6 +135,6 @@
 .quarto-listing-filter:focus,
 .listing-sort:focus,
 .listing-filter:focus {
-  border-color: var(--site-muted) !important;
+  border-color: #666666 !important;
   box-shadow: none !important;
 }
