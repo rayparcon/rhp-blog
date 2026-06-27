@@ -49,6 +49,7 @@ format:
     css: 
       - css/styles.css
       - css/blog.css
+      - css/papers.css
     toc: false
     open-graph: true
     include-in-header:
