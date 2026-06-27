@@ -203,16 +203,19 @@ a:hover {
 .site-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 420px;
+  grid-template-areas: "intro logo";
   align-items: center;
   gap: 4rem;
   margin-bottom: 5rem;
 }
 
 .site-intro {
+  grid-area: intro;
   min-width: 0;
 }
 
 .hero-photo {
+  grid-area: logo;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -227,17 +230,17 @@ a:hover {
 @media (max-width: 768px) {
   .site-hero {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "logo"
+      "intro";
     text-align: center;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
-  .hero-photo {
-    order: -1;
-  }
-    
   .hero-photo img {
-    width: 80%;
-    max-width: 420px;
+    width: 95%;
+    max-width: 520px;
+    height: auto;
     margin: 0 auto;
   }
 
