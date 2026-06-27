@@ -124,12 +124,12 @@ listing:
 ::: {#recent-blog-listing}
 :::
 
-## Latest [Presentations](/presentations)
+## [Presentations](/presentations)
 
 ::: {#recent-presentation-listing}
 :::
 
-## Latest [Papers](/papers)
+## [Papers](/papers)
 
 ::: {#recent-paper-listing}
 :::

@@ -77,3 +77,11 @@
   line-height: 1.7;
 }
 
+.post-banner {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  margin: 1.5rem 0 2rem 0;
+}
