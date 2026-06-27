@@ -7,7 +7,7 @@ project:
 website:
   title: "Raymond Parcon"
   site-url: https://rayparcon.com
-  description: "Genetics of Plant Diseases"
+  description: "Genetics of fungal diseases of plants | Ph.D. candidate in Plant Pathology at the University of Georgia"
   navbar:
     title: "Raymond Parcon"
     right:
@@ -50,6 +50,10 @@ format:
       - zephyr
     css: styles.css
     toc: false
+    open-graph: true
+
+metadata:
+  image: ray.jpg
 
 
 
