@@ -1,6 +1,6 @@
 ---
 title: Stoked to be awarded with the Graduate School 2025 Summer Research Grant
-subtitle:  
+subtitle: "" 
 author: "Ray Parcon"
 date: "2025-04-11"
 slug: "2025-04-11-summer-grant"
