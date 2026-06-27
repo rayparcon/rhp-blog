@@ -50,7 +50,9 @@ format:
   html:
     theme:
       - zephyr
-    css: styles.css
+    css: 
+      - css/styles.css
+      - css/blog.css
     toc: false
     open-graph: true
     include-in-header:
