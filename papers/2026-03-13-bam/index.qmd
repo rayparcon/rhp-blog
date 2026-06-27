@@ -1,0 +1,49 @@
+---
+title: "<em>Bacillus amyloliquefaciens</em> N2B2 and its potential for co-cultivation with chitinolytic bacteria to control the growth of <em>Agroathelia rolfsii</em> and other fungal pathogens of tomatoes (<em>Solanum lycopersicum</em> L.)"
+author:
+    - "<strong>Ray Parcon</strong>"
+    - Reniel Joseph B. Cruz
+    - Jessica D. Rey
+    - Leilani S. Dacones
+    - Jessica F. Simbahan
+date: "2026-13-13"
+slug: "2026-13-13-bam"
+categories: ["Article"]
+description: ""
+summary: 
+image: "featured.png"
+---
+
+::: {.post-image}
+![](featured.png){fig-alt="detached fruit assay"}
+:::
+
+## Abstract
+
+Tomato farming suffers from yield losses due to outbreaks of fungal diseases. Current management strategies heavily rely on the use of synthetic fungicides. However, dependence on synthetic fungicides imposes risk on the environment and human health. An effective and sustainable alternative to managing fungal plant diseases is the use of biological control. This study aimed to test the efficacy of <em>B. amyloliquefaciens</em> N2B2 and its potential in combination with a chitinase-producing microorganism as a microbial biological control agent (MBCA) against fungal pathogens of tomato, namely, <em>Agroathelia rolfsii</em>, <em>Alternaria</em> sp., <em>Cladosporium cladosporioides</em>, <em>Cladosporium tenuissimum</em>, <em>Colletotrichum scovillei</em>, <em>Fusarium equiseti</em>, <em>Fusarium oxysporum</em>, and <em>Geotrichum candidum</em>. Screening 176 microbial isolates for chitinase activity provided three isolates producing the highest amount of chitinase. However, the chitinase production was not correlated with the control of fungal growth. Dual culture plate assays showed that <em>B. amyloliquefaciens</em> N2B2 inhibited the hyphal growth of all the fungal pathogens in the study. The effect of co-cultivation and the type of fungus significantly affected the zone of inhibition, and their interaction plays a significant role, suggesting that the effect of co-cultivation depends on the specific fungal species involved. In vitro studies showed that <em>B. amyloliquefaciens</em> N2B2 was 62.7% effective against <em>Alternaria</em> sp. in dual plate assays and 60.9% effective in suppressing fungal growth of <em>A. rolfsii</em> on detached tomato fruits. This study demonstrated the efficacy of <em>B. amyloliquefaciens</em> and showed the importance of bioprospecting for alternative and sustainable ways to control the fungal pathogens of tomatoes.
+
+
+
+<div class="article-links">
+  <a 
+    class="article-link"
+    href="https://www.informaticsjournals.co.in/index.php/jbc/article/view/49421/36782"
+    aria-label="Open article PDF"
+    target="_blank"
+    rel="noopener"
+  >
+    {{< fa regular file-pdf >}}
+    <span> PDF </span>
+  </a>
+
+  <a 
+    class="article-link"
+    href="https://doi.org/10.18311/jbc/2026/49421"
+    aria-label="Open article DOI"
+    target="_blank"
+    rel="noopener"
+  >
+    {{< fa solid link >}}
+    <span> DOI </span>
+  </a>
+</div>
