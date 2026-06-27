@@ -257,6 +257,102 @@ a:has(img) {
   font-weight: 700;
 }
 
+/* ---------- QUARTO / ZEPHYR COLOR OVERRIDES ---------- */
+
+/* Force monochrome Bootstrap/Zephyr link behavior */
+:root {
+  --bs-link-color: #111111;
+  --bs-link-hover-color: #9a9a9a;
+  --bs-navbar-color: #111111;
+  --bs-navbar-hover-color: #9a9a9a;
+  --bs-navbar-active-color: #9a9a9a;
+  --bs-navbar-brand-color: #111111;
+  --bs-navbar-brand-hover-color: #9a9a9a;
+  --bs-nav-link-color: #111111;
+  --bs-nav-link-hover-color: #9a9a9a;
+}
+
+/* Navbar site title: Raymond Parcon */
+.navbar-brand,
+.navbar-brand:link,
+.navbar-brand:visited,
+.navbar-brand .navbar-title,
+.navbar-brand:hover,
+.navbar-brand:focus,
+.navbar-title,
+.navbar-title:link,
+.navbar-title:visited {
+  color: var(--text-color) !important;
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+/* Navbar hover state: light gray, not blue */
+.navbar-brand:hover,
+.navbar-brand:focus,
+.navbar-brand:hover .navbar-title,
+.navbar-brand:focus .navbar-title,
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus,
+.navbar .navbar-nav .nav-link.active,
+.navbar .navbar-nav .show > .nav-link {
+  color: #9a9a9a !important;
+}
+
+/* Keep navbar underline monochrome */
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus,
+.navbar .navbar-nav .nav-link.active {
+  border-bottom-color: #9a9a9a !important;
+}
+
+/* Landing page title, including if wrapped in a link */
+.site-title,
+.site-title a,
+.site-title a:link,
+.site-title a:visited,
+.site-title a:hover,
+.site-title a:focus {
+  color: var(--text-color) !important;
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+/* Quarto built-in footer links */
+.nav-footer,
+.nav-footer a,
+.nav-footer a:link,
+.nav-footer a:visited,
+.page-footer,
+.page-footer a,
+.page-footer a:link,
+.page-footer a:visited,
+footer,
+footer a,
+footer a:link,
+footer a:visited {
+  color: var(--text-color) !important;
+}
+
+/* Make Quarto and CC footer links visibly clickable */
+.nav-footer a,
+.page-footer a,
+footer a {
+  text-decoration: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35) !important;
+}
+
+.nav-footer a:hover,
+.nav-footer a:focus,
+.page-footer a:hover,
+.page-footer a:focus,
+footer a:hover,
+footer a:focus {
+  color: #9a9a9a !important;
+  border-bottom-color: #9a9a9a !important;
+}
+
+
 /* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
   .site-hero {
