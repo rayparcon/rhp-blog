@@ -10,11 +10,11 @@
 <atom:link href="https://rayparcon.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Genetics of fungal diseases of plants | Ph.D. candidate in Plant Pathology at the University of Georgia</description>
 <image>
-<url>https://rayparcon.com/ray.jpg</url>
+<url>https://rayparcon.com/about/ray.jpg</url>
 <title>Raymond Parcon</title>
 <link>https://rayparcon.com/blog.html</link>
 </image>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Sat, 27 Jun 2026 01:54:38 GMT</lastBuildDate>
+<lastBuildDate>Sat, 27 Jun 2026 01:57:07 GMT</lastBuildDate>
 </channel>
 </rss>
