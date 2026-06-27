@@ -1,7 +1,7 @@
 project:
   type: website
   resources:
-    - ray.jpg
+    - about/ray.jpg
     - parcon_ray_cv.pdf
     - CNAME
 
