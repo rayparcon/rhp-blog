@@ -108,7 +108,7 @@ listing:
     </div>
 
     <p class="site-intro fs-5">
-      I’m a <strong>Graduate Research Assistant</strong> and a <strong>Ph.D. candidate</strong> in Plant Pathology at the University of Georgia. My research combines genomics and bioinformatics to understand how fungal plant pathogens adapt and evole to overcome host resistance.
+      I’m a <strong>Graduate Research Assistant</strong> and a <strong>Ph.D. candidate</strong> in Plant Pathology at the University of Georgia. My research combines genomics and bioinformatics to understand how fungal plant pathogens adapt and evolve to overcome host resistance.
     </p>
     <a class="mt4 action text" href="/about/about.qmd"><em>About Me</em> →</a>
   </div>
