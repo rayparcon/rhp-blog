@@ -49,7 +49,7 @@ listing:
         rel="noopener"
       >
         <i class="fas fa-envelope fa-lg fa-fw"></i>
-        <em>Email Me</em>     
+        Email Me     
       </a>
 
       <a 
