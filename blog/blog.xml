@@ -30,7 +30,7 @@
 <h2 data-number="1" class="anchored" data-anchor-id="background"><span class="header-section-number">1</span> Background</h2>
 <p><strong>STRUCTURE</strong> is a powerful tool for inferring population structure from multilocus genotype data, including single-nucleotide polymorphisms (SNPs). However, getting STRUCTURE to run efficiently is not always straightforward. It can be computationally intensive, requires careful data preparation and parameter selection, and often involves long processing times. As the number of samples, markers, and model parameters increases, the computational demand also increases substantially. In some cases, analyses can take weeks or even months to complete.</p>
 <p>As someone still learning population genomics and bioinformatics back then, I quickly found myself facing this challenge. I needed to find a practical way to run STRUCTURE more efficiently using the high-performance computing cluster at the University of Georgia. Fortunately, I came across Structure_threader, a tool designed to help parallelize STRUCTURE runs. Even then, the process involved a considerable amount of troubleshooting.</p>
-<p>By documenting this workflow, I hope to show the key steps I learned along the way and provide a practical guide for running STRUCTURE with the help of Structure_threader in an HPC environment. My goal is not to cover every possible scenario, but to lay out the basics clearly enough to make the process more approachable and efficient for anyone who may find themselve in the same situation I was before.</p>
+<p>By documenting this workflow, I hope to show the key steps I learned along the way and provide a practical guide for running STRUCTURE with the help of Structure_threader in an HPC environment. My goal is not to cover every possible scenario, but to lay out the basics clearly enough to make the process more approachable and efficient for anyone who may find themselves in the same situation I was before.</p>
 </section>
 <section id="workflow" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="workflow"><span class="header-section-number">2</span> Workflow</h2>
@@ -177,14 +177,14 @@ isolate004 AL</code></pre>
 <p>Example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">scp</span> csojina178_3470snps.str USERNAME@sapelo2.gacrc.uga.edu:/scratch/USERNAME/structure/csojina178_3470snps/</span></code></pre></div></div>
+font-style: inherit;">scp</span> snps.str USERNAME@:/scratch/USERNAME/structure/</span></code></pre></div></div>
 <p>After logging in to Sapelo2, make the file UNIX-readable:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="bu" style="color: null;
 background-color: null;
-font-style: inherit;">cd</span> /scratch/USERNAME/structure/csojina178_3470snps/</span>
+font-style: inherit;">cd</span> /scratch/USERNAME/structure/</span>
 <span id="cb4-2"><span class="ex" style="color: null;
 background-color: null;
-font-style: inherit;">dos2unix</span> csojina178_3470snps.str</span></code></pre></div></div>
+font-style: inherit;">dos2unix</span> snps.str</span></code></pre></div></div>
 <p>If <code>mainparams</code>, <code>extraparams</code>, or the SLURM script were edited on Windows, also run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
 background-color: null;
@@ -286,7 +286,7 @@ Important
 <p>Use the default <code>extraparams</code> file unless there is a specific reason to modify the STRUCTURE model. In this workflow, all remaining STRUCTURE parameters are left at their default settings.</p>
 <p>Place <code>extraparams</code> in the same directory as:</p>
 <pre class="text"><code>mainparams
-csojina178_3470snps.str
+snps.str
 strthreader.sh</code></pre>
 </section>
 <section id="step-5.-create-the-structure_threader-slurm-script" class="level2" data-number="8">
@@ -672,7 +672,7 @@ font-style: inherit;">${REPS}</span>rep</span></code></pre></div></div>
 background-color: null;
 font-style: inherit;">scp</span> <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">-r</span> USERNAME@sapelo2.gacrc.uga.edu:/scratch/USERNAME/structure/snps_results_25pop_10rep .</span></code></pre></div></div>
+font-style: inherit;">-r</span> USERNAME@:/scratch/USERNAME/structure/snps_results_25pop_10rep .</span></code></pre></div></div>
 </section>
 <section id="step-10.-visualize-structure-results-in-r" class="level2" data-number="13">
 <h2 data-number="13" class="anchored" data-anchor-id="step-10.-visualize-structure-results-in-r"><span class="header-section-number">13</span> Step 10. Visualize STRUCTURE results in R</h2>
