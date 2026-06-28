@@ -1,6 +1,11 @@
 ---
 title: "<em>Bacillus amyloliquefaciens</em>, a Narra (<em>Pterocarpus indicus</em>) leaf endophyte, possesses antifungal activity against phytopathogenic fungi due to laminarinase activity and production of antimicrobial compounds"
-author: "<strong>Ray Parcon</strong>"
+author: 
+  - <strong>Ray Parcon</strong>
+  - Margareth Del E. Isagan
+  - Liezel D.C. Atole
+  - Virgie A. Alcantara
+  - Jessica F. Simbahan
 date: "2019-06-24"
 slug: "2019-06-24-bam"
 categories: ["Article"]

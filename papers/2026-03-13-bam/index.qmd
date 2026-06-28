@@ -1,11 +1,11 @@
 ---
 title: "<em>Bacillus amyloliquefaciens</em> N2B2 and its potential for co-cultivation with chitinolytic bacteria to control the growth of <em>Agroathelia rolfsii</em> and other fungal pathogens of tomatoes (<em>Solanum lycopersicum</em> L.)"
 author:
-    - "<strong>Ray Parcon</strong>"
-    - Reniel Joseph B. Cruz
-    - Jessica D. Rey
-    - Leilani S. Dacones
-    - Jessica F. Simbahan
+  - <strong>Ray Parcon</strong>
+  - Reniel Joseph B. Cruz
+  - Jessica D. Rey
+  - Leilani S. Dacones
+  - Jessica F. Simbahan
 date: "2026-03-13"
 slug: "2026-03-13-bam"
 categories: ["Article"]
