@@ -165,22 +165,37 @@ a:has(img) {
 .social-icon-links {
   display: flex;
   justify-content: left;
+  align-items: center;
   gap: 1.10rem;
   margin-top: 1.25rem;
+  flex-wrap: wrap;
 }
 
 .social-icon-links a,
-.footer-block a {
+.social-icon-links a:visited,
+.social-icon-links a.link-primary,
+.social-icon-links a.link-primary:visited,
+.footer-block a,
+.footer-block a:visited {
   color: var(--text-color) !important;
-  text-decoration: none;
+  text-decoration: none !important;
   border-bottom: none !important;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .social-icon-links a:hover,
-.footer-block a:hover {
+.social-icon-links a:focus,
+.social-icon-links a.link-primary:hover,
+.social-icon-links a.link-primary:focus,
+.footer-block a:hover,
+.footer-block a:focus {
   color: var(--bs-link-hover-color) !important;
   transform: translateY(-2px);
+}
+
+.social-icon-links a span,
+.social-icon-links a strong {
+  color: inherit !important;
 }
 
 .social-icon-links i,
