@@ -9,6 +9,7 @@ format:
     number-sections: true
 execute:
   eval: false
+image: "featured.png"
 ---
 
 ## Background
