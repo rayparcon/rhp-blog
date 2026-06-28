@@ -8,6 +8,8 @@
       "/blog/2025-04-11-summer-grant/index.html",
       "/blog/2025-03-04-gapp/index.html",
       "/papers/2026-03-13-bam/index.html",
+      "/papers/2020-11-30-mmors/index.html",
+      "/papers/2020-11-08-arboretum/index.html",
       "/papers/2019-06-24-bam/index.html"
     ]
   },
@@ -25,6 +27,8 @@
     "listing": "/papers/papers.html",
     "items": [
       "/papers/2026-03-13-bam/index.html",
+      "/papers/2020-11-30-mmors/index.html",
+      "/papers/2020-11-08-arboretum/index.html",
       "/papers/2019-06-24-bam/index.html"
     ]
   }
