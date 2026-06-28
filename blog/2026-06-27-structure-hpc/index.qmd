@@ -1,0 +1,425 @@
+---
+title: "Running STRUCTURE with Structure_threader on high-performance computing (HPC) cluster and result visualization using R"
+author: "Raymond Parcon"
+date: "2026-06-27"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+execute:
+  eval: false
+---
+
+## Background
+
+**STRUCTURE** is a powerful tool for inferring population structure from multilocus genotype data, including single-nucleotide polymorphisms (SNPs). However, getting STRUCTURE to run efficiently is not always straightforward. It can be computationally intensive, requires careful data preparation and parameter selection, and often involves long processing times. As the number of samples, markers, and model parameters increases, the computational demand also increases substantially. In some cases, analyses can take weeks or even months to complete.
+
+As someone still learning population genomics and bioinformatics back then, I quickly found myself facing this challenge. I needed to find a practical way to run STRUCTURE more efficiently using the high-performance computing cluster at the University of Georgia. Fortunately, I came across Structure_threader, a tool designed to help parallelize STRUCTURE runs. Even then, the process involved a considerable amount of troubleshooting.
+
+By documenting this workflow, I hope to show the key steps I learned along the way and provide a practical guide for running STRUCTURE with the help of Structure_threader in an HPC environment. My goal is not to cover every possible scenario, but to lay out the basics clearly enough to make the process more approachable and efficient for anyone who may find themselve in the same situation I was before.
+
+## Workflow
+
+I will describe how to run a model-based Bayesian population structure analysis using **STRUCTURE** through **Structure_threader** on the University of Georgia Sapelo2 high-performance computing environment. The workflow assumes that filtered SNPs are available in variant call format (`.vcf`) and will be converted to STRUCTURE format (`.str`) using **PGDSpider**.
+
+The example below follows the analysis settings I used for my SNP dataset:
+
+- STRUCTURE version: `2.3.4`
+- Structure_threader version: `1.3.10`
+- Input format: haploid STRUCTURE file (`.str`)
+- Burn-in: `500000`
+- MCMC iterations after burn-in: `1000000`
+- Maximum number of populations tested: `K = 25`
+- Replicates per K: `10`
+- HPC environment: UGA Sapelo2
+
+## Required files
+
+Before running Structure_threader, place the following files in the same HPC working directory:
+
+| File | Required filename? | Purpose |
+|---|---:|---|
+| `*.str` | No | STRUCTURE-formatted SNP input file |
+| `mainparams` | Yes | Main STRUCTURE configuration file |
+| `extraparams` | Yes | Extra STRUCTURE configuration file |
+| `strthreader.sh` | No | SLURM job script used to run Structure_threader |
+
+::: {.callout-warning}
+The files `mainparams` and `extraparams` should keep these exact filenames. STRUCTURE expects them by name in the working directory.
+:::
+
+## Step 1. Convert VCF to STRUCTURE format using PGDSpider
+
+Use **PGDSpider** to convert the filtered SNP VCF file to STRUCTURE format.
+
+### PGDSpider VCF parser settings
+
+Use the following settings for a haploid SNP dataset:
+
+| PGDSpider VCF parser question | Recommended answer |
+|---|---|
+| Is the dataset haploid? | `Yes` |
+| Exclude loci with only missing data? | `No` |
+| Is `PL` or `GL` given in the genotype field? | `Yes` |
+| Include non-polymorphic SNPs? | `No` |
+| Select population definition file? | Use a population map file |
+
+The population definition file should be a plain text file with one isolate per line:
+
+```text
+isolate001 GA
+isolate002 GA
+isolate003 MS
+isolate004 AL
+```
+
+The required format is:
+
+```text
+isolate<whitespace>population
+```
+
+### PGDSpider STRUCTURE writer settings
+
+| PGDSpider STRUCTURE writer question | Recommended answer |
+|---|---|
+| Compatible with fastSTRUCTURE format? | `No` |
+| Include inter-marker distances? | `No` |
+| Data type | `SNP` |
+
+The fastSTRUCTURE-compatible option should be set to `No` because this workflow uses haploid STRUCTURE input for STRUCTURE version 2.3.4.
+
+## Step 2. Transfer the `.str` file to Sapelo2
+
+After conversion, transfer the `.str` file to the HPC working directory.
+
+Example:
+
+```bash
+scp csojina178_3470snps.str USERNAME@sapelo2.gacrc.uga.edu:/scratch/USERNAME/structure/csojina178_3470snps/
+```
+
+After logging in to Sapelo2, make the file UNIX-readable:
+
+```bash
+cd /scratch/USERNAME/structure/csojina178_3470snps/
+dos2unix csojina178_3470snps.str
+```
+
+If `mainparams`, `extraparams`, or the SLURM script were edited on Windows, also run:
+
+```bash
+dos2unix mainparams extraparams strthreader.sh
+```
+
+## Step 3. Prepare `mainparams`
+
+There are two acceptable ways to prepare `mainparams`.
+
+### Option A. Generate `mainparams` using the STRUCTURE graphical interface
+
+1. Open STRUCTURE locally.
+2. Create a new project using the `.str` file.
+3. Check the `.str` file in a text editor before importing.
+4. Confirm the following:
+   - the missing genotype value is correct, usually `-9` or `0`;
+   - there is a row of marker names, if exported that way by PGDSpider;
+   - data for each individual are stored in a single line;
+   - individual IDs are included;
+   - putative population origin is included.
+5. Export or copy the generated `mainparams`.
+6. Upload `mainparams` to the HPC working directory.
+7. Modify `mainparams` if needed.
+
+### Option B. Copy an existing `mainparams` and edit dataset-specific values
+
+Edit at least the following fields:
+
+```text
+#define NUMINDS    178
+#define NUMLOCI    3470
+#define PLOIDY     1
+#define MISSING    -9
+#define ONEROWPERIND 1
+#define LABEL      1
+#define POPDATA    1
+#define MARKERNAMES 1
+#define MAPDISTANCES 0
+#define MAXPOPS    25
+#define BURNIN     500000
+#define NUMREPS    1000000
+```
+
+Adjust these values for each dataset:
+
+| Field | Meaning |
+|---|---|
+| `NUMINDS` | Number of isolates or individuals |
+| `NUMLOCI` | Number of SNP loci |
+| `PLOIDY` | Use `1` for haploid data |
+| `MISSING` | Missing genotype code in the `.str` file |
+| `MAXPOPS` | Maximum number of populations tested |
+| `BURNIN` | Burn-in iterations |
+| `NUMREPS` | MCMC iterations after burn-in |
+
+::: {.callout-important}
+The `MAXPOPS` value in `mainparams` must match the `-K` value in the Structure_threader command. For example, if `MAXPOPS` is `25`, use `-K 25`.
+:::
+
+## Step 4. Prepare `extraparams`
+
+Use the default `extraparams` file unless there is a specific reason to modify the STRUCTURE model. In this workflow, all remaining STRUCTURE parameters are left at their default settings.
+
+Place `extraparams` in the same directory as:
+
+```text
+mainparams
+csojina178_3470snps.str
+strthreader.sh
+```
+
+## Step 5. Create the Structure_threader SLURM script
+
+Save the following script as `strthreader.sh`.
+
+Revise the user-specific paths, email address, dataset name, CPU count, memory, and runtime as needed.
+
+```bash
+#!/bin/bash
+#SBATCH --job-name=StructureThreader
+#SBATCH --partition=batch
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=64
+#SBATCH --mem=15G
+#SBATCH --time=7-00:00:00
+#SBATCH --output=/home/USERNAME/logs/structure/%x_%j.out
+#SBATCH --error=/home/USERNAME/logs/structure/%x_%j.err
+#SBATCH --mail-user=USERNAME@uga.edu
+#SBATCH --mail-type=ALL
+
+# -------------------------
+# User-defined variables
+# -------------------------
+
+WORKDIR="/scratch/USERNAME/structure/"
+DATASET="snps"
+
+MAXK=25
+REPS=10
+THREADS=${SLURM_CPUS_PER_TASK}
+
+INPUT_STR="${WORKDIR}/${DATASET}.str"
+OUTDIR="${DATASET}_results_${MAXK}pop_${REPS}rep"
+
+# -------------------------
+# Load modules
+# -------------------------
+
+ml structure_threader/1.3.10-foss-2022a
+ml Structure/2.3.4-GCC-11.3.0
+
+# -------------------------
+# Run Structure_threader
+# -------------------------
+
+cd "${WORKDIR}"
+
+structure_threader run \
+  -K "${MAXK}" \
+  -R "${REPS}" \
+  -t "${THREADS}" \
+  -i "${INPUT_STR}" \
+  -o "${OUTDIR}" \
+  -st "${EBROOTSTRUCTURE}/bin/structure" \
+  --log 1
+```
+
+### Meaning of key Structure_threader arguments
+
+| Argument | Meaning |
+|---|---|
+| `-K 25` | Test K values from 1 to 25 |
+| `-R 10` | Run 10 replicate STRUCTURE analyses per K |
+| `-t 64` | Use 64 parallel threads |
+| `-i` | Input `.str` file |
+| `-o` | Output directory name |
+| `-st` | Absolute path to the STRUCTURE executable |
+| `--log 1` | Write Structure_threader log information |
+
+::: {.callout-note}
+The number of threads should be consistent across the SLURM request and Structure_threader command. If `#SBATCH --cpus-per-task=64`, then Structure_threader should also use `-t 64` or `THREADS=${SLURM_CPUS_PER_TASK}`.
+:::
+
+## Step 6. Check the working directory before submission
+
+From the working directory, run:
+
+```bash
+pwd
+ls -lh
+```
+
+Confirm that these files are present:
+
+```bash
+ls -lh *.str mainparams extraparams strthreader.sh
+```
+
+Check the relevant STRUCTURE settings:
+
+```bash
+grep -E "NUMINDS|NUMLOCI|PLOIDY|MISSING|MAXPOPS|BURNIN|NUMREPS" mainparams
+```
+
+Check that the log directory exists:
+
+```bash
+mkdir -p /home/USERNAME/GBS_Csojina/logs/structure
+```
+
+Check that the modules are available:
+
+```bash
+ml spider structure_threader
+ml spider Structure
+```
+
+## Step 7. Submit the job
+
+Submit the Structure_threader job with:
+
+```bash
+sbatch strthreader.sh
+```
+
+Check the job status:
+
+```bash
+squeue -u USERNAME
+```
+
+Check log files while the job is running or after it finishes:
+
+```bash
+tail -f /home/USERNAME/logs/structure/StructureThreader_JOBID.out
+tail -f /home/USERNAME/logs/structure/StructureThreader_JOBID.err
+```
+
+The `JOBID` is automatically generated based on SLURM job number.
+
+## Step 8. Inspect output files
+
+After the run finishes, check the output directory:
+
+```bash
+cd /scratch/USERNAME/structure/
+ls -lh ${DATASET}_results_${MAXK}pop_${REPS}rep
+```
+
+A complete run should contain output files for each K value and replicate. With `-K 25` and `-R 10`, the expected number of STRUCTURE runs is:
+
+```text
+25 K values × 10 replicates = 250 STRUCTURE runs
+```
+
+If some runs failed, check:
+
+1. the SLURM `.err` file;
+2. the Structure_threader log;
+3. whether `MAXPOPS` in `mainparams` matches `-K`;
+4. whether `NUMINDS`, `NUMLOCI`, `PLOIDY`, and `MISSING` are correct;
+5. whether the `.str` file has UNIX line endings.
+
+## Step 9. Transfer results for visualization
+
+After the run completes, transfer the output directory to a local machine for visualization in RStudio:
+
+```bash
+scp -r USERNAME@sapelo2.gacrc.uga.edu:/scratch/USERNAME/structure/snps_results_25pop_10rep .
+```
+
+## Step 10. Visualize STRUCTURE results in R
+
+Install and load the required R packages:
+
+```r
+install.packages(c("ggplot2", "reshape2", "gridExtra"))
+install.packages("pophelper")
+```
+
+Load packages:
+
+```r
+library(pophelper)
+library(ggplot2)
+library(reshape2)
+library(gridExtra)
+```
+
+Read STRUCTURE output files:
+
+```r
+outdir <- "snps_results_25pop_10rep"
+
+# Adjust the pattern depending on the exact output filenames.
+# Keep only STRUCTURE result files, not SLURM logs or Structure_threader logs.
+structure_files <- list.files(
+  path = outdir,
+  full.names = TRUE,
+  recursive = TRUE
+)
+
+# Read STRUCTURE Q matrices.
+qlist <- readQ(files = structure_files)
+```
+
+Summarize and plot Q matrices:
+
+```r
+# Summarize runs by K.
+summariseQ(qlist)
+
+# Plot individual ancestry coefficients.
+plotQ(
+  qlist,
+  imgoutput = "join",
+  returnplot = TRUE,
+  exportplot = TRUE,
+  basesize = 10,
+  showindlab = FALSE,
+  splab = paste0("K=", sapply(qlist, ncol))
+)
+```
+
+If isolate labels or population labels are available, import metadata and use them to order or annotate individuals before plotting.
+
+## Common problems and fixes
+
+| Problem | Likely cause | Fix |
+|---|---|---|
+| STRUCTURE fails immediately | `mainparams` or `extraparams` missing | Confirm both files are in the working directory |
+| K values do not run as expected | `MAXPOPS` and `-K` do not match | Set both to the same maximum K |
+| Threading does not work correctly | SLURM CPUs and `-t` differ | Use `THREADS=${SLURM_CPUS_PER_TASK}` |
+| Input file is unreadable | Windows line endings | Run `dos2unix *.str mainparams extraparams strthreader.sh` |
+| Wrong number of individuals or loci | Incorrect `NUMINDS` or `NUMLOCI` | Recheck `.str` file and edit `mainparams` |
+| Missing data interpreted incorrectly | Incorrect `MISSING` value | Confirm whether missing genotypes are coded as `-9` or `0` |
+| Job stops due to wall time | Runtime too short | Increase `#SBATCH --time` |
+| Job stops due to memory | Memory too low | Increase `#SBATCH --mem` |
+
+## Minimal final checklist
+
+Before submitting:
+
+- The `.vcf` file has been converted to `.str` using the haploid PGDSpider settings.
+- The `.str` file is in the HPC working directory.
+- `dos2unix` has been run on input and configuration files.
+- `mainparams` is present and correctly edited.
+- `extraparams` is present.
+- `MAXPOPS` in `mainparams` matches `-K` in the Structure_threader command.
+- `#SBATCH --cpus-per-task` matches the Structure_threader thread count.
+- The STRUCTURE executable path is provided using `${EBROOTSTRUCTURE}/bin/structure`.
+- The output and error log directories exist.
+- The job is submitted using `sbatch strthreader.sh`.
+
+There you have it. I hope this workflow saves you some time and frustration in figuring out how to run STRUCTURE in an HPC environment. Please do not forget to cite the brilliant minds behind the software, modules, and R packages mentioned here. Proper citation is one small but important way we can acknowledge and thank the people who develop and maintain these tools for the research community. 😊 
