@@ -48,7 +48,7 @@ listing:
         target="_blank"
         rel="noopener"
       >
-        <i class="fas fa-envelope fa-lg fa-fw"></i>
+        <i class="bi bi-envelope-paper"></i>
         <strong>Email Me</strong>     
       </a>
 
@@ -59,7 +59,7 @@ listing:
         target="_blank"
         rel="noopener"
       >
-        <i class="fas fa-regular-file-pdf fa-lg fa-fw"></i>  
+        <i class="fa fa-regular-file-pdf fa-lg fa-fw"></i>  
       </a>
 
       <a

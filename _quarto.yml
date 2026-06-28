@@ -27,7 +27,7 @@ website:
     background: none
     center: >-
       <span class="footer-block">
-        <a href="mailto:rhparcon@uga.edu" title="Email">{{< fa solid envelope >}}</a>
+        <a href="mailto:rhparcon@uga.edu" title="Email">{{< bi envelope-paper >}}</a>
         <a href="https://orcid.org/0000-0002-3379-3698" title="ORCID" target="_blank" rel="noopener">{{< ai orcid >}}</a>
         <a href="https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en" title="Google Scholar" target="_blank" rel="noopener">{{< ai google-scholar >}}</a>
         <a href="https://github.com/rayparcon" title="GitHub" target="_blank" rel="noopener">{{< fa brands github >}}</a>
