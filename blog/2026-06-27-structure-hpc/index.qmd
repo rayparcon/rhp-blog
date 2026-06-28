@@ -18,7 +18,7 @@ image: "featured.png"
 
 As someone still learning population genomics and bioinformatics back then, I quickly found myself facing this challenge. I needed to find a practical way to run STRUCTURE more efficiently using the high-performance computing cluster at the University of Georgia. Fortunately, I came across Structure_threader, a tool designed to help parallelize STRUCTURE runs. Even then, the process involved a considerable amount of troubleshooting.
 
-By documenting this workflow, I hope to show the key steps I learned along the way and provide a practical guide for running STRUCTURE with the help of Structure_threader in an HPC environment. My goal is not to cover every possible scenario, but to lay out the basics clearly enough to make the process more approachable and efficient for anyone who may find themselve in the same situation I was before.
+By documenting this workflow, I hope to show the key steps I learned along the way and provide a practical guide for running STRUCTURE with the help of Structure_threader in an HPC environment. My goal is not to cover every possible scenario, but to lay out the basics clearly enough to make the process more approachable and efficient for anyone who may find themselves in the same situation I was before.
 
 ## Workflow
 
@@ -98,14 +98,14 @@ After conversion, transfer the `.str` file to the HPC working directory.
 Example:
 
 ```bash
-scp csojina178_3470snps.str USERNAME@sapelo2.gacrc.uga.edu:/scratch/USERNAME/structure/csojina178_3470snps/
+scp snps.str USERNAME@:/scratch/USERNAME/structure/
 ```
 
 After logging in to Sapelo2, make the file UNIX-readable:
 
 ```bash
-cd /scratch/USERNAME/structure/csojina178_3470snps/
-dos2unix csojina178_3470snps.str
+cd /scratch/USERNAME/structure/
+dos2unix snps.str
 ```
 
 If `mainparams`, `extraparams`, or the SLURM script were edited on Windows, also run:
@@ -176,7 +176,7 @@ Place `extraparams` in the same directory as:
 
 ```text
 mainparams
-csojina178_3470snps.str
+snps.str
 strthreader.sh
 ```
 
@@ -337,7 +337,7 @@ If some runs failed, check:
 After the run completes, transfer the output directory to a local machine for visualization in RStudio:
 
 ```bash
-scp -r USERNAME@sapelo2.gacrc.uga.edu:/scratch/USERNAME/structure/snps_results_25pop_10rep .
+scp -r USERNAME@:/scratch/USERNAME/structure/snps_results_25pop_10rep .
 ```
 
 ## Step 10. Visualize STRUCTURE results in R
