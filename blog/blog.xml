@@ -16,7 +16,874 @@
 <link>https://rayparcon.com/blog/blog.html</link>
 </image>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Wed, 13 May 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 27 Jun 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Running STRUCTURE with Structure_threader on high-performance computing (HPC) cluster and result visualization using R</title>
+  <dc:creator>Raymond Parcon</dc:creator>
+  <link>https://rayparcon.com/blog/2026-06-27-structure-hpc/</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="background" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="background"><span class="header-section-number">1</span> Background</h2>
+<p><strong>STRUCTURE</strong> is a powerful tool for inferring population structure from multilocus genotype data, including single-nucleotide polymorphisms (SNPs). However, getting STRUCTURE to run efficiently is not always straightforward. It can be computationally intensive, requires careful data preparation and parameter selection, and often involves long processing times. As the number of samples, markers, and model parameters increases, the computational demand also increases substantially. In some cases, analyses can take weeks or even months to complete.</p>
+<p>As someone still learning population genomics and bioinformatics back then, I quickly found myself facing this challenge. I needed to find a practical way to run STRUCTURE more efficiently using the high-performance computing cluster at the University of Georgia. Fortunately, I came across Structure_threader, a tool designed to help parallelize STRUCTURE runs. Even then, the process involved a considerable amount of troubleshooting.</p>
+<p>By documenting this workflow, I hope to show the key steps I learned along the way and provide a practical guide for running STRUCTURE with the help of Structure_threader in an HPC environment. My goal is not to cover every possible scenario, but to lay out the basics clearly enough to make the process more approachable and efficient for anyone who may find themselve in the same situation I was before.</p>
+</section>
+<section id="workflow" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="workflow"><span class="header-section-number">2</span> Workflow</h2>
+<p>I will describe how to run a model-based Bayesian population structure analysis using <strong>STRUCTURE</strong> through <strong>Structure_threader</strong> on the University of Georgia Sapelo2 high-performance computing environment. The workflow assumes that filtered SNPs are available in variant call format (<code>.vcf</code>) and will be converted to STRUCTURE format (<code>.str</code>) using <strong>PGDSpider</strong>.</p>
+<p>The example below follows the analysis settings I used for my SNP dataset:</p>
+<ul>
+<li>STRUCTURE version: <code>2.3.4</code></li>
+<li>Structure_threader version: <code>1.3.10</code></li>
+<li>Input format: haploid STRUCTURE file (<code>.str</code>)</li>
+<li>Burn-in: <code>500000</code></li>
+<li>MCMC iterations after burn-in: <code>1000000</code></li>
+<li>Maximum number of populations tested: <code>K = 25</code></li>
+<li>Replicates per K: <code>10</code></li>
+<li>HPC environment: UGA Sapelo2</li>
+</ul>
+</section>
+<section id="required-files" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="required-files"><span class="header-section-number">3</span> Required files</h2>
+<p>Before running Structure_threader, place the following files in the same HPC working directory:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 40%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th style="text-align: right;">Required filename?</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>*.str</code></td>
+<td style="text-align: right;">No</td>
+<td>STRUCTURE-formatted SNP input file</td>
+</tr>
+<tr class="even">
+<td><code>mainparams</code></td>
+<td style="text-align: right;">Yes</td>
+<td>Main STRUCTURE configuration file</td>
+</tr>
+<tr class="odd">
+<td><code>extraparams</code></td>
+<td style="text-align: right;">Yes</td>
+<td>Extra STRUCTURE configuration file</td>
+</tr>
+<tr class="even">
+<td><code>strthreader.sh</code></td>
+<td style="text-align: right;">No</td>
+<td>SLURM job script used to run Structure_threader</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The files <code>mainparams</code> and <code>extraparams</code> should keep these exact filenames. STRUCTURE expects them by name in the working directory.</p>
+</div>
+</div>
+</section>
+<section id="step-1.-convert-vcf-to-structure-format-using-pgdspider" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="step-1.-convert-vcf-to-structure-format-using-pgdspider"><span class="header-section-number">4</span> Step 1. Convert VCF to STRUCTURE format using PGDSpider</h2>
+<p>Use <strong>PGDSpider</strong> to convert the filtered SNP VCF file to STRUCTURE format.</p>
+<section id="pgdspider-vcf-parser-settings" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="pgdspider-vcf-parser-settings"><span class="header-section-number">4.1</span> PGDSpider VCF parser settings</h3>
+<p>Use the following settings for a haploid SNP dataset:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>PGDSpider VCF parser question</th>
+<th>Recommended answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Is the dataset haploid?</td>
+<td><code>Yes</code></td>
+</tr>
+<tr class="even">
+<td>Exclude loci with only missing data?</td>
+<td><code>No</code></td>
+</tr>
+<tr class="odd">
+<td>Is <code>PL</code> or <code>GL</code> given in the genotype field?</td>
+<td><code>Yes</code></td>
+</tr>
+<tr class="even">
+<td>Include non-polymorphic SNPs?</td>
+<td><code>No</code></td>
+</tr>
+<tr class="odd">
+<td>Select population definition file?</td>
+<td>Use a population map file</td>
+</tr>
+</tbody>
+</table>
+<p>The population definition file should be a plain text file with one isolate per line:</p>
+<pre class="text"><code>isolate001 GA
+isolate002 GA
+isolate003 MS
+isolate004 AL</code></pre>
+<p>The required format is:</p>
+<pre class="text"><code>isolate&lt;whitespace&gt;population</code></pre>
+</section>
+<section id="pgdspider-structure-writer-settings" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="pgdspider-structure-writer-settings"><span class="header-section-number">4.2</span> PGDSpider STRUCTURE writer settings</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>PGDSpider STRUCTURE writer question</th>
+<th>Recommended answer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Compatible with fastSTRUCTURE format?</td>
+<td><code>No</code></td>
+</tr>
+<tr class="even">
+<td>Include inter-marker distances?</td>
+<td><code>No</code></td>
+</tr>
+<tr class="odd">
+<td>Data type</td>
+<td><code>SNP</code></td>
+</tr>
+</tbody>
+</table>
+<p>The fastSTRUCTURE-compatible option should be set to <code>No</code> because this workflow uses haploid STRUCTURE input for STRUCTURE version 2.3.4.</p>
+</section>
+</section>
+<section id="step-2.-transfer-the-.str-file-to-sapelo2" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="step-2.-transfer-the-.str-file-to-sapelo2"><span class="header-section-number">5</span> Step 2. Transfer the <code>.str</code> file to Sapelo2</h2>
+<p>After conversion, transfer the <code>.str</code> file to the HPC working directory.</p>
+<p>Example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scp</span> csojina178_3470snps.str USERNAME@sapelo2.gacrc.uga.edu:/scratch/USERNAME/structure/csojina178_3470snps/</span></code></pre></div></div>
+<p>After logging in to Sapelo2, make the file UNIX-readable:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">cd</span> /scratch/USERNAME/structure/csojina178_3470snps/</span>
+<span id="cb4-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">dos2unix</span> csojina178_3470snps.str</span></code></pre></div></div>
+<p>If <code>mainparams</code>, <code>extraparams</code>, or the SLURM script were edited on Windows, also run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">dos2unix</span> mainparams extraparams strthreader.sh</span></code></pre></div></div>
+</section>
+<section id="step-3.-prepare-mainparams" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="step-3.-prepare-mainparams"><span class="header-section-number">6</span> Step 3. Prepare <code>mainparams</code></h2>
+<p>There are two acceptable ways to prepare <code>mainparams</code>.</p>
+<section id="option-a.-generate-mainparams-using-the-structure-graphical-interface" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="option-a.-generate-mainparams-using-the-structure-graphical-interface"><span class="header-section-number">6.1</span> Option A. Generate <code>mainparams</code> using the STRUCTURE graphical interface</h3>
+<ol type="1">
+<li>Open STRUCTURE locally.</li>
+<li>Create a new project using the <code>.str</code> file.</li>
+<li>Check the <code>.str</code> file in a text editor before importing.</li>
+<li>Confirm the following:
+<ul>
+<li>the missing genotype value is correct, usually <code>-9</code> or <code>0</code>;</li>
+<li>there is a row of marker names, if exported that way by PGDSpider;</li>
+<li>data for each individual are stored in a single line;</li>
+<li>individual IDs are included;</li>
+<li>putative population origin is included.</li>
+</ul></li>
+<li>Export or copy the generated <code>mainparams</code>.</li>
+<li>Upload <code>mainparams</code> to the HPC working directory.</li>
+<li>Modify <code>mainparams</code> if needed.</li>
+</ol>
+</section>
+<section id="option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values"><span class="header-section-number">6.2</span> Option B. Copy an existing <code>mainparams</code> and edit dataset-specific values</h3>
+<p>Edit at least the following fields:</p>
+<pre class="text"><code>#define NUMINDS    178
+#define NUMLOCI    3470
+#define PLOIDY     1
+#define MISSING    -9
+#define ONEROWPERIND 1
+#define LABEL      1
+#define POPDATA    1
+#define MARKERNAMES 1
+#define MAPDISTANCES 0
+#define MAXPOPS    25
+#define BURNIN     500000
+#define NUMREPS    1000000</code></pre>
+<p>Adjust these values for each dataset:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>NUMINDS</code></td>
+<td>Number of isolates or individuals</td>
+</tr>
+<tr class="even">
+<td><code>NUMLOCI</code></td>
+<td>Number of SNP loci</td>
+</tr>
+<tr class="odd">
+<td><code>PLOIDY</code></td>
+<td>Use <code>1</code> for haploid data</td>
+</tr>
+<tr class="even">
+<td><code>MISSING</code></td>
+<td>Missing genotype code in the <code>.str</code> file</td>
+</tr>
+<tr class="odd">
+<td><code>MAXPOPS</code></td>
+<td>Maximum number of populations tested</td>
+</tr>
+<tr class="even">
+<td><code>BURNIN</code></td>
+<td>Burn-in iterations</td>
+</tr>
+<tr class="odd">
+<td><code>NUMREPS</code></td>
+<td>MCMC iterations after burn-in</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>MAXPOPS</code> value in <code>mainparams</code> must match the <code>-K</code> value in the Structure_threader command. For example, if <code>MAXPOPS</code> is <code>25</code>, use <code>-K 25</code>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="step-4.-prepare-extraparams" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="step-4.-prepare-extraparams"><span class="header-section-number">7</span> Step 4. Prepare <code>extraparams</code></h2>
+<p>Use the default <code>extraparams</code> file unless there is a specific reason to modify the STRUCTURE model. In this workflow, all remaining STRUCTURE parameters are left at their default settings.</p>
+<p>Place <code>extraparams</code> in the same directory as:</p>
+<pre class="text"><code>mainparams
+csojina178_3470snps.str
+strthreader.sh</code></pre>
+</section>
+<section id="step-5.-create-the-structure_threader-slurm-script" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="step-5.-create-the-structure_threader-slurm-script"><span class="header-section-number">8</span> Step 5. Create the Structure_threader SLURM script</h2>
+<p>Save the following script as <code>strthreader.sh</code>.</p>
+<p>Revise the user-specific paths, email address, dataset name, CPU count, memory, and runtime as needed.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#!/bin/bash</span></span>
+<span id="cb8-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --job-name=StructureThreader</span></span>
+<span id="cb8-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --partition=batch</span></span>
+<span id="cb8-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --ntasks=1</span></span>
+<span id="cb8-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --cpus-per-task=64</span></span>
+<span id="cb8-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --mem=15G</span></span>
+<span id="cb8-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --time=7-00:00:00</span></span>
+<span id="cb8-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --output=/home/USERNAME/logs/structure/%x_%j.out</span></span>
+<span id="cb8-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --error=/home/USERNAME/logs/structure/%x_%j.err</span></span>
+<span id="cb8-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --mail-user=USERNAME@uga.edu</span></span>
+<span id="cb8-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#SBATCH --mail-type=ALL</span></span>
+<span id="cb8-12"></span>
+<span id="cb8-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># -------------------------</span></span>
+<span id="cb8-14"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># User-defined variables</span></span>
+<span id="cb8-15"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># -------------------------</span></span>
+<span id="cb8-16"></span>
+<span id="cb8-17"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">WORKDIR</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"/scratch/USERNAME/structure/"</span></span>
+<span id="cb8-18"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">DATASET</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"snps"</span></span>
+<span id="cb8-19"></span>
+<span id="cb8-20"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">MAXK</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>25</span>
+<span id="cb8-21"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">REPS</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>10</span>
+<span id="cb8-22"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">THREADS</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${SLURM_CPUS_PER_TASK}</span></span>
+<span id="cb8-23"></span>
+<span id="cb8-24"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">INPUT_STR</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${WORKDIR}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${DATASET}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">.str"</span></span>
+<span id="cb8-25"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">OUTDIR</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${DATASET}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">_results_</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${MAXK}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">pop_</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${REPS}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">rep"</span></span>
+<span id="cb8-26"></span>
+<span id="cb8-27"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># -------------------------</span></span>
+<span id="cb8-28"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Load modules</span></span>
+<span id="cb8-29"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># -------------------------</span></span>
+<span id="cb8-30"></span>
+<span id="cb8-31"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">ml</span> structure_threader/1.3.10-foss-2022a</span>
+<span id="cb8-32"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">ml</span> Structure/2.3.4-GCC-11.3.0</span>
+<span id="cb8-33"></span>
+<span id="cb8-34"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># -------------------------</span></span>
+<span id="cb8-35"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Run Structure_threader</span></span>
+<span id="cb8-36"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># -------------------------</span></span>
+<span id="cb8-37"></span>
+<span id="cb8-38"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">cd</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${WORKDIR}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
+<span id="cb8-39"></span>
+<span id="cb8-40"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">structure_threader</span> run <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb8-41">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-K</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${MAXK}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb8-42">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-R</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${REPS}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb8-43">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-t</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${THREADS}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb8-44">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-i</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${INPUT_STR}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb8-45">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-o</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${OUTDIR}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb8-46">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-st</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${EBROOTSTRUCTURE}</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/bin/structure"</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\</span></span>
+<span id="cb8-47">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--log</span> 1</span></code></pre></div></div>
+<section id="meaning-of-key-structure_threader-arguments" class="level3" data-number="8.1">
+<h3 data-number="8.1" class="anchored" data-anchor-id="meaning-of-key-structure_threader-arguments"><span class="header-section-number">8.1</span> Meaning of key Structure_threader arguments</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-K 25</code></td>
+<td>Test K values from 1 to 25</td>
+</tr>
+<tr class="even">
+<td><code>-R 10</code></td>
+<td>Run 10 replicate STRUCTURE analyses per K</td>
+</tr>
+<tr class="odd">
+<td><code>-t 64</code></td>
+<td>Use 64 parallel threads</td>
+</tr>
+<tr class="even">
+<td><code>-i</code></td>
+<td>Input <code>.str</code> file</td>
+</tr>
+<tr class="odd">
+<td><code>-o</code></td>
+<td>Output directory name</td>
+</tr>
+<tr class="even">
+<td><code>-st</code></td>
+<td>Absolute path to the STRUCTURE executable</td>
+</tr>
+<tr class="odd">
+<td><code>--log 1</code></td>
+<td>Write Structure_threader log information</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The number of threads should be consistent across the SLURM request and Structure_threader command. If <code>#SBATCH --cpus-per-task=64</code>, then Structure_threader should also use <code>-t 64</code> or <code>THREADS=${SLURM_CPUS_PER_TASK}</code>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="step-6.-check-the-working-directory-before-submission" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="step-6.-check-the-working-directory-before-submission"><span class="header-section-number">9</span> Step 6. Check the working directory before submission</h2>
+<p>From the working directory, run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">pwd</span></span>
+<span id="cb9-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ls</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-lh</span></span></code></pre></div></div>
+<p>Confirm that these files are present:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ls</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-lh</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">*</span>.str mainparams extraparams strthreader.sh</span></code></pre></div></div>
+<p>Check the relevant STRUCTURE settings:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">grep</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-E</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"NUMINDS|NUMLOCI|PLOIDY|MISSING|MAXPOPS|BURNIN|NUMREPS"</span> mainparams</span></code></pre></div></div>
+<p>Check that the log directory exists:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mkdir</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-p</span> /home/USERNAME/GBS_Csojina/logs/structure</span></code></pre></div></div>
+<p>Check that the modules are available:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">ml</span> spider structure_threader</span>
+<span id="cb13-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">ml</span> spider Structure</span></code></pre></div></div>
+</section>
+<section id="step-7.-submit-the-job" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="step-7.-submit-the-job"><span class="header-section-number">10</span> Step 7. Submit the job</h2>
+<p>Submit the Structure_threader job with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">sbatch</span> strthreader.sh</span></code></pre></div></div>
+<p>Check the job status:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">squeue</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-u</span> USERNAME</span></code></pre></div></div>
+<p>Check log files while the job is running or after it finishes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">tail</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-f</span> /home/USERNAME/logs/structure/StructureThreader_JOBID.out</span>
+<span id="cb16-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">tail</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-f</span> /home/USERNAME/logs/structure/StructureThreader_JOBID.err</span></code></pre></div></div>
+<p>The <code>JOBID</code> is automatically generated based on SLURM job number.</p>
+</section>
+<section id="step-8.-inspect-output-files" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="step-8.-inspect-output-files"><span class="header-section-number">11</span> Step 8. Inspect output files</h2>
+<p>After the run finishes, check the output directory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">cd</span> /scratch/USERNAME/structure/</span>
+<span id="cb17-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ls</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-lh</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${DATASET}</span>_results_<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${MAXK}</span>pop_<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">${REPS}</span>rep</span></code></pre></div></div>
+<p>A complete run should contain output files for each K value and replicate. With <code>-K 25</code> and <code>-R 10</code>, the expected number of STRUCTURE runs is:</p>
+<pre class="text"><code>25 K values × 10 replicates = 250 STRUCTURE runs</code></pre>
+<p>If some runs failed, check:</p>
+<ol type="1">
+<li>the SLURM <code>.err</code> file;</li>
+<li>the Structure_threader log;</li>
+<li>whether <code>MAXPOPS</code> in <code>mainparams</code> matches <code>-K</code>;</li>
+<li>whether <code>NUMINDS</code>, <code>NUMLOCI</code>, <code>PLOIDY</code>, and <code>MISSING</code> are correct;</li>
+<li>whether the <code>.str</code> file has UNIX line endings.</li>
+</ol>
+</section>
+<section id="step-9.-transfer-results-for-visualization" class="level2" data-number="12">
+<h2 data-number="12" class="anchored" data-anchor-id="step-9.-transfer-results-for-visualization"><span class="header-section-number">12</span> Step 9. Transfer results for visualization</h2>
+<p>After the run completes, transfer the output directory to a local machine for visualization in RStudio:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scp</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-r</span> USERNAME@sapelo2.gacrc.uga.edu:/scratch/USERNAME/structure/snps_results_25pop_10rep .</span></code></pre></div></div>
+</section>
+<section id="step-10.-visualize-structure-results-in-r" class="level2" data-number="13">
+<h2 data-number="13" class="anchored" data-anchor-id="step-10.-visualize-structure-results-in-r"><span class="header-section-number">13</span> Step 10. Visualize STRUCTURE results in R</h2>
+<p>Install and load the required R packages:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">install.packages</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ggplot2"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"reshape2"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"gridExtra"</span>))</span>
+<span id="cb20-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">install.packages</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"pophelper"</span>)</span></code></pre></div></div>
+<p>Load packages:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(pophelper)</span>
+<span id="cb21-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(ggplot2)</span>
+<span id="cb21-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(reshape2)</span>
+<span id="cb21-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(gridExtra)</span></code></pre></div></div>
+<p>Read STRUCTURE output files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1">outdir <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"snps_results_25pop_10rep"</span></span>
+<span id="cb22-2"></span>
+<span id="cb22-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Adjust the pattern depending on the exact output filenames.</span></span>
+<span id="cb22-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Keep only STRUCTURE result files, not SLURM logs or Structure_threader logs.</span></span>
+<span id="cb22-5">structure_files <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list.files</span>(</span>
+<span id="cb22-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">path =</span> outdir,</span>
+<span id="cb22-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">full.names =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb22-8">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">recursive =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span></span>
+<span id="cb22-9">)</span>
+<span id="cb22-10"></span>
+<span id="cb22-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Read STRUCTURE Q matrices.</span></span>
+<span id="cb22-12">qlist <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">readQ</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">files =</span> structure_files)</span></code></pre></div></div>
+<p>Summarize and plot Q matrices:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Summarize runs by K.</span></span>
+<span id="cb23-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">summariseQ</span>(qlist)</span>
+<span id="cb23-3"></span>
+<span id="cb23-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Plot individual ancestry coefficients.</span></span>
+<span id="cb23-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plotQ</span>(</span>
+<span id="cb23-6">  qlist,</span>
+<span id="cb23-7">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">imgoutput =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"join"</span>,</span>
+<span id="cb23-8">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">returnplot =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb23-9">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">exportplot =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>,</span>
+<span id="cb23-10">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">basesize =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>,</span>
+<span id="cb23-11">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">showindlab =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>,</span>
+<span id="cb23-12">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">splab =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">paste0</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"K="</span>, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">sapply</span>(qlist, ncol))</span>
+<span id="cb23-13">)</span></code></pre></div></div>
+<p>If isolate labels or population labels are available, import metadata and use them to order or annotate individuals before plotting.</p>
+</section>
+<section id="common-problems-and-fixes" class="level2" data-number="14">
+<h2 data-number="14" class="anchored" data-anchor-id="common-problems-and-fixes"><span class="header-section-number">14</span> Common problems and fixes</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problem</th>
+<th>Likely cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>STRUCTURE fails immediately</td>
+<td><code>mainparams</code> or <code>extraparams</code> missing</td>
+<td>Confirm both files are in the working directory</td>
+</tr>
+<tr class="even">
+<td>K values do not run as expected</td>
+<td><code>MAXPOPS</code> and <code>-K</code> do not match</td>
+<td>Set both to the same maximum K</td>
+</tr>
+<tr class="odd">
+<td>Threading does not work correctly</td>
+<td>SLURM CPUs and <code>-t</code> differ</td>
+<td>Use <code>THREADS=${SLURM_CPUS_PER_TASK}</code></td>
+</tr>
+<tr class="even">
+<td>Input file is unreadable</td>
+<td>Windows line endings</td>
+<td>Run <code>dos2unix *.str mainparams extraparams strthreader.sh</code></td>
+</tr>
+<tr class="odd">
+<td>Wrong number of individuals or loci</td>
+<td>Incorrect <code>NUMINDS</code> or <code>NUMLOCI</code></td>
+<td>Recheck <code>.str</code> file and edit <code>mainparams</code></td>
+</tr>
+<tr class="even">
+<td>Missing data interpreted incorrectly</td>
+<td>Incorrect <code>MISSING</code> value</td>
+<td>Confirm whether missing genotypes are coded as <code>-9</code> or <code>0</code></td>
+</tr>
+<tr class="odd">
+<td>Job stops due to wall time</td>
+<td>Runtime too short</td>
+<td>Increase <code>#SBATCH --time</code></td>
+</tr>
+<tr class="even">
+<td>Job stops due to memory</td>
+<td>Memory too low</td>
+<td>Increase <code>#SBATCH --mem</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="minimal-final-checklist" class="level2" data-number="15">
+<h2 data-number="15" class="anchored" data-anchor-id="minimal-final-checklist"><span class="header-section-number">15</span> Minimal final checklist</h2>
+<p>Before submitting:</p>
+<ul>
+<li>The <code>.vcf</code> file has been converted to <code>.str</code> using the haploid PGDSpider settings.</li>
+<li>The <code>.str</code> file is in the HPC working directory.</li>
+<li><code>dos2unix</code> has been run on input and configuration files.</li>
+<li><code>mainparams</code> is present and correctly edited.</li>
+<li><code>extraparams</code> is present.</li>
+<li><code>MAXPOPS</code> in <code>mainparams</code> matches <code>-K</code> in the Structure_threader command.</li>
+<li><code>#SBATCH --cpus-per-task</code> matches the Structure_threader thread count.</li>
+<li>The STRUCTURE executable path is provided using <code>${EBROOTSTRUCTURE}/bin/structure</code>.</li>
+<li>The output and error log directories exist.</li>
+<li>The job is submitted using <code>sbatch strthreader.sh</code>.</li>
+</ul>
+<p>There you have it. I hope this workflow saves you some time and frustration in figuring out how to run STRUCTURE in an HPC environment. Please do not forget to cite the brilliant minds behind the software, modules, and R packages mentioned here. Proper citation is one small but important way we can acknowledge and thank the people who develop and maintain these tools for the research community. 😊</p>
+
+
+</section>
+
+ ]]></description>
+  <guid>https://rayparcon.com/blog/2026-06-27-structure-hpc/</guid>
+  <pubDate>Sat, 27 Jun 2026 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Honored to have been recognized in Georgia Association of Plant Pathologists 2026 Meeting</title>
   <dc:creator>Ray Parcon</dc:creator>
