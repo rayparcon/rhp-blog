@@ -21,19 +21,17 @@ website:
         text: Papers
       - icon: linkedin
         href: https://www.linkedin.com/in/rayparcon
+      - icon: instagram
+        href: https://www.instagram.com/ry.parcs/
 
   page-footer:
     border: false
     background: none
     center: >-
       <span class="footer-block">
-        <a href="mailto:rhparcon@uga.edu" title="Email">{{< fa solid envelope >}}</a>
-        <a href="https://orcid.org/0000-0002-3379-3698" title="ORCID" target="_blank" rel="noopener">{{< ai orcid >}}</a>
-        <a href="https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en" title="Google Scholar" target="_blank" rel="noopener">{{< ai google-scholar >}}</a>
         <a href="https://github.com/rayparcon" title="GitHub" target="_blank" rel="noopener">{{< fa brands github >}}</a>
-        <a href="https://www.linkedin.com/in/rayparcon" title="LinkedIn" target="_blank" rel="noopener">{{< fa brands linkedin >}}</a>
-        <a href="https://www.instagram.com/ry.parcs/" title="Instagram" target="_blank" rel="noopener">{{< fa brands instagram >}}</a>
-        <a href="parcon_ray_cv.pdf" title="Curriculum Vitae">{{< fa regular file-pdf >}}</a>
+        <a href="https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en" title="Google Scholar" target="_blank" rel="noopener">{{< ai google-scholar >}}</a>
+        <a href="https://orcid.org/0000-0002-3379-3698" title="ORCID" target="_blank" rel="noopener">{{< ai orcid >}}</a>
       </span>
         
       <span class="footer-copyright">

@@ -92,28 +92,6 @@ listing:
       >
         <i class="ai ai-orcid fa-lg fa-fw"></i>
       </a>
-
-      <a
-        class="link-primary"
-        href="https://www.linkedin.com/in/rayparcon"
-        title="LinkedIn"
-        target="_blank"
-        rel="noopener"
-      >
-        <i class="fab fa-linkedin fa-lg fa-fw"></i>
-      </a>
-
-      <a
-        class="link-primary"
-        href="https://www.instagram.com/ry.parcs/"
-        title="Instagram"
-        target="_blank"
-        rel="noopener"
-      >
-        <i class="fab fa-instagram fa-lg fa-fw"></i>
-      </a>
-
-
     </div>
 
     <p class="site-intro fs-5">
