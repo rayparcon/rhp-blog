@@ -62,16 +62,6 @@ listing:
         <i class="fas fa-file-pdf fa-lg fa-fw"></i>
         CV  
       </a>
-
-      <a
-        class="link-primary"
-        href="https://github.com/rayparcon"
-        title="GitHub Profile"
-        target="_blank"
-        rel="noopener"
-      >
-        <i class="fab fa-github fa-lg fa-fw"></i>
-      </a>
     </div>
 
     <p class="site-intro fs-5">
