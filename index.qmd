@@ -44,7 +44,7 @@ listing:
       <a 
         class="link-primary" 
         href="mailto:rhparcon@uga.edu"
-        title=Email Me
+        title="rhparcon@uga.edu"
         target="_blank"
         rel="noopener"
       >
@@ -55,7 +55,7 @@ listing:
       <a 
         class="link-primary" 
         href="parcon_ray_cv.pdf"
-        title=CV
+        title="Raymond Parcon-CV"
         target="_blank"
         rel="noopener"
       >
@@ -66,31 +66,11 @@ listing:
       <a
         class="link-primary"
         href="https://github.com/rayparcon"
-        title="Github"
+        title="GitHub Profile"
         target="_blank"
         rel="noopener"
       >
         <i class="fab fa-github fa-lg fa-fw"></i>
-      </a>
-
-      <a
-        class="link-primary"
-        href="https://scholar.google.com/citations?user=zDKlF7kAAAAJ&hl=en"
-        title="Google-scholar"
-        target="_blank"
-        rel="noopener"
-      >
-        <i class="ai ai-google-scholar fa-lg fa-fw"></i>
-      </a>
-
-      <a
-        class="link-primary"
-        href="https://orcid.org/0000-0002-3379-3698"
-        title="ORCID"
-        target="_blank"
-        rel="noopener"
-      >
-        <i class="ai ai-orcid fa-lg fa-fw"></i>
       </a>
     </div>
 
