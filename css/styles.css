@@ -438,7 +438,7 @@ footer .footer-block a:hover {
       "intro";
     text-align: center;
     
-    gap: clamp(0.5rem, 4vw, 1rem);
+    gap: clamp(0.3rem, 4vw, 1rem);
   }
 
   .site-hero > .hero-photo {
