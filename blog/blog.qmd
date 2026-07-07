@@ -1,9 +1,9 @@
 ---
 title: "Life, lately"
-
 description: >
     Thoughts, notes, and small discoveries from a Ph.D. student exploring fungi, genomes, research, and everything in between
-
+page-layout: full
+title-block-banner: false
 comments: false
 
 listing:
@@ -19,7 +19,4 @@ listing:
     categories: [R]
   image-align: right
 
-page-layout: full
-
-title-block-banner: false
 ---

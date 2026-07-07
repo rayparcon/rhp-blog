@@ -1,10 +1,7 @@
 ---
 pagetitle: "Raymond Parcon"
-
 page-layout: full
-
 title-block-banner: false
-
 comments: false
 
 listing: 

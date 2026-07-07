@@ -1,8 +1,6 @@
 ---
 title: ""
-
 image: ray.jpg
-
 about:
   template: trestles
   id: hero-heading
@@ -13,6 +11,7 @@ about:
     - text: Curriculum Vitae
       icon: filetype-pdf
       url: "parcon_ray_cv.pdf"
+
 ---
 
 ::: {#hero-heading}

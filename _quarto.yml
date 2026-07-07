@@ -38,8 +38,7 @@ website:
          Created with <a href="https://quarto.org/">Quarto</a> © 2026 Raymond Parcon
          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">CC BY-NC-SA 4.0</a>
       </span>
-   
-
+ 
 format:
   html:
     theme:
@@ -58,7 +57,7 @@ format:
 
 comments:
   giscus:
-    repo: rayparcon/website
+    repo: rayparcon/rhp-blog
 
 metadata:
   image: about/ray.jpg
