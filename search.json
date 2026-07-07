@@ -203,6 +203,13 @@
     "text": "15 Minimal final checklist\nBefore submitting:\n\nThe .vcf file has been converted to .str using the haploid PGDSpider settings.\nThe .str file is in the HPC working directory.\ndos2unix has been run on input and configuration files.\nmainparams is present and correctly edited.\nextraparams is present.\nMAXPOPS in mainparams matches -K in the Structure_threader command.\n#SBATCH --cpus-per-task matches the Structure_threader thread count.\nThe STRUCTURE executable path is provided using ${EBROOTSTRUCTURE}/bin/structure.\nThe output and error log directories exist.\nThe job is submitted using sbatch strthreader.sh.\n\nThere you have it. I hope this workflow saves you some time and frustration in figuring out how to run STRUCTURE in an HPC environment. Please do not forget to cite the brilliant minds behind the software, modules, and R packages mentioned here. Proper citation is one small but important way we can acknowledge and thank the people who develop and maintain these tools for the research community. 😊"
   },
   {
+    "objectID": "blog/2026-06-27-structure-hpc/index.html#comments",
+    "href": "blog/2026-06-27-structure-hpc/index.html#comments",
+    "title": "Running STRUCTURE with Structure_threader on high-performance computing (HPC) cluster and result visualization using R",
+    "section": "16 Comments",
+    "text": "16 Comments"
+  },
+  {
     "objectID": "blog/2026-03-11-aps-sd/index.html",
     "href": "blog/2026-03-11-aps-sd/index.html",
     "title": "Had a great time doing my first research oral presentation",
