@@ -1,10 +1,10 @@
 ---
-title: "How to Run STRUCTURE on HPC Using Structure_threader and Visualize Results Using R"
-description: "Step-by-step guide for running STRUCTURE population genomics analyses on an HPC cluster using structure_threader, PGDSpider, and R."
+title: "How to Run STRUCTURE on HPC (Sapelo2) Using Structure_threader and Visualize Results Using R"
+description: "Step-by-step guide for running STRUCTURE population genomics analysis on an HPC cluster using Structure_threader, PGDSpider, and R."
 author: "Raymond Parcon"
 date: "2026-06-27"
-slug: run-structure-hpc-structure-threader
-categories: ["STRUCTURE", "Population genomics", "HPC", "Bioinformatics"]
+slug: "run-structure-hpc-structure-threader"
+categories: ["STRUCTURE", "Population Genomics", "HPC", "Bioinformatics"]
 format:
   html:
     toc: true
@@ -55,7 +55,7 @@ The files `mainparams` and `extraparams` should keep these exact filenames. STRU
 
 ## Step 1. Convert VCF to STRUCTURE format using PGDSpider
 
-Use **PGDSpider** to convert the filtered SNP VCF file to STRUCTURE format.
+Use [**PGDSpider**](https://software.bioinformatics.unibe.ch/pgdspider/) to convert the filtered SNP VCF file to STRUCTURE format.
 
 ### PGDSpider VCF parser settings
 
@@ -96,19 +96,13 @@ The fastSTRUCTURE-compatible option should be set to `No` because this workflow 
 
 ## Step 2. Transfer the `.str` file to Sapelo2
 
-After conversion, transfer the `.str` file to the HPC working directory.
-
-Example:
-
-```bash
-scp snps.str USERNAME@:/scratch/USERNAME/structure/
-```
+After conversion, transfer the `.str` file to the HPC working directory using FTP servers or `scp`
 
 After logging in to Sapelo2, make the file UNIX-readable:
 
 ```bash
-cd /scratch/USERNAME/structure/
-dos2unix snps.str
+cd /full/path/to/working/directory
+dos2unix <filename>.str
 ```
 
 If `mainparams`, `extraparams`, or the SLURM script were edited on Windows, also run:
@@ -175,11 +169,11 @@ The `MAXPOPS` value in `mainparams` must match the `-K` value in the Structure_t
 
 Use the default `extraparams` file unless there is a specific reason to modify the STRUCTURE model. In this workflow, all remaining STRUCTURE parameters are left at their default settings.
 
-Place `extraparams` in the same directory as:
+Place `extraparams` in the same HPC working directory as:
 
 ```text
 mainparams
-snps.str
+<filename>.str
 strthreader.sh
 ```
 
@@ -197,24 +191,24 @@ Revise the user-specific paths, email address, dataset name, CPU count, memory, 
 #SBATCH --cpus-per-task=64
 #SBATCH --mem=15G
 #SBATCH --time=7-00:00:00
-#SBATCH --output=/home/USERNAME/logs/structure/%x_%j.out
-#SBATCH --error=/home/USERNAME/logs/structure/%x_%j.err
-#SBATCH --mail-user=USERNAME@uga.edu
+#SBATCH --output=/home/yourUGAMyID/logs/structure/%x_%j.out
+#SBATCH --error=/home/yourUGAMyID/logs/structure/%x_%j.err
+#SBATCH --mail-user=yourUGAMyID@uga.edu
 #SBATCH --mail-type=ALL
 
 # -------------------------
 # User-defined variables
 # -------------------------
 
-WORKDIR="/scratch/USERNAME/structure/"
-DATASET="snps"
+WORKDIR="/full/path/to/working/directory"
+DATASET="<filename>"
 
 MAXK=25
 REPS=10
 THREADS=${SLURM_CPUS_PER_TASK}
 
 INPUT_STR="${WORKDIR}/${DATASET}.str"
-OUTDIR="${DATASET}_results_${MAXK}pop_${REPS}rep"
+OUTDIR="${DATASET}_results_${MAXK}pop"
 
 # -------------------------
 # Load modules
@@ -267,7 +261,7 @@ ls -lh
 Confirm that these files are present:
 
 ```bash
-ls -lh *.str mainparams extraparams strthreader.sh
+ls -lh <filename>.str mainparams extraparams strthreader.sh
 ```
 
 Check the relevant STRUCTURE settings:
@@ -279,14 +273,14 @@ grep -E "NUMINDS|NUMLOCI|PLOIDY|MISSING|MAXPOPS|BURNIN|NUMREPS" mainparams
 Check that the log directory exists:
 
 ```bash
-mkdir -p /home/USERNAME/GBS_Csojina/logs/structure
+mkdir -p /home/yourUGAMyID/logs/structure
 ```
 
 Check that the modules are available:
 
 ```bash
 ml spider structure_threader
-ml spider Structure
+ml spider structure
 ```
 
 ## Step 7. Submit the job
@@ -300,14 +294,14 @@ sbatch strthreader.sh
 Check the job status:
 
 ```bash
-squeue -u USERNAME
+squeue --me
 ```
 
 Check log files while the job is running or after it finishes:
 
 ```bash
-tail -f /home/USERNAME/logs/structure/StructureThreader_JOBID.out
-tail -f /home/USERNAME/logs/structure/StructureThreader_JOBID.err
+tail -f /home/yourUGAMyID/logs/structure/StructureThreader_JOBID.out
+tail -f /home/yourUGAMyID/logs/structure/StructureThreader_JOBID.err
 ```
 
 The `JOBID` is automatically generated based on SLURM job number.
@@ -317,8 +311,8 @@ The `JOBID` is automatically generated based on SLURM job number.
 After the run finishes, check the output directory:
 
 ```bash
-cd /scratch/USERNAME/structure/
-ls -lh ${DATASET}_results_${MAXK}pop_${REPS}rep
+cd /full/path/to/working/directory
+ls -lh ${DATASET}_results_${MAXK}pop
 ```
 
 A complete run should contain output files for each K value and replicate. With `-K 25` and `-R 10`, the expected number of STRUCTURE runs is:
@@ -337,13 +331,9 @@ If some runs failed, check:
 
 ## Step 9. Transfer results for visualization
 
-After the run completes, transfer the output directory to a local machine for visualization in RStudio:
+After the run completes, transfer the files in the output directory to the local machine for visualization in RStudio using FTP servers or `scp`
 
-```bash
-scp -r USERNAME@:/scratch/USERNAME/structure/snps_results_25pop_10rep .
-```
-
-## Step 10. Visualize STRUCTURE results in R
+## Step 10. Visualize STRUCTURE results using R
 
 Install and load the required R packages:
 
@@ -364,7 +354,7 @@ library(gridExtra)
 Read STRUCTURE output files:
 
 ```r
-outdir <- "snps_results_25pop_10rep"
+outdir <- "<filename>_results_25pop"
 
 # Adjust the pattern depending on the exact output filenames.
 # Keep only STRUCTURE result files, not SLURM logs or Structure_threader logs.
