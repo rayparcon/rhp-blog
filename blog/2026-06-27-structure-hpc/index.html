@@ -8,8 +8,9 @@
 
 <meta name="author" content="Raymond Parcon">
 <meta name="dcterms.date" content="2026-06-27">
+<meta name="description" content="Step-by-step guide for running STRUCTURE population genomics analyses on an HPC cluster using structure_threader, PGDSpider, and R.">
 
-<title>Running STRUCTURE with Structure_threader on high-performance computing (HPC) cluster and result visualization using R – Raymond Parcon</title>
+<title>How to Run STRUCTURE on HPC Using Structure_threader and Visualize Results Using R – Raymond Parcon</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -120,8 +121,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../css/styles.css">
 <link rel="stylesheet" href="../../css/blog.css">
 <link rel="stylesheet" href="../../css/papers.css">
-<meta property="og:title" content="Running STRUCTURE with Structure_threader on high-performance computing (HPC) cluster and result visualization using R – Raymond Parcon">
-<meta property="og:description" content="Genetics of fungal diseases of plants | Ph.D.&nbsp;candidate in Plant Pathology at the University of Georgia">
+<meta property="og:title" content="How to Run STRUCTURE on HPC Using Structure_threader and Visualize Results Using R – Raymond Parcon">
+<meta property="og:description" content="Step-by-step guide for running STRUCTURE population genomics analyses on an HPC cluster using structure_threader, PGDSpider, and R.">
 <meta property="og:image" content="https://rayparcon.com/blog/2026-06-27-structure-hpc/featured.png">
 <meta property="og:site_name" content="Raymond Parcon">
 <meta property="og:image:height" content="1918">
@@ -183,32 +184,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background"><span class="header-section-number">1</span> Background</a></li>
-  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow"><span class="header-section-number">2</span> Workflow</a></li>
-  <li><a href="#required-files" id="toc-required-files" class="nav-link" data-scroll-target="#required-files"><span class="header-section-number">3</span> Required files</a></li>
-  <li><a href="#step-1.-convert-vcf-to-structure-format-using-pgdspider" id="toc-step-1.-convert-vcf-to-structure-format-using-pgdspider" class="nav-link" data-scroll-target="#step-1.-convert-vcf-to-structure-format-using-pgdspider"><span class="header-section-number">4</span> Step 1. Convert VCF to STRUCTURE format using PGDSpider</a>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a></li>
+  <li><a href="#required-files" id="toc-required-files" class="nav-link" data-scroll-target="#required-files">Required files</a></li>
+  <li><a href="#step-1.-convert-vcf-to-structure-format-using-pgdspider" id="toc-step-1.-convert-vcf-to-structure-format-using-pgdspider" class="nav-link" data-scroll-target="#step-1.-convert-vcf-to-structure-format-using-pgdspider">Step 1. Convert VCF to STRUCTURE format using PGDSpider</a>
   <ul class="collapse">
-  <li><a href="#pgdspider-vcf-parser-settings" id="toc-pgdspider-vcf-parser-settings" class="nav-link" data-scroll-target="#pgdspider-vcf-parser-settings"><span class="header-section-number">4.1</span> PGDSpider VCF parser settings</a></li>
-  <li><a href="#pgdspider-structure-writer-settings" id="toc-pgdspider-structure-writer-settings" class="nav-link" data-scroll-target="#pgdspider-structure-writer-settings"><span class="header-section-number">4.2</span> PGDSpider STRUCTURE writer settings</a></li>
+  <li><a href="#pgdspider-vcf-parser-settings" id="toc-pgdspider-vcf-parser-settings" class="nav-link" data-scroll-target="#pgdspider-vcf-parser-settings">PGDSpider VCF parser settings</a></li>
+  <li><a href="#pgdspider-structure-writer-settings" id="toc-pgdspider-structure-writer-settings" class="nav-link" data-scroll-target="#pgdspider-structure-writer-settings">PGDSpider STRUCTURE writer settings</a></li>
   </ul></li>
-  <li><a href="#step-2.-transfer-the-.str-file-to-sapelo2" id="toc-step-2.-transfer-the-.str-file-to-sapelo2" class="nav-link" data-scroll-target="#step-2.-transfer-the-.str-file-to-sapelo2"><span class="header-section-number">5</span> Step 2. Transfer the <code>.str</code> file to Sapelo2</a></li>
-  <li><a href="#step-3.-prepare-mainparams" id="toc-step-3.-prepare-mainparams" class="nav-link" data-scroll-target="#step-3.-prepare-mainparams"><span class="header-section-number">6</span> Step 3. Prepare <code>mainparams</code></a>
+  <li><a href="#step-2.-transfer-the-.str-file-to-sapelo2" id="toc-step-2.-transfer-the-.str-file-to-sapelo2" class="nav-link" data-scroll-target="#step-2.-transfer-the-.str-file-to-sapelo2">Step 2. Transfer the <code>.str</code> file to Sapelo2</a></li>
+  <li><a href="#step-3.-prepare-mainparams" id="toc-step-3.-prepare-mainparams" class="nav-link" data-scroll-target="#step-3.-prepare-mainparams">Step 3. Prepare <code>mainparams</code></a>
   <ul class="collapse">
-  <li><a href="#option-a.-generate-mainparams-using-the-structure-graphical-interface" id="toc-option-a.-generate-mainparams-using-the-structure-graphical-interface" class="nav-link" data-scroll-target="#option-a.-generate-mainparams-using-the-structure-graphical-interface"><span class="header-section-number">6.1</span> Option A. Generate <code>mainparams</code> using the STRUCTURE graphical interface</a></li>
-  <li><a href="#option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values" id="toc-option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values" class="nav-link" data-scroll-target="#option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values"><span class="header-section-number">6.2</span> Option B. Copy an existing <code>mainparams</code> and edit dataset-specific values</a></li>
+  <li><a href="#option-a.-generate-mainparams-using-the-structure-graphical-interface" id="toc-option-a.-generate-mainparams-using-the-structure-graphical-interface" class="nav-link" data-scroll-target="#option-a.-generate-mainparams-using-the-structure-graphical-interface">Option A. Generate <code>mainparams</code> using the STRUCTURE graphical interface</a></li>
+  <li><a href="#option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values" id="toc-option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values" class="nav-link" data-scroll-target="#option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values">Option B. Copy an existing <code>mainparams</code> and edit dataset-specific values</a></li>
   </ul></li>
-  <li><a href="#step-4.-prepare-extraparams" id="toc-step-4.-prepare-extraparams" class="nav-link" data-scroll-target="#step-4.-prepare-extraparams"><span class="header-section-number">7</span> Step 4. Prepare <code>extraparams</code></a></li>
-  <li><a href="#step-5.-create-the-structure_threader-slurm-script" id="toc-step-5.-create-the-structure_threader-slurm-script" class="nav-link" data-scroll-target="#step-5.-create-the-structure_threader-slurm-script"><span class="header-section-number">8</span> Step 5. Create the Structure_threader SLURM script</a>
+  <li><a href="#step-4.-prepare-extraparams" id="toc-step-4.-prepare-extraparams" class="nav-link" data-scroll-target="#step-4.-prepare-extraparams">Step 4. Prepare <code>extraparams</code></a></li>
+  <li><a href="#step-5.-create-the-structure_threader-slurm-script" id="toc-step-5.-create-the-structure_threader-slurm-script" class="nav-link" data-scroll-target="#step-5.-create-the-structure_threader-slurm-script">Step 5. Create the Structure_threader SLURM script</a>
   <ul class="collapse">
-  <li><a href="#meaning-of-key-structure_threader-arguments" id="toc-meaning-of-key-structure_threader-arguments" class="nav-link" data-scroll-target="#meaning-of-key-structure_threader-arguments"><span class="header-section-number">8.1</span> Meaning of key Structure_threader arguments</a></li>
+  <li><a href="#meaning-of-key-structure_threader-arguments" id="toc-meaning-of-key-structure_threader-arguments" class="nav-link" data-scroll-target="#meaning-of-key-structure_threader-arguments">Meaning of key Structure_threader arguments</a></li>
   </ul></li>
-  <li><a href="#step-6.-check-the-working-directory-before-submission" id="toc-step-6.-check-the-working-directory-before-submission" class="nav-link" data-scroll-target="#step-6.-check-the-working-directory-before-submission"><span class="header-section-number">9</span> Step 6. Check the working directory before submission</a></li>
-  <li><a href="#step-7.-submit-the-job" id="toc-step-7.-submit-the-job" class="nav-link" data-scroll-target="#step-7.-submit-the-job"><span class="header-section-number">10</span> Step 7. Submit the job</a></li>
-  <li><a href="#step-8.-inspect-output-files" id="toc-step-8.-inspect-output-files" class="nav-link" data-scroll-target="#step-8.-inspect-output-files"><span class="header-section-number">11</span> Step 8. Inspect output files</a></li>
-  <li><a href="#step-9.-transfer-results-for-visualization" id="toc-step-9.-transfer-results-for-visualization" class="nav-link" data-scroll-target="#step-9.-transfer-results-for-visualization"><span class="header-section-number">12</span> Step 9. Transfer results for visualization</a></li>
-  <li><a href="#step-10.-visualize-structure-results-in-r" id="toc-step-10.-visualize-structure-results-in-r" class="nav-link" data-scroll-target="#step-10.-visualize-structure-results-in-r"><span class="header-section-number">13</span> Step 10. Visualize STRUCTURE results in R</a></li>
-  <li><a href="#common-problems-and-fixes" id="toc-common-problems-and-fixes" class="nav-link" data-scroll-target="#common-problems-and-fixes"><span class="header-section-number">14</span> Common problems and fixes</a></li>
-  <li><a href="#minimal-final-checklist" id="toc-minimal-final-checklist" class="nav-link" data-scroll-target="#minimal-final-checklist"><span class="header-section-number">15</span> Minimal final checklist</a></li>
+  <li><a href="#step-6.-check-the-working-directory-before-submission" id="toc-step-6.-check-the-working-directory-before-submission" class="nav-link" data-scroll-target="#step-6.-check-the-working-directory-before-submission">Step 6. Check the working directory before submission</a></li>
+  <li><a href="#step-7.-submit-the-job" id="toc-step-7.-submit-the-job" class="nav-link" data-scroll-target="#step-7.-submit-the-job">Step 7. Submit the job</a></li>
+  <li><a href="#step-8.-inspect-output-files" id="toc-step-8.-inspect-output-files" class="nav-link" data-scroll-target="#step-8.-inspect-output-files">Step 8. Inspect output files</a></li>
+  <li><a href="#step-9.-transfer-results-for-visualization" id="toc-step-9.-transfer-results-for-visualization" class="nav-link" data-scroll-target="#step-9.-transfer-results-for-visualization">Step 9. Transfer results for visualization</a></li>
+  <li><a href="#step-10.-visualize-structure-results-in-r" id="toc-step-10.-visualize-structure-results-in-r" class="nav-link" data-scroll-target="#step-10.-visualize-structure-results-in-r">Step 10. Visualize STRUCTURE results in R</a></li>
+  <li><a href="#common-problems-and-fixes" id="toc-common-problems-and-fixes" class="nav-link" data-scroll-target="#common-problems-and-fixes">Common problems and fixes</a></li>
+  <li><a href="#minimal-final-checklist" id="toc-minimal-final-checklist" class="nav-link" data-scroll-target="#minimal-final-checklist">Minimal final checklist</a></li>
   </ul>
 </nav>
     </div>
@@ -217,9 +218,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Running STRUCTURE with Structure_threader on high-performance computing (HPC) cluster and result visualization using R</h1>
-</div>
+<h1 class="title">How to Run STRUCTURE on HPC Using Structure_threader and Visualize Results Using R</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">STRUCTURE</div>
+    <div class="quarto-category">Population genomics</div>
+    <div class="quarto-category">HPC</div>
+    <div class="quarto-category">Bioinformatics</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Step-by-step guide for running STRUCTURE population genomics analyses on an HPC cluster using structure_threader, PGDSpider, and R.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -246,14 +258,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="background" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="background"><span class="header-section-number">1</span> Background</h2>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
 <p><strong>STRUCTURE</strong> is a powerful tool for inferring population structure from multilocus genotype data, including single-nucleotide polymorphisms (SNPs). However, getting STRUCTURE to run efficiently is not always straightforward. It can be computationally intensive, requires careful data preparation and parameter selection, and often involves long processing times. As the number of samples, markers, and model parameters increases, the computational demand also increases substantially. In some cases, analyses can take weeks or even months to complete.</p>
 <p>As someone still learning population genomics and bioinformatics back then, I quickly found myself facing this challenge. I needed to find a practical way to run STRUCTURE more efficiently using the high-performance computing cluster at the University of Georgia. Fortunately, I came across Structure_threader, a tool designed to help parallelize STRUCTURE runs. Even then, the process involved a considerable amount of troubleshooting.</p>
 <p>By documenting this workflow, I hope to show the key steps I learned along the way and provide a practical guide for running STRUCTURE with the help of Structure_threader in an HPC environment. My goal is not to cover every possible scenario, but to lay out the basics clearly enough to make the process more approachable and efficient for anyone who may find themselves in the same situation I was before.</p>
 </section>
-<section id="workflow" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="workflow"><span class="header-section-number">2</span> Workflow</h2>
+<section id="workflow" class="level2">
+<h2 class="anchored" data-anchor-id="workflow">Workflow</h2>
 <p>I will describe how to run a model-based Bayesian population structure analysis using <strong>STRUCTURE</strong> through <strong>Structure_threader</strong> on the University of Georgia Sapelo2 high-performance computing environment. The workflow assumes that filtered SNPs are available in variant call format (<code>.vcf</code>) and will be converted to STRUCTURE format (<code>.str</code>) using <strong>PGDSpider</strong>.</p>
 <p>The example below follows the analysis settings I used for my SNP dataset:</p>
 <ul>
@@ -267,8 +279,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>HPC environment: UGA Sapelo2</li>
 </ul>
 </section>
-<section id="required-files" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="required-files"><span class="header-section-number">3</span> Required files</h2>
+<section id="required-files" class="level2">
+<h2 class="anchored" data-anchor-id="required-files">Required files</h2>
 <p>Before running Structure_threader, place the following files in the same HPC working directory:</p>
 <table class="caption-top table">
 <colgroup>
@@ -320,11 +332,11 @@ Warning
 </div>
 </div>
 </section>
-<section id="step-1.-convert-vcf-to-structure-format-using-pgdspider" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="step-1.-convert-vcf-to-structure-format-using-pgdspider"><span class="header-section-number">4</span> Step 1. Convert VCF to STRUCTURE format using PGDSpider</h2>
+<section id="step-1.-convert-vcf-to-structure-format-using-pgdspider" class="level2">
+<h2 class="anchored" data-anchor-id="step-1.-convert-vcf-to-structure-format-using-pgdspider">Step 1. Convert VCF to STRUCTURE format using PGDSpider</h2>
 <p>Use <strong>PGDSpider</strong> to convert the filtered SNP VCF file to STRUCTURE format.</p>
-<section id="pgdspider-vcf-parser-settings" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="pgdspider-vcf-parser-settings"><span class="header-section-number">4.1</span> PGDSpider VCF parser settings</h3>
+<section id="pgdspider-vcf-parser-settings" class="level3">
+<h3 class="anchored" data-anchor-id="pgdspider-vcf-parser-settings">PGDSpider VCF parser settings</h3>
 <p>Use the following settings for a haploid SNP dataset:</p>
 <table class="caption-top table">
 <thead>
@@ -364,8 +376,8 @@ isolate004 AL</code></pre>
 <p>The required format is:</p>
 <pre class="text"><code>isolate&lt;whitespace&gt;population</code></pre>
 </section>
-<section id="pgdspider-structure-writer-settings" class="level3" data-number="4.2">
-<h3 data-number="4.2" class="anchored" data-anchor-id="pgdspider-structure-writer-settings"><span class="header-section-number">4.2</span> PGDSpider STRUCTURE writer settings</h3>
+<section id="pgdspider-structure-writer-settings" class="level3">
+<h3 class="anchored" data-anchor-id="pgdspider-structure-writer-settings">PGDSpider STRUCTURE writer settings</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -391,8 +403,8 @@ isolate004 AL</code></pre>
 <p>The fastSTRUCTURE-compatible option should be set to <code>No</code> because this workflow uses haploid STRUCTURE input for STRUCTURE version 2.3.4.</p>
 </section>
 </section>
-<section id="step-2.-transfer-the-.str-file-to-sapelo2" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="step-2.-transfer-the-.str-file-to-sapelo2"><span class="header-section-number">5</span> Step 2. Transfer the <code>.str</code> file to Sapelo2</h2>
+<section id="step-2.-transfer-the-.str-file-to-sapelo2" class="level2">
+<h2 class="anchored" data-anchor-id="step-2.-transfer-the-.str-file-to-sapelo2">Step 2. Transfer the <code>.str</code> file to Sapelo2</h2>
 <p>After conversion, transfer the <code>.str</code> file to the HPC working directory.</p>
 <p>Example:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> snps.str USERNAME@:/scratch/USERNAME/structure/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -402,11 +414,11 @@ isolate004 AL</code></pre>
 <p>If <code>mainparams</code>, <code>extraparams</code>, or the SLURM script were edited on Windows, also run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">dos2unix</span> mainparams extraparams strthreader.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="step-3.-prepare-mainparams" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="step-3.-prepare-mainparams"><span class="header-section-number">6</span> Step 3. Prepare <code>mainparams</code></h2>
+<section id="step-3.-prepare-mainparams" class="level2">
+<h2 class="anchored" data-anchor-id="step-3.-prepare-mainparams">Step 3. Prepare <code>mainparams</code></h2>
 <p>There are two acceptable ways to prepare <code>mainparams</code>.</p>
-<section id="option-a.-generate-mainparams-using-the-structure-graphical-interface" class="level3" data-number="6.1">
-<h3 data-number="6.1" class="anchored" data-anchor-id="option-a.-generate-mainparams-using-the-structure-graphical-interface"><span class="header-section-number">6.1</span> Option A. Generate <code>mainparams</code> using the STRUCTURE graphical interface</h3>
+<section id="option-a.-generate-mainparams-using-the-structure-graphical-interface" class="level3">
+<h3 class="anchored" data-anchor-id="option-a.-generate-mainparams-using-the-structure-graphical-interface">Option A. Generate <code>mainparams</code> using the STRUCTURE graphical interface</h3>
 <ol type="1">
 <li>Open STRUCTURE locally.</li>
 <li>Create a new project using the <code>.str</code> file.</li>
@@ -424,8 +436,8 @@ isolate004 AL</code></pre>
 <li>Modify <code>mainparams</code> if needed.</li>
 </ol>
 </section>
-<section id="option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values" class="level3" data-number="6.2">
-<h3 data-number="6.2" class="anchored" data-anchor-id="option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values"><span class="header-section-number">6.2</span> Option B. Copy an existing <code>mainparams</code> and edit dataset-specific values</h3>
+<section id="option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values" class="level3">
+<h3 class="anchored" data-anchor-id="option-b.-copy-an-existing-mainparams-and-edit-dataset-specific-values">Option B. Copy an existing <code>mainparams</code> and edit dataset-specific values</h3>
 <p>Edit at least the following fields:</p>
 <pre class="text"><code>#define NUMINDS    178
 #define NUMLOCI    3470
@@ -493,16 +505,16 @@ Important
 </div>
 </section>
 </section>
-<section id="step-4.-prepare-extraparams" class="level2" data-number="7">
-<h2 data-number="7" class="anchored" data-anchor-id="step-4.-prepare-extraparams"><span class="header-section-number">7</span> Step 4. Prepare <code>extraparams</code></h2>
+<section id="step-4.-prepare-extraparams" class="level2">
+<h2 class="anchored" data-anchor-id="step-4.-prepare-extraparams">Step 4. Prepare <code>extraparams</code></h2>
 <p>Use the default <code>extraparams</code> file unless there is a specific reason to modify the STRUCTURE model. In this workflow, all remaining STRUCTURE parameters are left at their default settings.</p>
 <p>Place <code>extraparams</code> in the same directory as:</p>
 <pre class="text"><code>mainparams
 snps.str
 strthreader.sh</code></pre>
 </section>
-<section id="step-5.-create-the-structure_threader-slurm-script" class="level2" data-number="8">
-<h2 data-number="8" class="anchored" data-anchor-id="step-5.-create-the-structure_threader-slurm-script"><span class="header-section-number">8</span> Step 5. Create the Structure_threader SLURM script</h2>
+<section id="step-5.-create-the-structure_threader-slurm-script" class="level2">
+<h2 class="anchored" data-anchor-id="step-5.-create-the-structure_threader-slurm-script">Step 5. Create the Structure_threader SLURM script</h2>
 <p>Save the following script as <code>strthreader.sh</code>.</p>
 <p>Revise the user-specific paths, email address, dataset name, CPU count, memory, and runtime as needed.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
@@ -552,8 +564,8 @@ strthreader.sh</code></pre>
 <span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">-o</span> <span class="st">"</span><span class="va">${OUTDIR}</span><span class="st">"</span> <span class="dt">\</span></span>
 <span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">-st</span> <span class="st">"</span><span class="va">${EBROOTSTRUCTURE}</span><span class="st">/bin/structure"</span> <span class="dt">\</span></span>
 <span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">--log</span> 1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="meaning-of-key-structure_threader-arguments" class="level3" data-number="8.1">
-<h3 data-number="8.1" class="anchored" data-anchor-id="meaning-of-key-structure_threader-arguments"><span class="header-section-number">8.1</span> Meaning of key Structure_threader arguments</h3>
+<section id="meaning-of-key-structure_threader-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="meaning-of-key-structure_threader-arguments">Meaning of key Structure_threader arguments</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -607,8 +619,8 @@ Note
 </div>
 </section>
 </section>
-<section id="step-6.-check-the-working-directory-before-submission" class="level2" data-number="9">
-<h2 data-number="9" class="anchored" data-anchor-id="step-6.-check-the-working-directory-before-submission"><span class="header-section-number">9</span> Step 6. Check the working directory before submission</h2>
+<section id="step-6.-check-the-working-directory-before-submission" class="level2">
+<h2 class="anchored" data-anchor-id="step-6.-check-the-working-directory-before-submission">Step 6. Check the working directory before submission</h2>
 <p>From the working directory, run:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -622,8 +634,8 @@ Note
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> spider structure_threader</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ml</span> spider Structure</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="step-7.-submit-the-job" class="level2" data-number="10">
-<h2 data-number="10" class="anchored" data-anchor-id="step-7.-submit-the-job"><span class="header-section-number">10</span> Step 7. Submit the job</h2>
+<section id="step-7.-submit-the-job" class="level2">
+<h2 class="anchored" data-anchor-id="step-7.-submit-the-job">Step 7. Submit the job</h2>
 <p>Submit the Structure_threader job with:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> strthreader.sh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Check the job status:</p>
@@ -633,8 +645,8 @@ Note
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> <span class="at">-f</span> /home/USERNAME/logs/structure/StructureThreader_JOBID.err</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The <code>JOBID</code> is automatically generated based on SLURM job number.</p>
 </section>
-<section id="step-8.-inspect-output-files" class="level2" data-number="11">
-<h2 data-number="11" class="anchored" data-anchor-id="step-8.-inspect-output-files"><span class="header-section-number">11</span> Step 8. Inspect output files</h2>
+<section id="step-8.-inspect-output-files" class="level2">
+<h2 class="anchored" data-anchor-id="step-8.-inspect-output-files">Step 8. Inspect output files</h2>
 <p>After the run finishes, check the output directory:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /scratch/USERNAME/structure/</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> <span class="va">${DATASET}</span>_results_<span class="va">${MAXK}</span>pop_<span class="va">${REPS}</span>rep</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -649,13 +661,13 @@ Note
 <li>whether the <code>.str</code> file has UNIX line endings.</li>
 </ol>
 </section>
-<section id="step-9.-transfer-results-for-visualization" class="level2" data-number="12">
-<h2 data-number="12" class="anchored" data-anchor-id="step-9.-transfer-results-for-visualization"><span class="header-section-number">12</span> Step 9. Transfer results for visualization</h2>
+<section id="step-9.-transfer-results-for-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="step-9.-transfer-results-for-visualization">Step 9. Transfer results for visualization</h2>
 <p>After the run completes, transfer the output directory to a local machine for visualization in RStudio:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-r</span> USERNAME@:/scratch/USERNAME/structure/snps_results_25pop_10rep .</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="step-10.-visualize-structure-results-in-r" class="level2" data-number="13">
-<h2 data-number="13" class="anchored" data-anchor-id="step-10.-visualize-structure-results-in-r"><span class="header-section-number">13</span> Step 10. Visualize STRUCTURE results in R</h2>
+<section id="step-10.-visualize-structure-results-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="step-10.-visualize-structure-results-in-r">Step 10. Visualize STRUCTURE results in R</h2>
 <p>Install and load the required R packages:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"ggplot2"</span>, <span class="st">"reshape2"</span>, <span class="st">"gridExtra"</span>))</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pophelper"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -693,8 +705,8 @@ Note
 <span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If isolate labels or population labels are available, import metadata and use them to order or annotate individuals before plotting.</p>
 </section>
-<section id="common-problems-and-fixes" class="level2" data-number="14">
-<h2 data-number="14" class="anchored" data-anchor-id="common-problems-and-fixes"><span class="header-section-number">14</span> Common problems and fixes</h2>
+<section id="common-problems-and-fixes" class="level2">
+<h2 class="anchored" data-anchor-id="common-problems-and-fixes">Common problems and fixes</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -752,8 +764,8 @@ Note
 </tbody>
 </table>
 </section>
-<section id="minimal-final-checklist" class="level2" data-number="15">
-<h2 data-number="15" class="anchored" data-anchor-id="minimal-final-checklist"><span class="header-section-number">15</span> Minimal final checklist</h2>
+<section id="minimal-final-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="minimal-final-checklist">Minimal final checklist</h2>
 <p>Before submitting:</p>
 <ul>
 <li>The <code>.vcf</code> file has been converted to <code>.str</code> using the haploid PGDSpider settings.</li>
