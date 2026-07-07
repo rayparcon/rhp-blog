@@ -2,7 +2,7 @@
 title: From Science Fair to International Conferences
 author: "Ray Parcon"
 date: "2025-08-06"
-slug: "2025-08-06-soy-aps"
+slug: "soy-plant-health-2025-poster"
 categories: ["Academic", "Poster"]
 toc: true 
 description: >

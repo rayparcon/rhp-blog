@@ -3,7 +3,7 @@ title: Stoked to be awarded with the Graduate School 2025 Summer Research Grant
 subtitle: "" 
 author: "Ray Parcon"
 date: "2025-04-11"
-slug: "2025-04-11-summer-grant"
+slug: "summer-grant-2025-uga"
 categories: ["Grants", "Academic", "Awards"]
 toc: true 
 description: >

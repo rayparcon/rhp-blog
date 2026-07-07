@@ -2,7 +2,7 @@
 title: Excited to share my research with the public for the first time!
 author: "Ray Parcon"
 date: "2025-03-04"
-slug: "2025-03-04-gapp"
+slug: "gapp-2025-poster"
 categories: ["Academic", "Poster"]
 toc: true 
 description: >

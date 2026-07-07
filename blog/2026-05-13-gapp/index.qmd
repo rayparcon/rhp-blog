@@ -2,7 +2,7 @@
 title: "Honored to have been recognized in Georgia Association of Plant Pathologists 2026 Meeting"
 author: "Ray Parcon"
 date: "2026-05-13"
-slug: "2026-05-13-gapp"
+slug: "gapp-2026-oral"
 categories: ["Academic", "Talk", "Awards"]
 toc: true 
 description: >

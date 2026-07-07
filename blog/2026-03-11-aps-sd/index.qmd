@@ -2,7 +2,7 @@
 title: "Had a great time doing my first research oral presentation"
 author: "Ray Parcon"
 date: "2026-03-11"
-slug: "2026-03-11-aps-sd"
+slug: "aps-southern-2025-oral"
 categories: ["Academic", "Talk"]
 toc: true 
 description: >
