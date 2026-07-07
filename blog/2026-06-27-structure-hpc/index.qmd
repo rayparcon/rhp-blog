@@ -1,12 +1,15 @@
 ---
-title: "Running STRUCTURE with Structure_threader on high-performance computing (HPC) cluster and result visualization using R"
+title: "How to Run STRUCTURE on HPC Using Structure_threader and Visualize Results Using R"
+description: "Step-by-step guide for running STRUCTURE population genomics analyses on an HPC cluster using structure_threader, PGDSpider, and R."
 author: "Raymond Parcon"
 date: "2026-06-27"
+slug: run-structure-hpc-structure-threader
+categories: ["STRUCTURE", "Population genomics", "HPC", "Bioinformatics"]
 format:
   html:
     toc: true
     toc-depth: 3
-    number-sections: true
+    number-sections: false
 execute:
   eval: false
 image: "featured.png"
