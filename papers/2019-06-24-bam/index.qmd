@@ -7,7 +7,7 @@ author:
   - Virgie A. Alcantara
   - Jessica F. Simbahan
 date: "2019-06-24"
-slug: "2019-06-24-bam"
+slug: "bam-2019"
 categories: ["Article"]
 description: ""
 summary: 

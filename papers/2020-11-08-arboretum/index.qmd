@@ -8,7 +8,7 @@ author:
   - Jocelyn T. Zarate
   - Jessica F. Simbahan 
 date: "2020-11-08"
-slug: "2020-11-08-arboretum"
+slug: "arboretum-2020"
 categories: ["Article"]
 description: ""
 summary: 

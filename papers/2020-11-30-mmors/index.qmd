@@ -6,7 +6,7 @@ author:
   - <strong>Ray Parcon</strong>
   - Jessica F. Simbahan 
 date: "2020-11-30"
-slug: "2020-11-30-mmors"
+slug: "mmors-2020"
 categories: ["Article"]
 description: ""
 summary: 
