@@ -1,7 +1,11 @@
 ---
 title: "Life, lately"
+
 description: >
     Thoughts, notes, and small discoveries from a Ph.D. student exploring fungi, genomes, research, and everything in between
+
+comments: false
+
 listing:
   contents:
     - "**/*.qmd"
@@ -14,6 +18,8 @@ listing:
   feed:
     categories: [R]
   image-align: right
+
 page-layout: full
+
 title-block-banner: false
 ---

@@ -1,7 +1,11 @@
 ---
 title: "Papers"
+
 description: >
     Research publications I have been a part of
+
+comments: false
+
 listing:
   contents:
     - "**/*.qmd"
@@ -14,6 +18,8 @@ listing:
   feed:
     categories: [R]
   image-align: right
+
 page-layout: full
+
 title-block-banner: false
 ---

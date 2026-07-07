@@ -1,6 +1,10 @@
 ---
 title: ""
+
 image: ray.jpg
+
+comments: false
+
 about:
   template: trestles
   id: hero-heading
