@@ -1,6 +1,6 @@
 ---
 title: "Moving Files and Navigating SMS Lab Filesystems in Sapelo2"
-description: "Step-by-step guide for navigating Sapelo2 filesystems"
+description: "Quick guide for navigating Sapelo2 filesystems"
 author: "Raymond Parcon"
 date: "2026-07-09"
 slug: "navigate-filesystem-sapelo2"
@@ -12,20 +12,17 @@ format:
     number-sections: false
 execute:
   eval: false
-image: ""
 ---
 
 ## Overview
 
 This guide introduces basic command-line navigation and file movement on Sapelo2 for users working in the SMS Lab filesystem. It covers how to log in using PuTTY, move around the `/home/`, `/work/`, `/scratch/`, and `/project/` directories, and safely copy or back up files using the transfer node.
 
-The examples below use `username` as a placeholder. Replace it with your own UGA MyID or Sapelo2 username.
+The examples below use `username` as a placeholder. Replace it with your own UGA MyID.
 
 ---
 
 ## 1. Essential Linux Commands
-
-For a novice user, the most useful commands to learn first are:
 
 | Command | Purpose                                    |
 | ------- | ------------------------------------------ |
@@ -70,7 +67,7 @@ To move into another directory, use:
 cd /path/to/directory
 ```
 
-For example, to access an SMS Lab work directory:
+For example, to access the SMS Lab work directory:
 
 ```bash
 cd /work/smslab/directory-name
@@ -94,12 +91,6 @@ For example:
 
 ```bash
 mkdir genome_assembly_backup
-```
-
-To create nested directories, use `-p`:
-
-```bash
-mkdir -p /project/smslab/username/genome_assembly_backup
 ```
 
 ### Move or rename files with `mv`
@@ -211,4 +202,4 @@ pwd
 ```
 
 ::: {.callout-warning}
-The `/scratch/` filesystem is intended for temporary files and active computational work. Files that have not been accessed or modified for more than the retention period may be automatically deleted. Do not treat `/scratch/` as permanent storage.
+The `/scratch/` filesystem is intended for temporary files and active computational work. Files that have not been accessed or modified for more than 30 days, as per GACRC guidelines, may be automatically deleted. Do not treat `/scratch/` as permanent storage.
