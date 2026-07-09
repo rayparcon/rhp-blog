@@ -1,0 +1,215 @@
+---
+title: "Moving Files and Navigating SMS Lab Filesystems in Sapelo2"
+author: "Ray Parcon"
+description: "Step-by-step guide for navigating Sapelo2 filesystems"
+author: "Raymond Parcon"
+date: "2026-07-09"
+slug: "navigate-filesystem-sapelo2"
+categories: ["Linux", "Sapelo2", "SMSLab"]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: false
+execute:
+  eval: false
+image: ""
+-----------
+
+## Overview
+
+This guide introduces basic command-line navigation and file movement on Sapelo2 for users working in the SMS Lab filesystem. It covers how to log in using PuTTY, move around the `/home/`, `/work/`, `/scratch/`, and `/project/` directories, and safely copy or back up files using the transfer node.
+
+The examples below use `username` as a placeholder. Replace it with your own UGA MyID or Sapelo2 username.
+
+---
+
+## 1. Essential Linux Commands
+
+For a novice user, the most useful commands to learn first are:
+
+| Command | Purpose                                    |
+| ------- | ------------------------------------------ |
+| `pwd`   | Prints the current directory you are in    |
+| `ls -l` | Lists files and directories in long format |
+| `cd`    | Changes directory                          |
+| `mkdir` | Creates a new directory                    |
+| `mv`    | Moves or renames files and directories     |
+
+### Check your current location with `pwd`
+
+After logging in, use:
+
+```bash
+pwd
+```
+
+Example:
+
+```bash
+username@ss-sub1 ~$ pwd
+/home/username
+```
+
+This shows that you are currently in your home directory.
+
+### List files with `ls -l`
+
+To view the files and directories in your current location:
+
+```bash
+ls -l
+```
+
+This shows file permissions, ownership, size, date modified, and file or directory names.
+
+### Change directories with `cd`
+
+To move into another directory, use:
+
+```bash
+cd /path/to/directory
+```
+
+For example, to access an SMS Lab work directory:
+
+```bash
+cd /work/smslab/directory-name
+```
+
+After changing directories, confirm your location:
+
+```bash
+pwd
+```
+
+### Create a directory with `mkdir`
+
+To create a new directory:
+
+```bash
+mkdir new_directory_name
+```
+
+For example:
+
+```bash
+mkdir genome_assembly_backup
+```
+
+To create nested directories, use `-p`:
+
+```bash
+mkdir -p /project/smslab/username/genome_assembly_backup
+```
+
+### Move or rename files with `mv`
+
+To move a file into another directory:
+
+```bash
+mv file.txt /work/smslab/directory-name/
+```
+
+To rename a file:
+
+```bash
+mv old_name.txt new_name.txt
+```
+
+To move a directory:
+
+```bash
+mv old_directory /work/smslab/directory-name/
+```
+
+---
+
+## 2. Logging in to Sapelo2 with PuTTY
+
+Open PuTTY and enter the appropriate server address in the **Host Name** field.
+
+### Sapelo2 login node
+
+Use this when you are working interactively, submitting jobs, checking files, or preparing scripts.
+
+```bash
+username@sapelo2.gacrc.uga.edu
+```
+
+Most routine work begins here.
+
+### Transfer node
+
+Use this when moving large files between filesystems or when working with storage locations such as `/project/`.
+
+```bash
+username@xfer.gacrc.uga.edu
+```
+
+The transfer node is intended for file movement, not for running computational jobs.
+
+---
+
+## 3. Starting in the Home Directory
+
+After logging in to Sapelo2, you usually start in your home directory.
+
+Example:
+
+```bash
+username@ss-sub1 ~$ pwd
+/home/username
+```
+
+Your home directory is useful for small scripts, configuration files, and lightweight work. Large datasets and computational outputs should usually be stored in `/work/`, `/scratch/`, or `/project/`, depending on the purpose.
+
+---
+
+## 4. Navigating to the SMS Lab Work Directory
+
+To move into the SMS Lab work directory:
+
+```bash
+cd /work/smslab/directory-name
+```
+
+Then confirm your location:
+
+```bash
+pwd
+```
+
+Example:
+
+```bash
+pwd
+/work/smslab/directory-name
+```
+
+You can also list the contents of the directory:
+
+```bash
+ls -l
+```
+
+---
+
+## 5. Navigating to Scratch
+
+The same navigation commands apply to the `/scratch/` directory.
+
+For example:
+
+```bash
+cd /scratch/username
+```
+
+Then confirm your location:
+
+```bash
+pwd
+```
+
+::: {.callout-warning}
+The `/scratch/` filesystem is intended for temporary files and active computational work. Files that have not been accessed or modified for more than the retention period may be automatically deleted. Do not treat `/scratch/` as permanent storage.
