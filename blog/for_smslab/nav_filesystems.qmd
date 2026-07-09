@@ -1,6 +1,5 @@
 ---
 title: "Moving Files and Navigating SMS Lab Filesystems in Sapelo2"
-author: "Ray Parcon"
 description: "Step-by-step guide for navigating Sapelo2 filesystems"
 author: "Raymond Parcon"
 date: "2026-07-09"
@@ -14,7 +13,7 @@ format:
 execute:
   eval: false
 image: ""
------------
+---
 
 ## Overview
 
