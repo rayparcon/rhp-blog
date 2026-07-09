@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/blog/for_smslab/nav_filesystems.html",
       "/blog/2026-06-27-structure-hpc/index.html",
       "/blog/2026-05-13-gapp/index.html",
       "/blog/2026-03-11-aps-sd/index.html",
@@ -15,23 +16,24 @@
     ]
   },
   {
-    "listing": "/blog/blog.html",
-    "items": [
-      "/blog/2026-06-27-structure-hpc/index.html",
-      "/blog/2026-05-13-gapp/index.html",
-      "/blog/2026-03-11-aps-sd/index.html",
-      "/blog/2025-08-06-soy-aps/index.html",
-      "/blog/2025-04-11-summer-grant/index.html",
-      "/blog/2025-03-04-gapp/index.html"
-    ]
-  },
-  {
     "listing": "/papers/papers.html",
     "items": [
       "/papers/2026-03-13-bam/index.html",
       "/papers/2020-11-30-mmors/index.html",
       "/papers/2020-11-08-arboretum/index.html",
       "/papers/2019-06-24-bam/index.html"
+    ]
+  },
+  {
+    "listing": "/blog/blog.html",
+    "items": [
+      "/blog/for_smslab/nav_filesystems.html",
+      "/blog/2026-06-27-structure-hpc/index.html",
+      "/blog/2026-05-13-gapp/index.html",
+      "/blog/2026-03-11-aps-sd/index.html",
+      "/blog/2025-08-06-soy-aps/index.html",
+      "/blog/2025-04-11-summer-grant/index.html",
+      "/blog/2025-03-04-gapp/index.html"
     ]
   }
 ]

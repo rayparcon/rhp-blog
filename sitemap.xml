@@ -2,58 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rayparcon.com/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.244Z</lastmod>
+    <lastmod>2026-07-09T17:36:58.908Z</lastmod>
   </url>
   <url>
-    <loc>https://rayparcon.com/blog/blog.html</loc>
-    <lastmod>2026-07-07T22:15:04.244Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/blog/2025-04-11-summer-grant/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.232Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/blog/2025-08-06-soy-aps/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.235Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/blog/2026-05-13-gapp/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.241Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/papers/2020-11-08-arboretum/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.247Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/papers/2020-11-30-mmors/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.247Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/papers/2019-06-24-bam/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.246Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/papers/2026-03-13-bam/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.266Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/papers/papers.html</loc>
-    <lastmod>2026-07-07T22:15:04.266Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/blog/2025-03-04-gapp/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.227Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rayparcon.com/blog/2026-06-27-structure-hpc/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.244Z</lastmod>
+    <loc>https://rayparcon.com/blog/for_smslab/nav_filesystems.html</loc>
+    <lastmod>2026-07-09T17:36:58.908Z</lastmod>
   </url>
   <url>
     <loc>https://rayparcon.com/blog/2026-03-11-aps-sd/index.html</loc>
-    <lastmod>2026-07-07T22:15:04.238Z</lastmod>
+    <lastmod>2026-07-09T17:36:58.902Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/blog/2026-06-27-structure-hpc/index.html</loc>
+    <lastmod>2026-07-09T17:36:58.908Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/blog/2025-03-04-gapp/index.html</loc>
+    <lastmod>2026-07-09T17:36:58.890Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/papers/papers.html</loc>
+    <lastmod>2026-07-09T17:36:58.932Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/papers/2026-03-13-bam/index.html</loc>
+    <lastmod>2026-07-09T17:36:58.932Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/papers/2019-06-24-bam/index.html</loc>
+    <lastmod>2026-07-09T17:36:58.910Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/papers/2020-11-30-mmors/index.html</loc>
+    <lastmod>2026-07-09T17:36:58.911Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/papers/2020-11-08-arboretum/index.html</loc>
+    <lastmod>2026-07-09T17:36:58.911Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/blog/2026-05-13-gapp/index.html</loc>
+    <lastmod>2026-07-09T17:36:58.905Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/blog/2025-08-06-soy-aps/index.html</loc>
+    <lastmod>2026-07-09T17:36:58.897Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/blog/2025-04-11-summer-grant/index.html</loc>
+    <lastmod>2026-07-09T17:36:58.896Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rayparcon.com/blog/blog.html</loc>
+    <lastmod>2026-07-09T17:36:58.908Z</lastmod>
   </url>
   <url>
     <loc>https://rayparcon.com/about/about.html</loc>
-    <lastmod>2026-07-07T22:15:04.223Z</lastmod>
+    <lastmod>2026-07-09T17:36:58.886Z</lastmod>
   </url>
 </urlset>
