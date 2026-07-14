@@ -1,0 +1,37 @@
+---
+title: "Writing Retreat Notes 2025"
+description: "Personal notes on how to improve writing efficiency"
+author: "Raymond Parcon"
+date: "2026-07-13"
+slug: "writing-effectively"
+categories: ["Blog", "Writing", "Personal"]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: false
+execute:
+  eval: false
+draft: true
+---
+
+## Writing retreat notes
+
+### Why do we have to do writing retreat?
+
+---
+**Accountability** partner helps with motivation 
+If you need personal assistance on writing consultation [UGA Writing Center](https://www.libs.uga.edu/mlc/writing-center)
+
+Protective of the writing time and balancing with rest
+
+Alternating with different tasks for mental break
+
+Write a concept paper, like an Abstract
+
+
+
+
+
+
+---
