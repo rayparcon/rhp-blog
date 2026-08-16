@@ -6,7 +6,7 @@ slug: "plant-health-2026-poster"
 categories: ["Academic", "Poster", "APS"]
 toc: true 
 description: >
-    Presented my research at APS Plant Health 2026, Providence, RI scientific conference.
+    Presented my research at APS Plant Health 2026, Providence, RI.
 summary: 
 image: "ray.jpg"
 ---
