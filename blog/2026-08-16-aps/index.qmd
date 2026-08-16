@@ -19,7 +19,7 @@ It’s that time of year again! I attended the 2026 annual APS Plant Health meet
 This year’s conference was held in Providence, Rhode Island. I enjoyed the city’s blend of old and new architecture. It felt less busy than Atlanta, but not as quiet as Athens like somewhere comfortably in between.
 
 ::: {.post-image}
-![](providence.png){fig-alt="View of Providence from my hotel"}
+![](providence.jpg){fig-alt="View of Providence from my hotel"}
 :::
 
 The conference theme this year was diversity. I enjoyed listening to many of the talks, and I thought the keynote speakers were strong overall. The closing keynote speaker, Tererai Trent, was especially memorable and brought the conference to a powerful and meaningful close.
