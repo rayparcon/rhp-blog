@@ -12,11 +12,11 @@ format:
     number-sections: false
     code-copy: true
 execute:
-  echo: true
+  eval: false
 image: "featured.png"
 ---
 
-# Overview
+## Overview
 
 This guide describes a practical workflow for submitting a **whole-genome assembly** to NCBI, beginning with creation of the BioProject and BioSample and ending with upload of the genome assembly from the **Sapelo2 transfer (`xfer`) node** to NCBI using FTP.
 

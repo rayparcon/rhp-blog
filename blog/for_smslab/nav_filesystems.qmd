@@ -10,6 +10,7 @@ format:
     toc: true
     toc-depth: 3
     number-sections: false
+    code-copy: true
 execute:
   eval: false
 image: "featured.png"
