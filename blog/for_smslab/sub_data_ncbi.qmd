@@ -11,9 +11,6 @@ format:
     toc-depth: 3
     number-sections: true
     code-copy: true
-  pdf:
-    toc: true
-    number-sections: false
 execute:
   echo: true
 ---
