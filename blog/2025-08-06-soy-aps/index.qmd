@@ -3,7 +3,7 @@ title: From Science Fair to International Conferences
 author: "Ray Parcon"
 date: "2025-08-06"
 slug: "soy-plant-health-2025-poster"
-categories: ["Academic", "Poster"]
+categories: ["Academic", "Poster", "APS", "Soy"]
 toc: true 
 description: >
     Presented my research at Soy 2025, Madison, WI and APS Plant Health 2025, Honolulu, HI scientific conferences.

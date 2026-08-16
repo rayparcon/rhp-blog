@@ -3,7 +3,7 @@ title: "Had a great time doing my first research oral presentation"
 author: "Ray Parcon"
 date: "2026-03-11"
 slug: "aps-southern-2025-oral"
-categories: ["Academic", "Talk"]
+categories: ["Academic", "Talk", "APS"]
 toc: true 
 description: >
     Selected for an oral presentation at the American Phytopathological Society Southern Division 2026 Meeting in Athens, Georgia.
