@@ -125,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../css/papers.css">
 <meta property="og:title" content="Guide to Submitting a Whole-Genome Assembly to NCBI – Raymond Parcon">
 <meta property="og:description" content="BioProject, BioSample, Genome Submission, and FTP Upload from Sapelo2">
-<meta property="og:image" content="https://rayparcon.com/about/ray.jpg">
+<meta property="og:image" content="https://rayparcon.com/blog/for_smslab/featured.png">
 <meta property="og:site_name" content="Raymond Parcon">
 </head>
 
@@ -184,39 +184,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview"><span class="header-section-number">1</span> Overview</a></li>
-  <li><a href="#before-starting" id="toc-before-starting" class="nav-link" data-scroll-target="#before-starting"><span class="header-section-number">2</span> Before Starting</a></li>
-  <li><a href="#sign-in-to-ncbi" id="toc-sign-in-to-ncbi" class="nav-link" data-scroll-target="#sign-in-to-ncbi"><span class="header-section-number">3</span> 1. Sign in to NCBI</a></li>
-  <li><a href="#create-the-bioproject" id="toc-create-the-bioproject" class="nav-link" data-scroll-target="#create-the-bioproject"><span class="header-section-number">4</span> 2. Create the BioProject</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#before-starting" id="toc-before-starting" class="nav-link" data-scroll-target="#before-starting">Before Starting</a></li>
+  <li><a href="#sign-in-to-ncbi" id="toc-sign-in-to-ncbi" class="nav-link" data-scroll-target="#sign-in-to-ncbi">1. Sign in to NCBI</a></li>
+  <li><a href="#create-the-bioproject" id="toc-create-the-bioproject" class="nav-link" data-scroll-target="#create-the-bioproject">2. Create the BioProject</a>
   <ul class="collapse">
-  <li><a href="#set-the-bioproject-release-date" id="toc-set-the-bioproject-release-date" class="nav-link" data-scroll-target="#set-the-bioproject-release-date"><span class="header-section-number">4.1</span> Set the BioProject release date</a></li>
+  <li><a href="#set-the-bioproject-release-date" id="toc-set-the-bioproject-release-date" class="nav-link" data-scroll-target="#set-the-bioproject-release-date">Set the BioProject release date</a></li>
   </ul></li>
-  <li><a href="#create-the-biosample" id="toc-create-the-biosample" class="nav-link" data-scroll-target="#create-the-biosample"><span class="header-section-number">5</span> 3. Create the BioSample</a>
+  <li><a href="#create-the-biosample" id="toc-create-the-biosample" class="nav-link" data-scroll-target="#create-the-biosample">3. Create the BioSample</a>
   <ul class="collapse">
-  <li><a href="#set-the-biosample-release-date" id="toc-set-the-biosample-release-date" class="nav-link" data-scroll-target="#set-the-biosample-release-date"><span class="header-section-number">5.1</span> Set the BioSample release date</a></li>
+  <li><a href="#set-the-biosample-release-date" id="toc-set-the-biosample-release-date" class="nav-link" data-scroll-target="#set-the-biosample-release-date">Set the BioSample release date</a></li>
   </ul></li>
-  <li><a href="#wait-for-bioproject-and-biosample-processing" id="toc-wait-for-bioproject-and-biosample-processing" class="nav-link" data-scroll-target="#wait-for-bioproject-and-biosample-processing"><span class="header-section-number">6</span> 4. Wait for BioProject and BioSample Processing</a></li>
-  <li><a href="#start-the-genome-submission" id="toc-start-the-genome-submission" class="nav-link" data-scroll-target="#start-the-genome-submission"><span class="header-section-number">7</span> 5. Start the Genome Submission</a></li>
-  <li><a href="#associate-the-existing-bioproject-and-biosample" id="toc-associate-the-existing-bioproject-and-biosample" class="nav-link" data-scroll-target="#associate-the-existing-bioproject-and-biosample"><span class="header-section-number">8</span> 6. Associate the Existing BioProject and BioSample</a></li>
-  <li><a href="#complete-the-genome-assembly-information" id="toc-complete-the-genome-assembly-information" class="nav-link" data-scroll-target="#complete-the-genome-assembly-information"><span class="header-section-number">9</span> 7. Complete the Genome Assembly Information</a></li>
-  <li><a href="#set-the-genome-release-date" id="toc-set-the-genome-release-date" class="nav-link" data-scroll-target="#set-the-genome-release-date"><span class="header-section-number">10</span> 8. Set the Genome Release Date</a></li>
-  <li><a href="#prepare-the-genome-file-on-sapelo2" id="toc-prepare-the-genome-file-on-sapelo2" class="nav-link" data-scroll-target="#prepare-the-genome-file-on-sapelo2"><span class="header-section-number">11</span> 9. Prepare the Genome File on Sapelo2</a></li>
-  <li><a href="#log-in-to-the-sapelo2-transfer-node" id="toc-log-in-to-the-sapelo2-transfer-node" class="nav-link" data-scroll-target="#log-in-to-the-sapelo2-transfer-node"><span class="header-section-number">12</span> 10. Log in to the Sapelo2 Transfer Node</a></li>
-  <li><a href="#obtain-the-ftp-instructions-from-ncbi" id="toc-obtain-the-ftp-instructions-from-ncbi" class="nav-link" data-scroll-target="#obtain-the-ftp-instructions-from-ncbi"><span class="header-section-number">13</span> 11. Obtain the FTP Instructions from NCBI</a></li>
-  <li><a href="#start-the-ftp-connection-from-the-xfer-node" id="toc-start-the-ftp-connection-from-the-xfer-node" class="nav-link" data-scroll-target="#start-the-ftp-connection-from-the-xfer-node"><span class="header-section-number">14</span> 12. Start the FTP Connection from the xfer Node</a></li>
-  <li><a href="#navigate-to-your-personal-ncbi-upload-directory" id="toc-navigate-to-your-personal-ncbi-upload-directory" class="nav-link" data-scroll-target="#navigate-to-your-personal-ncbi-upload-directory"><span class="header-section-number">15</span> 13. Navigate to Your Personal NCBI Upload Directory</a></li>
-  <li><a href="#create-a-submission-subfolder" id="toc-create-a-submission-subfolder" class="nav-link" data-scroll-target="#create-a-submission-subfolder"><span class="header-section-number">16</span> 14. Create a Submission Subfolder</a></li>
-  <li><a href="#upload-the-genome-assembly" id="toc-upload-the-genome-assembly" class="nav-link" data-scroll-target="#upload-the-genome-assembly"><span class="header-section-number">17</span> 15. Upload the Genome Assembly</a></li>
-  <li><a href="#exit-ftp" id="toc-exit-ftp" class="nav-link" data-scroll-target="#exit-ftp"><span class="header-section-number">18</span> 16. Exit FTP</a></li>
-  <li><a href="#wait-for-ncbi-to-process-the-uploaded-folder" id="toc-wait-for-ncbi-to-process-the-uploaded-folder" class="nav-link" data-scroll-target="#wait-for-ncbi-to-process-the-uploaded-folder"><span class="header-section-number">19</span> 17. Wait for NCBI to Process the Uploaded Folder</a></li>
-  <li><a href="#complete-the-remaining-genome-submission-fields" id="toc-complete-the-remaining-genome-submission-fields" class="nav-link" data-scroll-target="#complete-the-remaining-genome-submission-fields"><span class="header-section-number">20</span> 18. Complete the Remaining Genome Submission Fields</a></li>
-  <li><a href="#review-and-submit" id="toc-review-and-submit" class="nav-link" data-scroll-target="#review-and-submit"><span class="header-section-number">21</span> 19. Review and Submit</a></li>
-  <li><a href="#monitor-the-submission" id="toc-monitor-the-submission" class="nav-link" data-scroll-target="#monitor-the-submission"><span class="header-section-number">22</span> 20. Monitor the Submission</a></li>
-  <li><a href="#ftp-command-summary" id="toc-ftp-command-summary" class="nav-link" data-scroll-target="#ftp-command-summary"><span class="header-section-number">23</span> FTP Command Summary</a>
+  <li><a href="#wait-for-bioproject-and-biosample-processing" id="toc-wait-for-bioproject-and-biosample-processing" class="nav-link" data-scroll-target="#wait-for-bioproject-and-biosample-processing">4. Wait for BioProject and BioSample Processing</a></li>
+  <li><a href="#start-the-genome-submission" id="toc-start-the-genome-submission" class="nav-link" data-scroll-target="#start-the-genome-submission">5. Start the Genome Submission</a></li>
+  <li><a href="#associate-the-existing-bioproject-and-biosample" id="toc-associate-the-existing-bioproject-and-biosample" class="nav-link" data-scroll-target="#associate-the-existing-bioproject-and-biosample">6. Associate the Existing BioProject and BioSample</a></li>
+  <li><a href="#complete-the-genome-assembly-information" id="toc-complete-the-genome-assembly-information" class="nav-link" data-scroll-target="#complete-the-genome-assembly-information">7. Complete the Genome Assembly Information</a></li>
+  <li><a href="#set-the-genome-release-date" id="toc-set-the-genome-release-date" class="nav-link" data-scroll-target="#set-the-genome-release-date">8. Set the Genome Release Date</a></li>
+  <li><a href="#prepare-the-genome-file-on-sapelo2" id="toc-prepare-the-genome-file-on-sapelo2" class="nav-link" data-scroll-target="#prepare-the-genome-file-on-sapelo2">9. Prepare the Genome File on Sapelo2</a></li>
+  <li><a href="#log-in-to-the-sapelo2-transfer-node" id="toc-log-in-to-the-sapelo2-transfer-node" class="nav-link" data-scroll-target="#log-in-to-the-sapelo2-transfer-node">10. Log in to the Sapelo2 Transfer Node</a></li>
+  <li><a href="#obtain-the-ftp-instructions-from-ncbi" id="toc-obtain-the-ftp-instructions-from-ncbi" class="nav-link" data-scroll-target="#obtain-the-ftp-instructions-from-ncbi">11. Obtain the FTP Instructions from NCBI</a></li>
+  <li><a href="#start-the-ftp-connection-from-the-xfer-node" id="toc-start-the-ftp-connection-from-the-xfer-node" class="nav-link" data-scroll-target="#start-the-ftp-connection-from-the-xfer-node">12. Start the FTP Connection from the xfer Node</a></li>
+  <li><a href="#navigate-to-your-personal-ncbi-upload-directory" id="toc-navigate-to-your-personal-ncbi-upload-directory" class="nav-link" data-scroll-target="#navigate-to-your-personal-ncbi-upload-directory">13. Navigate to Your Personal NCBI Upload Directory</a></li>
+  <li><a href="#create-a-submission-subfolder" id="toc-create-a-submission-subfolder" class="nav-link" data-scroll-target="#create-a-submission-subfolder">14. Create a Submission Subfolder</a></li>
+  <li><a href="#upload-the-genome-assembly" id="toc-upload-the-genome-assembly" class="nav-link" data-scroll-target="#upload-the-genome-assembly">15. Upload the Genome Assembly</a></li>
+  <li><a href="#exit-ftp" id="toc-exit-ftp" class="nav-link" data-scroll-target="#exit-ftp">16. Exit FTP</a></li>
+  <li><a href="#wait-for-ncbi-to-process-the-uploaded-folder" id="toc-wait-for-ncbi-to-process-the-uploaded-folder" class="nav-link" data-scroll-target="#wait-for-ncbi-to-process-the-uploaded-folder">17. Wait for NCBI to Process the Uploaded Folder</a></li>
+  <li><a href="#complete-the-remaining-genome-submission-fields" id="toc-complete-the-remaining-genome-submission-fields" class="nav-link" data-scroll-target="#complete-the-remaining-genome-submission-fields">18. Complete the Remaining Genome Submission Fields</a></li>
+  <li><a href="#review-and-submit" id="toc-review-and-submit" class="nav-link" data-scroll-target="#review-and-submit">19. Review and Submit</a></li>
+  <li><a href="#monitor-the-submission" id="toc-monitor-the-submission" class="nav-link" data-scroll-target="#monitor-the-submission">20. Monitor the Submission</a></li>
+  <li><a href="#ftp-command-summary" id="toc-ftp-command-summary" class="nav-link" data-scroll-target="#ftp-command-summary">FTP Command Summary</a>
   <ul class="collapse">
-  <li><a href="#from-your-local-computer" id="toc-from-your-local-computer" class="nav-link" data-scroll-target="#from-your-local-computer"><span class="header-section-number">23.1</span> From your local computer</a></li>
-  <li><a href="#on-the-xfer-node" id="toc-on-the-xfer-node" class="nav-link" data-scroll-target="#on-the-xfer-node"><span class="header-section-number">23.2</span> On the xfer node</a></li>
-  <li><a href="#inside-ftp" id="toc-inside-ftp" class="nav-link" data-scroll-target="#inside-ftp"><span class="header-section-number">23.3</span> Inside FTP</a></li>
+  <li><a href="#from-your-local-computer" id="toc-from-your-local-computer" class="nav-link" data-scroll-target="#from-your-local-computer">From your local computer</a></li>
+  <li><a href="#on-the-xfer-node" id="toc-on-the-xfer-node" class="nav-link" data-scroll-target="#on-the-xfer-node">On the xfer node</a></li>
+  <li><a href="#inside-ftp" id="toc-inside-ftp" class="nav-link" data-scroll-target="#inside-ftp">Inside FTP</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -263,8 +263,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="overview" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Overview</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>This guide describes a practical workflow for submitting a <strong>whole-genome assembly</strong> to NCBI, beginning with creation of the BioProject and BioSample and ending with upload of the genome assembly from the <strong>Sapelo2 transfer (<code>xfer</code>) node</strong> to NCBI using FTP.</p>
 <p>The general order is:</p>
 <ol type="1">
@@ -301,8 +301,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="before-starting" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Before Starting</h1>
+<section id="before-starting" class="level1">
+<h1>Before Starting</h1>
 <p>Prepare the information that will be needed throughout the submission.</p>
 <table class="caption-top table">
 <colgroup>
@@ -393,8 +393,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="sign-in-to-ncbi" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 1. Sign in to NCBI</h1>
+<section id="sign-in-to-ncbi" class="level1">
+<h1>1. Sign in to NCBI</h1>
 <p>Go to the NCBI Submission Portal:</p>
 <p><a href="https://submit.ncbi.nlm.nih.gov/" class="uri">https://submit.ncbi.nlm.nih.gov/</a></p>
 <p>Sign in to the NCBI account that will own the submission.</p>
@@ -413,8 +413,8 @@ Note
 </div>
 </div>
 </section>
-<section id="create-the-bioproject" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 2. Create the BioProject</h1>
+<section id="create-the-bioproject" class="level1">
+<h1>2. Create the BioProject</h1>
 <p>From the NCBI Submission Portal, start a <strong>BioProject</strong> submission.</p>
 <p>Fill in all required fields. The exact questions depend on the project type, but commonly include:</p>
 <ul>
@@ -428,8 +428,8 @@ Note
 <li>release date.</li>
 </ul>
 <p>Use a title and description that describe the <strong>overall research project</strong>, not only the filename or one individual sequence.</p>
-<section id="set-the-bioproject-release-date" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="set-the-bioproject-release-date"><span class="header-section-number">4.1</span> Set the BioProject release date</h2>
+<section id="set-the-bioproject-release-date" class="level2">
+<h2 class="anchored" data-anchor-id="set-the-bioproject-release-date">Set the BioProject release date</h2>
 <p>If the project should remain private until publication, choose the option to <strong>release on a specified date</strong> rather than immediate release.</p>
 <p>Choose a date that is safely later than the expected manuscript submission or publication date.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -449,8 +449,8 @@ Warning
 <pre class="text"><code>BioProject accession: PRJNA________________</code></pre>
 </section>
 </section>
-<section id="create-the-biosample" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> 3. Create the BioSample</h1>
+<section id="create-the-biosample" class="level1">
+<h1>3. Create the BioSample</h1>
 <p>A genome submission also requires a <strong>BioSample</strong> describing the biological material from which the genome was generated.</p>
 <p>Depending on the submission workflow, NCBI may prompt you to create the BioSample after or during creation of the BioProject. It can also be created separately through the BioSample submission portal.</p>
 <p>Fill in all required fields for the selected BioSample package.</p>
@@ -480,24 +480,24 @@ Warning
 <p>Conflicting metadata can cause the genome submission to stop during validation while NCBI asks for clarification.</p>
 </div>
 </div>
-<section id="set-the-biosample-release-date" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="set-the-biosample-release-date"><span class="header-section-number">5.1</span> Set the BioSample release date</h2>
+<section id="set-the-biosample-release-date" class="level2">
+<h2 class="anchored" data-anchor-id="set-the-biosample-release-date">Set the BioSample release date</h2>
 <p>If the sample should remain private, choose <strong>release on a specified date</strong>.</p>
 <p>NCBI states that a BioSample scheduled for future release will be released on the selected date <strong>or when data referencing that BioSample are released, whichever occurs first</strong>.</p>
 <p>Submit the BioSample and record the accession.</p>
 <pre class="text"><code>BioSample accession: SAMN________________</code></pre>
 </section>
 </section>
-<section id="wait-for-bioproject-and-biosample-processing" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> 4. Wait for BioProject and BioSample Processing</h1>
+<section id="wait-for-bioproject-and-biosample-processing" class="level1">
+<h1>4. Wait for BioProject and BioSample Processing</h1>
 <p>Before proceeding, confirm that the BioProject and BioSample submissions have been processed successfully and accession numbers have been assigned.</p>
 <p>Record both accessions somewhere safe:</p>
 <pre class="text"><code>BioProject: PRJNA________________
 BioSample:  SAMN________________</code></pre>
 <p>These identifiers will be used to connect the genome assembly to the correct project and biological sample.</p>
 </section>
-<section id="start-the-genome-submission" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> 5. Start the Genome Submission</h1>
+<section id="start-the-genome-submission" class="level1">
+<h1>5. Start the Genome Submission</h1>
 <p>Return to the NCBI Submission Portal:</p>
 <p><a href="https://submit.ncbi.nlm.nih.gov/" class="uri">https://submit.ncbi.nlm.nih.gov/</a></p>
 <p>Choose:</p>
@@ -505,8 +505,8 @@ BioSample:  SAMN________________</code></pre>
 <p>For one assembly, choose a <strong>Single genome</strong> submission.</p>
 <p>NCBI’s Genome Submission Portal accepts both prokaryotic and eukaryotic genome assemblies.</p>
 </section>
-<section id="associate-the-existing-bioproject-and-biosample" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 6. Associate the Existing BioProject and BioSample</h1>
+<section id="associate-the-existing-bioproject-and-biosample" class="level1">
+<h1>6. Associate the Existing BioProject and BioSample</h1>
 <p>When the genome submission asks whether a BioProject and BioSample already exist, indicate that they have already been registered.</p>
 <p>Enter the previously assigned accessions:</p>
 <pre class="text"><code>BioProject: PRJNA________________
@@ -525,8 +525,8 @@ Warning
 </div>
 </div>
 </section>
-<section id="complete-the-genome-assembly-information" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> 7. Complete the Genome Assembly Information</h1>
+<section id="complete-the-genome-assembly-information" class="level1">
+<h1>7. Complete the Genome Assembly Information</h1>
 <p>Fill out all fields required by the Genome Submission Portal.</p>
 <p>Common assembly metadata include:</p>
 <ul>
@@ -547,8 +547,8 @@ Warning
 <p>For an <strong>unannotated genome</strong>, NCBI accepts the genome assembly as FASTA.</p>
 <p>If submitting annotation together with the genome, follow NCBI’s annotated-genome submission requirements rather than treating the annotation files as ordinary FASTA uploads.</p>
 </section>
-<section id="set-the-genome-release-date" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> 8. Set the Genome Release Date</h1>
+<section id="set-the-genome-release-date" class="level1">
+<h1>8. Set the Genome Release Date</h1>
 <p>Choose the appropriate release option in the genome submission.</p>
 <p>If the genome should remain private until publication, select a <strong>specific future release date</strong>.</p>
 <p>Whenever practical, use the same planned release date used for the associated BioProject and BioSample.</p>
@@ -567,8 +567,8 @@ Important
 </div>
 </div>
 </section>
-<section id="prepare-the-genome-file-on-sapelo2" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> 9. Prepare the Genome File on Sapelo2</h1>
+<section id="prepare-the-genome-file-on-sapelo2" class="level1">
+<h1>9. Prepare the Genome File on Sapelo2</h1>
 <p>Use the <strong>final genome assembly FASTA</strong> that is intended for NCBI.</p>
 <p>Before uploading, confirm the file name and size.</p>
 <p>For example:</p>
@@ -577,8 +577,8 @@ Important
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">'^&gt;'</span> genome_assembly.fasta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If the file is compressed, confirm that the format is accepted by the specific NCBI upload step being used. Otherwise, use the final FASTA file requested by the submission form.</p>
 </section>
-<section id="log-in-to-the-sapelo2-transfer-node" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> 10. Log in to the Sapelo2 Transfer Node</h1>
+<section id="log-in-to-the-sapelo2-transfer-node" class="level1">
+<h1>10. Log in to the Sapelo2 Transfer Node</h1>
 <p>Large external data transfers should be performed from the Sapelo2 <strong>transfer node</strong> rather than from a regular compute node.</p>
 <p>From your local terminal or PuTTY session:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> username@xfer.gacrc.uga.edu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -589,8 +589,8 @@ Important
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="obtain-the-ftp-instructions-from-ncbi" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> 11. Obtain the FTP Instructions from NCBI</h1>
+<section id="obtain-the-ftp-instructions-from-ncbi" class="level1">
+<h1>11. Obtain the FTP Instructions from NCBI</h1>
 <p>In the Genome Submission Portal, open the option for uploading or <strong>preloading files using FTP</strong>.</p>
 <p>NCBI will provide the current upload information, including:</p>
 <ul>
@@ -618,8 +618,8 @@ Warning
 </div>
 </div>
 </section>
-<section id="start-the-ftp-connection-from-the-xfer-node" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> 12. Start the FTP Connection from the xfer Node</h1>
+<section id="start-the-ftp-connection-from-the-xfer-node" class="level1">
+<h1>12. Start the FTP Connection from the xfer Node</h1>
 <p>From the directory containing the genome FASTA, start FTP.</p>
 <p>One convenient form is:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ftp</span> <span class="at">-i</span> ftp-private.ncbi.nlm.nih.gov</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -633,15 +633,15 @@ Warning
 <p>When prompted for the password, paste the password provided by NCBI.</p>
 <p>The password may not appear on the screen while typing or pasting. This is normal.</p>
 </section>
-<section id="navigate-to-your-personal-ncbi-upload-directory" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> 13. Navigate to Your Personal NCBI Upload Directory</h1>
+<section id="navigate-to-your-personal-ncbi-upload-directory" class="level1">
+<h1>13. Navigate to Your Personal NCBI Upload Directory</h1>
 <p>After connecting, move to the personal upload directory provided by NCBI.</p>
 <p>The exact directory is account-specific. For example:</p>
 <pre class="text"><code>cd uploads/your_personal_directory</code></pre>
 <p>Use the exact path displayed by NCBI.</p>
 </section>
-<section id="create-a-submission-subfolder" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> 14. Create a Submission Subfolder</h1>
+<section id="create-a-submission-subfolder" class="level1">
+<h1>14. Create a Submission Subfolder</h1>
 <p><strong>This step is required.</strong></p>
 <p>Create a new subfolder for the genome submission.</p>
 <p>For example:</p>
@@ -667,8 +667,8 @@ Warning
 <p>or:</p>
 <pre class="text"><code>isolate_genome</code></pre>
 </section>
-<section id="upload-the-genome-assembly" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> 15. Upload the Genome Assembly</h1>
+<section id="upload-the-genome-assembly" class="level1">
+<h1>15. Upload the Genome Assembly</h1>
 <p>Upload the FASTA file using <code>put</code>.</p>
 <p>For example:</p>
 <pre class="text"><code>put genome_assembly.fasta</code></pre>
@@ -688,16 +688,16 @@ Tip
 </div>
 </div>
 </section>
-<section id="exit-ftp" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> 16. Exit FTP</h1>
+<section id="exit-ftp" class="level1">
+<h1>16. Exit FTP</h1>
 <p>After the transfer completes, close the FTP connection:</p>
 <pre class="text"><code>bye</code></pre>
 <p>or:</p>
 <pre class="text"><code>quit</code></pre>
 <p>You should return to the Sapelo2 shell prompt.</p>
 </section>
-<section id="wait-for-ncbi-to-process-the-uploaded-folder" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> 17. Wait for NCBI to Process the Uploaded Folder</h1>
+<section id="wait-for-ncbi-to-process-the-uploaded-folder" class="level1">
+<h1>17. Wait for NCBI to Process the Uploaded Folder</h1>
 <p>Return to the NCBI Genome Submission Portal.</p>
 <p>The uploaded folder will not necessarily appear immediately.</p>
 <p>NCBI currently states that it takes <strong>approximately 10 minutes after upload</strong> for preloaded files to become available in the submission.</p>
@@ -722,8 +722,8 @@ Warning
 </div>
 </div>
 </section>
-<section id="complete-the-remaining-genome-submission-fields" class="level1" data-number="20">
-<h1 data-number="20"><span class="header-section-number">20</span> 18. Complete the Remaining Genome Submission Fields</h1>
+<section id="complete-the-remaining-genome-submission-fields" class="level1">
+<h1>18. Complete the Remaining Genome Submission Fields</h1>
 <p>Continue through the submission portal and answer all required questions.</p>
 <p>Review carefully:</p>
 <ul>
@@ -744,8 +744,8 @@ Warning
 </ul>
 <p>Correct any validation errors before continuing.</p>
 </section>
-<section id="review-and-submit" class="level1" data-number="21">
-<h1 data-number="21"><span class="header-section-number">21</span> 19. Review and Submit</h1>
+<section id="review-and-submit" class="level1">
+<h1>19. Review and Submit</h1>
 <p>At the final review page:</p>
 <ol type="1">
 <li>confirm the BioProject and BioSample;</li>
@@ -759,8 +759,8 @@ Warning
 <pre class="text"><code>SUB########</code></pre>
 <p>Record this identifier. It is useful when communicating with NCBI support before the genome assembly accession has been assigned.</p>
 </section>
-<section id="monitor-the-submission" class="level1" data-number="22">
-<h1 data-number="22"><span class="header-section-number">22</span> 20. Monitor the Submission</h1>
+<section id="monitor-the-submission" class="level1">
+<h1>20. Monitor the Submission</h1>
 <p>After submission, return to <strong>My submissions</strong> in the NCBI Submission Portal and monitor the status.</p>
 <p>Genome submissions undergo automated validation and NCBI staff review.</p>
 <p>Possible statuses include:</p>
@@ -795,22 +795,22 @@ Important
 </div>
 </div>
 </section>
-<section id="ftp-command-summary" class="level1" data-number="23">
-<h1 data-number="23"><span class="header-section-number">23</span> FTP Command Summary</h1>
+<section id="ftp-command-summary" class="level1">
+<h1>FTP Command Summary</h1>
 <p>The following is the minimal command sequence for uploading one genome assembly from the Sapelo2 transfer node.</p>
-<section id="from-your-local-computer" class="level2" data-number="23.1">
-<h2 data-number="23.1" class="anchored" data-anchor-id="from-your-local-computer"><span class="header-section-number">23.1</span> From your local computer</h2>
+<section id="from-your-local-computer" class="level2">
+<h2 class="anchored" data-anchor-id="from-your-local-computer">From your local computer</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> username@xfer.gacrc.uga.edu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="on-the-xfer-node" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="on-the-xfer-node"><span class="header-section-number">23.2</span> On the xfer node</h2>
+<section id="on-the-xfer-node" class="level2">
+<h2 class="anchored" data-anchor-id="on-the-xfer-node">On the xfer node</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/genome/assembly</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-lh</span> genome_assembly.fasta</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ftp</span> <span class="at">-i</span> ftp-private.ncbi.nlm.nih.gov</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="inside-ftp" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="inside-ftp"><span class="header-section-number">23.3</span> Inside FTP</h2>
+<section id="inside-ftp" class="level2">
+<h2 class="anchored" data-anchor-id="inside-ftp">Inside FTP</h2>
 <pre class="text"><code>Name: subftp
 Password: [password provided by NCBI]
 

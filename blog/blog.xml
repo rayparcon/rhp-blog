@@ -16,7 +16,640 @@
 <link>https://rayparcon.com/blog/blog.html</link>
 </image>
 <generator>quarto-1.10.18</generator>
-<lastBuildDate>Sun, 16 Aug 2026 16:30:47 GMT</lastBuildDate>
+<lastBuildDate>Sun, 16 Aug 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Guide to Submitting a Whole-Genome Assembly to NCBI</title>
+  <dc:creator>Raymond Parcon</dc:creator>
+  <link>https://rayparcon.com/blog/for_smslab/sub_data_ncbi.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This guide describes a practical workflow for submitting a <strong>whole-genome assembly</strong> to NCBI, beginning with creation of the BioProject and BioSample and ending with upload of the genome assembly from the <strong>Sapelo2 transfer (<code>xfer</code>) node</strong> to NCBI using FTP.</p>
+<p>The general order is:</p>
+<ol type="1">
+<li>Sign in to NCBI.</li>
+<li>Create a BioProject.</li>
+<li>Create the associated BioSample.</li>
+<li>Wait for the BioProject and BioSample accessions to be assigned.</li>
+<li>Start a Genome submission.</li>
+<li>Associate the existing BioProject and BioSample with the genome submission.</li>
+<li>Set the genome release date.</li>
+<li>Upload the genome assembly to NCBI from Sapelo2 using FTP.</li>
+<li>Select the uploaded folder in the NCBI Genome Submission Portal.</li>
+<li>Complete, review, and submit the genome submission.</li>
+<li>Monitor the submission for validation messages or requests from NCBI.</li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Avoid duplicate records
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If a BioProject or BioSample has already been created for the genome, <strong>do not create another one</strong>. Use the existing accession numbers in the genome submission.</p>
+<p>Typical accession formats are:</p>
+<ul>
+<li>BioProject: <code>PRJNA######</code></li>
+<li>BioSample: <code>SAMN########</code></li>
+<li>Genome submission temporary ID: <code>SUB########</code></li>
+<li>Genome assembly after processing: <code>GCA_#########.1</code></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="before-starting" class="level1">
+<h1>Before Starting</h1>
+<p>Prepare the information that will be needed throughout the submission.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Information</th>
+<th>Example / Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NCBI account</td>
+<td>Sign in using a linked third-party account such as ORCID, if configured</td>
+</tr>
+<tr class="even">
+<td>Organism</td>
+<td>Scientific name recognized by NCBI Taxonomy</td>
+</tr>
+<tr class="odd">
+<td>Isolate or strain name</td>
+<td>Use the same identifier consistently</td>
+</tr>
+<tr class="even">
+<td>BioProject title</td>
+<td>Short description of the overall research project</td>
+</tr>
+<tr class="odd">
+<td>BioProject description</td>
+<td>Purpose and scope of the sequencing project</td>
+</tr>
+<tr class="even">
+<td>BioSample name</td>
+<td>Unique sample identifier</td>
+</tr>
+<tr class="odd">
+<td>Collection information</td>
+<td>Date, location, host, tissue, etc., as applicable</td>
+</tr>
+<tr class="even">
+<td>Genome assembly FASTA</td>
+<td>Final cleaned assembly file</td>
+</tr>
+<tr class="odd">
+<td>Sequencing technology</td>
+<td>e.g., PacBio Sequel II, Illumina</td>
+</tr>
+<tr class="even">
+<td>Assembly software</td>
+<td>e.g., hifiasm</td>
+</tr>
+<tr class="odd">
+<td>Assembly software version</td>
+<td>Version used for the submitted assembly</td>
+</tr>
+<tr class="even">
+<td>Genome coverage</td>
+<td>Estimated sequencing depth, e.g., <code>100x</code></td>
+</tr>
+<tr class="odd">
+<td>Assembly date</td>
+<td><code>YYYY</code>, <code>YYYY-MM</code>, or <code>YYYY-MM-DD</code></td>
+</tr>
+<tr class="even">
+<td>Assembly name</td>
+<td>Optional short assembly identifier</td>
+</tr>
+<tr class="odd">
+<td>Planned release date</td>
+<td>Coordinate among BioProject, BioSample, and genome submission</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Genome quality control
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before submitting, use the final version of the assembly and complete the appropriate quality-control steps. NCBI currently recommends screening genome assemblies with the <strong>Foreign Contamination Screen (FCS)</strong> before submission.</p>
+<p>Do not upload intermediate assemblies, QC reports, log files, or unrelated files into the NCBI genome-upload folder.</p>
+</div>
+</div>
+</section>
+<section id="sign-in-to-ncbi" class="level1">
+<h1>1. Sign in to NCBI</h1>
+<p>Go to the NCBI Submission Portal:</p>
+<p><a href="https://submit.ncbi.nlm.nih.gov/" class="uri">https://submit.ncbi.nlm.nih.gov/</a></p>
+<p>Sign in to the NCBI account that will own the submission.</p>
+<p>If ORCID has been linked to the NCBI account, ORCID can be used as a third-party sign-in method.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The same NCBI account should preferably be used for the BioProject, BioSample, and genome submission so that the records and submissions are easier to manage.</p>
+</div>
+</div>
+</section>
+<section id="create-the-bioproject" class="level1">
+<h1>2. Create the BioProject</h1>
+<p>From the NCBI Submission Portal, start a <strong>BioProject</strong> submission.</p>
+<p>Fill in all required fields. The exact questions depend on the project type, but commonly include:</p>
+<ul>
+<li>project title;</li>
+<li>project description;</li>
+<li>organism or taxonomic scope;</li>
+<li>project data type;</li>
+<li>sample scope;</li>
+<li>relevance or project category;</li>
+<li>submitting organization and contact information;</li>
+<li>release date.</li>
+</ul>
+<p>Use a title and description that describe the <strong>overall research project</strong>, not only the filename or one individual sequence.</p>
+<section id="set-the-bioproject-release-date" class="level2">
+<h2 class="anchored" data-anchor-id="set-the-bioproject-release-date">Set the BioProject release date</h2>
+<p>If the project should remain private until publication, choose the option to <strong>release on a specified date</strong> rather than immediate release.</p>
+<p>Choose a date that is safely later than the expected manuscript submission or publication date.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A BioProject can become public earlier than its scheduled date if public sequence data linked to it are released. Release dates therefore need to be coordinated across the BioProject, BioSample, SRA data if applicable, and the genome assembly.</p>
+</div>
+</div>
+<p>Submit the BioProject and record the accession number when it is assigned.</p>
+<pre class="text"><code>BioProject accession: PRJNA________________</code></pre>
+</section>
+</section>
+<section id="create-the-biosample" class="level1">
+<h1>3. Create the BioSample</h1>
+<p>A genome submission also requires a <strong>BioSample</strong> describing the biological material from which the genome was generated.</p>
+<p>Depending on the submission workflow, NCBI may prompt you to create the BioSample after or during creation of the BioProject. It can also be created separately through the BioSample submission portal.</p>
+<p>Fill in all required fields for the selected BioSample package.</p>
+<p>For a fungal isolate, relevant information may include:</p>
+<ul>
+<li>organism;</li>
+<li>isolate or strain;</li>
+<li>host;</li>
+<li>tissue or isolation source;</li>
+<li>collection date;</li>
+<li>geographic location;</li>
+<li>latitude and longitude, when available;</li>
+<li>sample name;</li>
+<li>additional environmental or experimental information required by the selected BioSample package.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Keep metadata consistent
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The organism name, isolate/strain identifier, host, collection information, and other overlapping metadata should agree across the BioSample and genome submission.</p>
+<p>Conflicting metadata can cause the genome submission to stop during validation while NCBI asks for clarification.</p>
+</div>
+</div>
+<section id="set-the-biosample-release-date" class="level2">
+<h2 class="anchored" data-anchor-id="set-the-biosample-release-date">Set the BioSample release date</h2>
+<p>If the sample should remain private, choose <strong>release on a specified date</strong>.</p>
+<p>NCBI states that a BioSample scheduled for future release will be released on the selected date <strong>or when data referencing that BioSample are released, whichever occurs first</strong>.</p>
+<p>Submit the BioSample and record the accession.</p>
+<pre class="text"><code>BioSample accession: SAMN________________</code></pre>
+</section>
+</section>
+<section id="wait-for-bioproject-and-biosample-processing" class="level1">
+<h1>4. Wait for BioProject and BioSample Processing</h1>
+<p>Before proceeding, confirm that the BioProject and BioSample submissions have been processed successfully and accession numbers have been assigned.</p>
+<p>Record both accessions somewhere safe:</p>
+<pre class="text"><code>BioProject: PRJNA________________
+BioSample:  SAMN________________</code></pre>
+<p>These identifiers will be used to connect the genome assembly to the correct project and biological sample.</p>
+</section>
+<section id="start-the-genome-submission" class="level1">
+<h1>5. Start the Genome Submission</h1>
+<p>Return to the NCBI Submission Portal:</p>
+<p><a href="https://submit.ncbi.nlm.nih.gov/" class="uri">https://submit.ncbi.nlm.nih.gov/</a></p>
+<p>Choose:</p>
+<p><strong>GenBank-Genome / Genome (Prokaryotic and Eukaryotic)</strong></p>
+<p>For one assembly, choose a <strong>Single genome</strong> submission.</p>
+<p>NCBI’s Genome Submission Portal accepts both prokaryotic and eukaryotic genome assemblies.</p>
+</section>
+<section id="associate-the-existing-bioproject-and-biosample" class="level1">
+<h1>6. Associate the Existing BioProject and BioSample</h1>
+<p>When the genome submission asks whether a BioProject and BioSample already exist, indicate that they have already been registered.</p>
+<p>Enter the previously assigned accessions:</p>
+<pre class="text"><code>BioProject: PRJNA________________
+BioSample:  SAMN________________</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not create a new BioProject or BioSample if the appropriate records already exist. Duplicate records can create problems later when connecting the genome, sequencing reads, and publication.</p>
+</div>
+</div>
+</section>
+<section id="complete-the-genome-assembly-information" class="level1">
+<h1>7. Complete the Genome Assembly Information</h1>
+<p>Fill out all fields required by the Genome Submission Portal.</p>
+<p>Common assembly metadata include:</p>
+<ul>
+<li>assembly method;</li>
+<li>assembly software version;</li>
+<li>genome coverage;</li>
+<li>sequencing technology;</li>
+<li>assembly date;</li>
+<li>assembly name, if used;</li>
+<li>whether the submitted sequence represents the full genome;</li>
+<li>whether the assembly is de novo or reference guided;</li>
+<li>gap information;</li>
+<li>chromosome, plasmid, or organelle assignments when applicable;</li>
+<li>authors;</li>
+<li>sequence title;</li>
+<li>release date.</li>
+</ul>
+<p>For an <strong>unannotated genome</strong>, NCBI accepts the genome assembly as FASTA.</p>
+<p>If submitting annotation together with the genome, follow NCBI’s annotated-genome submission requirements rather than treating the annotation files as ordinary FASTA uploads.</p>
+</section>
+<section id="set-the-genome-release-date" class="level1">
+<h1>8. Set the Genome Release Date</h1>
+<p>Choose the appropriate release option in the genome submission.</p>
+<p>If the genome should remain private until publication, select a <strong>specific future release date</strong>.</p>
+<p>Whenever practical, use the same planned release date used for the associated BioProject and BioSample.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>NCBI states that a genome held for future release will be released on the selected date or upon publication/public availability, whichever occurs first.</p>
+<p>If the manuscript is delayed and the genome must remain private longer, update the release date before the existing release date is reached.</p>
+</div>
+</div>
+</section>
+<section id="prepare-the-genome-file-on-sapelo2" class="level1">
+<h1>9. Prepare the Genome File on Sapelo2</h1>
+<p>Use the <strong>final genome assembly FASTA</strong> that is intended for NCBI.</p>
+<p>Before uploading, confirm the file name and size.</p>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ls</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-lh</span> genome_assembly.fasta</span></code></pre></div></div>
+<p>Optionally inspect the FASTA headers:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">grep</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'^&gt;'</span> genome_assembly.fasta</span></code></pre></div></div>
+<p>If the file is compressed, confirm that the format is accepted by the specific NCBI upload step being used. Otherwise, use the final FASTA file requested by the submission form.</p>
+</section>
+<section id="log-in-to-the-sapelo2-transfer-node" class="level1">
+<h1>10. Log in to the Sapelo2 Transfer Node</h1>
+<p>Large external data transfers should be performed from the Sapelo2 <strong>transfer node</strong> rather than from a regular compute node.</p>
+<p>From your local terminal or PuTTY session:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ssh</span> username@xfer.gacrc.uga.edu</span></code></pre></div></div>
+<p>Replace <code>username</code> with your Sapelo2 username.</p>
+<p>After logging in, navigate to the directory containing the final genome assembly.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">cd</span> /path/to/genome/assembly</span></code></pre></div></div>
+<p>Confirm that the file is present:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">pwd</span></span>
+<span id="cb9-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ls</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-lh</span></span></code></pre></div></div>
+</section>
+<section id="obtain-the-ftp-instructions-from-ncbi" class="level1">
+<h1>11. Obtain the FTP Instructions from NCBI</h1>
+<p>In the Genome Submission Portal, open the option for uploading or <strong>preloading files using FTP</strong>.</p>
+<p>NCBI will provide the current upload information, including:</p>
+<ul>
+<li>FTP server address;</li>
+<li>username;</li>
+<li>password;</li>
+<li>your personal upload directory.</li>
+</ul>
+<p>Current NCBI documentation lists the FTP server as:</p>
+<pre class="text"><code>ftp-private.ncbi.nlm.nih.gov</code></pre>
+<p>and the upload username as:</p>
+<pre class="text"><code>subftp</code></pre>
+<p>The password and personal directory are generated/provided by NCBI and should be copied from the submission portal.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Always use the FTP credentials and personal directory shown in <strong>your current NCBI submission page</strong>. Do not reuse another person’s upload directory or an old password.</p>
+</div>
+</div>
+</section>
+<section id="start-the-ftp-connection-from-the-xfer-node" class="level1">
+<h1>12. Start the FTP Connection from the xfer Node</h1>
+<p>From the directory containing the genome FASTA, start FTP.</p>
+<p>One convenient form is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ftp</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-i</span> ftp-private.ncbi.nlm.nih.gov</span></code></pre></div></div>
+<p>Alternatively:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ftp</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-i</span></span></code></pre></div></div>
+<p>and then at the FTP prompt:</p>
+<pre class="text"><code>open ftp-private.ncbi.nlm.nih.gov</code></pre>
+<p>The <code>-i</code> option disables interactive confirmation for multiple-file transfers. It does not affect a normal single-file <code>put</code>.</p>
+<p>When prompted for the username, enter:</p>
+<pre class="text"><code>subftp</code></pre>
+<p>When prompted for the password, paste the password provided by NCBI.</p>
+<p>The password may not appear on the screen while typing or pasting. This is normal.</p>
+</section>
+<section id="navigate-to-your-personal-ncbi-upload-directory" class="level1">
+<h1>13. Navigate to Your Personal NCBI Upload Directory</h1>
+<p>After connecting, move to the personal upload directory provided by NCBI.</p>
+<p>The exact directory is account-specific. For example:</p>
+<pre class="text"><code>cd uploads/your_personal_directory</code></pre>
+<p>Use the exact path displayed by NCBI.</p>
+</section>
+<section id="create-a-submission-subfolder" class="level1">
+<h1>14. Create a Submission Subfolder</h1>
+<p><strong>This step is required.</strong></p>
+<p>Create a new subfolder for the genome submission.</p>
+<p>For example:</p>
+<pre class="text"><code>mkdir genome_submission</code></pre>
+<p>Then enter the folder:</p>
+<pre class="text"><code>cd genome_submission</code></pre>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do not upload the genome into the root upload directory
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>NCBI specifically states that files uploaded directly into the root personal upload directory <strong>will not be visible for selection during the genome submission</strong>.</p>
+<p>Always create a subfolder and upload the genome file inside it.</p>
+</div>
+</div>
+<p>Choose a simple folder name without spaces. For example:</p>
+<pre class="text"><code>genome_submission</code></pre>
+<p>or:</p>
+<pre class="text"><code>isolate_genome</code></pre>
+</section>
+<section id="upload-the-genome-assembly" class="level1">
+<h1>15. Upload the Genome Assembly</h1>
+<p>Upload the FASTA file using <code>put</code>.</p>
+<p>For example:</p>
+<pre class="text"><code>put genome_assembly.fasta</code></pre>
+<p>Wait for FTP to report that the transfer completed successfully.</p>
+<p>You can confirm the transfer status from the FTP messages displayed after <code>put</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If the local file is not found, remember that <code>put</code> reads from the local directory where <code>ftp</code> was started. Exit FTP, navigate to the correct Sapelo2 directory, and reconnect.</p>
+</div>
+</div>
+</section>
+<section id="exit-ftp" class="level1">
+<h1>16. Exit FTP</h1>
+<p>After the transfer completes, close the FTP connection:</p>
+<pre class="text"><code>bye</code></pre>
+<p>or:</p>
+<pre class="text"><code>quit</code></pre>
+<p>You should return to the Sapelo2 shell prompt.</p>
+</section>
+<section id="wait-for-ncbi-to-process-the-uploaded-folder" class="level1">
+<h1>17. Wait for NCBI to Process the Uploaded Folder</h1>
+<p>Return to the NCBI Genome Submission Portal.</p>
+<p>The uploaded folder will not necessarily appear immediately.</p>
+<p>NCBI currently states that it takes <strong>approximately 10 minutes after upload</strong> for preloaded files to become available in the submission.</p>
+<p>You may begin checking after about 10 minutes, but allow approximately 15 minutes or longer before troubleshooting.</p>
+<p>Once the folder appears under the <strong>Select folder</strong> or equivalent preload-file option:</p>
+<ol type="1">
+<li>select the folder you created;</li>
+<li>confirm that the correct genome FASTA is listed;</li>
+<li>continue the genome submission.</li>
+</ol>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>NCBI treats the upload subfolder as the unit associated with the submission. Keep only the sequence file(s) intended for that submission in the folder. Do not place unrelated files in it.</p>
+</div>
+</div>
+</section>
+<section id="complete-the-remaining-genome-submission-fields" class="level1">
+<h1>18. Complete the Remaining Genome Submission Fields</h1>
+<p>Continue through the submission portal and answer all required questions.</p>
+<p>Review carefully:</p>
+<ul>
+<li>BioProject accession;</li>
+<li>BioSample accession;</li>
+<li>organism;</li>
+<li>isolate/strain;</li>
+<li>sequencing technology;</li>
+<li>assembly method and version;</li>
+<li>coverage;</li>
+<li>assembly status/type;</li>
+<li>chromosome assignments, if applicable;</li>
+<li>gaps;</li>
+<li>authors;</li>
+<li>genome title;</li>
+<li>release date;</li>
+<li>uploaded FASTA filename.</li>
+</ul>
+<p>Correct any validation errors before continuing.</p>
+</section>
+<section id="review-and-submit" class="level1">
+<h1>19. Review and Submit</h1>
+<p>At the final review page:</p>
+<ol type="1">
+<li>confirm the BioProject and BioSample;</li>
+<li>confirm that the intended genome file is attached;</li>
+<li>confirm the release date;</li>
+<li>review all assembly metadata;</li>
+<li>verify author and contact information;</li>
+<li>click <strong>Submit</strong>.</li>
+</ol>
+<p>NCBI will assign a temporary submission identifier similar to:</p>
+<pre class="text"><code>SUB########</code></pre>
+<p>Record this identifier. It is useful when communicating with NCBI support before the genome assembly accession has been assigned.</p>
+</section>
+<section id="monitor-the-submission" class="level1">
+<h1>20. Monitor the Submission</h1>
+<p>After submission, return to <strong>My submissions</strong> in the NCBI Submission Portal and monitor the status.</p>
+<p>Genome submissions undergo automated validation and NCBI staff review.</p>
+<p>Possible statuses include:</p>
+<ul>
+<li><strong>Queued</strong> – waiting for initial review;</li>
+<li><strong>Error</strong> – a problem must be corrected;</li>
+<li><strong>Processing</strong> – validation/review is in progress;</li>
+<li><strong>Processed</strong> – the genome has been publicly released.</li>
+</ul>
+<p>If NCBI detects a problem, the submission portal and/or email notification will provide instructions.</p>
+<p>Common issues include:</p>
+<ul>
+<li>metadata inconsistencies between BioSample and genome submission;</li>
+<li>contamination;</li>
+<li>invalid FASTA formatting;</li>
+<li>sequence-name problems;</li>
+<li>unexpected genome size;</li>
+<li>incorrect chromosome assignments;</li>
+<li>problems with annotated-genome files.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not create a completely new submission just because NCBI reports an error in the existing genome submission. Follow the correction instructions associated with the existing <code>SUB########</code> whenever possible.</p>
+</div>
+</div>
+</section>
+<section id="ftp-command-summary" class="level1">
+<h1>FTP Command Summary</h1>
+<p>The following is the minimal command sequence for uploading one genome assembly from the Sapelo2 transfer node.</p>
+<section id="from-your-local-computer" class="level2">
+<h2 class="anchored" data-anchor-id="from-your-local-computer">From your local computer</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ssh</span> username@xfer.gacrc.uga.edu</span></code></pre></div></div>
+</section>
+<section id="on-the-xfer-node" class="level2">
+<h2 class="anchored" data-anchor-id="on-the-xfer-node">On the xfer node</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">cd</span> /path/to/genome/assembly</span>
+<span id="cb26-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ls</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-lh</span> genome_assembly.fasta</span>
+<span id="cb26-3"></span>
+<span id="cb26-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ftp</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-i</span> ftp-private.ncbi.nlm.nih.gov</span></code></pre></div></div>
+</section>
+<section id="inside-ftp" class="level2">
+<h2 class="anchored" data-anchor-id="inside-ftp">Inside FTP</h2>
+<pre class="text"><code>Name: subftp
+Password: [password provided by NCBI]
+
+cd uploads/your_personal_directory
+mkdir genome_submission
+cd genome_submission
+put genome_assembly.fasta
+bye</code></pre>
+<p>Then return to the NCBI Genome Submission Portal and wait approximately <strong>15 minutes</strong> for the folder to become selectable.</p>
+<p>Before clicking the final <strong>Submit</strong> button, confirm the details. Once confirmed, you can then hit <strong>Submit</strong> to finish the process.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Final reminder
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>NCBI occasionally changes wording, page layout, credentials, or portal options. Use this guide for the workflow, but use the <strong>current values and instructions displayed in your NCBI Submission Portal</strong> for account-specific fields, FTP credentials, and upload directories.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>NCBI</category>
+  <category>FTP</category>
+  <category>Sapelo2</category>
+  <category>SMSLab</category>
+  <category>BioProject</category>
+  <guid>https://rayparcon.com/blog/for_smslab/sub_data_ncbi.html</guid>
+  <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://rayparcon.com/blog/for_smslab/featured.png" medium="image" type="image/png"/>
+</item>
 <item>
   <title>Moving Files and Navigating SMS Lab Filesystems in Sapelo2</title>
   <dc:creator>Raymond Parcon</dc:creator>
@@ -224,639 +857,8 @@ Warning
   <category>Sapelo2</category>
   <category>SMSLab</category>
   <guid>https://rayparcon.com/blog/for_smslab/nav_filesystems.html</guid>
-  <pubDate>Sun, 16 Aug 2026 16:30:47 GMT</pubDate>
-</item>
-<item>
-  <title>Guide to Submitting a Whole-Genome Assembly to NCBI</title>
-  <dc:creator>Raymond Parcon</dc:creator>
-  <link>https://rayparcon.com/blog/for_smslab/sub_data_ncbi.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<section id="overview" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Overview</h1>
-<p>This guide describes a practical workflow for submitting a <strong>whole-genome assembly</strong> to NCBI, beginning with creation of the BioProject and BioSample and ending with upload of the genome assembly from the <strong>Sapelo2 transfer (<code>xfer</code>) node</strong> to NCBI using FTP.</p>
-<p>The general order is:</p>
-<ol type="1">
-<li>Sign in to NCBI.</li>
-<li>Create a BioProject.</li>
-<li>Create the associated BioSample.</li>
-<li>Wait for the BioProject and BioSample accessions to be assigned.</li>
-<li>Start a Genome submission.</li>
-<li>Associate the existing BioProject and BioSample with the genome submission.</li>
-<li>Set the genome release date.</li>
-<li>Upload the genome assembly to NCBI from Sapelo2 using FTP.</li>
-<li>Select the uploaded folder in the NCBI Genome Submission Portal.</li>
-<li>Complete, review, and submit the genome submission.</li>
-<li>Monitor the submission for validation messages or requests from NCBI.</li>
-</ol>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Avoid duplicate records
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If a BioProject or BioSample has already been created for the genome, <strong>do not create another one</strong>. Use the existing accession numbers in the genome submission.</p>
-<p>Typical accession formats are:</p>
-<ul>
-<li>BioProject: <code>PRJNA######</code></li>
-<li>BioSample: <code>SAMN########</code></li>
-<li>Genome submission temporary ID: <code>SUB########</code></li>
-<li>Genome assembly after processing: <code>GCA_#########.1</code></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="before-starting" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Before Starting</h1>
-<p>Prepare the information that will be needed throughout the submission.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Information</th>
-<th>Example / Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>NCBI account</td>
-<td>Sign in using a linked third-party account such as ORCID, if configured</td>
-</tr>
-<tr class="even">
-<td>Organism</td>
-<td>Scientific name recognized by NCBI Taxonomy</td>
-</tr>
-<tr class="odd">
-<td>Isolate or strain name</td>
-<td>Use the same identifier consistently</td>
-</tr>
-<tr class="even">
-<td>BioProject title</td>
-<td>Short description of the overall research project</td>
-</tr>
-<tr class="odd">
-<td>BioProject description</td>
-<td>Purpose and scope of the sequencing project</td>
-</tr>
-<tr class="even">
-<td>BioSample name</td>
-<td>Unique sample identifier</td>
-</tr>
-<tr class="odd">
-<td>Collection information</td>
-<td>Date, location, host, tissue, etc., as applicable</td>
-</tr>
-<tr class="even">
-<td>Genome assembly FASTA</td>
-<td>Final cleaned assembly file</td>
-</tr>
-<tr class="odd">
-<td>Sequencing technology</td>
-<td>e.g., PacBio Sequel II, Illumina</td>
-</tr>
-<tr class="even">
-<td>Assembly software</td>
-<td>e.g., hifiasm</td>
-</tr>
-<tr class="odd">
-<td>Assembly software version</td>
-<td>Version used for the submitted assembly</td>
-</tr>
-<tr class="even">
-<td>Genome coverage</td>
-<td>Estimated sequencing depth, e.g., <code>100x</code></td>
-</tr>
-<tr class="odd">
-<td>Assembly date</td>
-<td><code>YYYY</code>, <code>YYYY-MM</code>, or <code>YYYY-MM-DD</code></td>
-</tr>
-<tr class="even">
-<td>Assembly name</td>
-<td>Optional short assembly identifier</td>
-</tr>
-<tr class="odd">
-<td>Planned release date</td>
-<td>Coordinate among BioProject, BioSample, and genome submission</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Genome quality control
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Before submitting, use the final version of the assembly and complete the appropriate quality-control steps. NCBI currently recommends screening genome assemblies with the <strong>Foreign Contamination Screen (FCS)</strong> before submission.</p>
-<p>Do not upload intermediate assemblies, QC reports, log files, or unrelated files into the NCBI genome-upload folder.</p>
-</div>
-</div>
-</section>
-<section id="sign-in-to-ncbi" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> 1. Sign in to NCBI</h1>
-<p>Go to the NCBI Submission Portal:</p>
-<p><a href="https://submit.ncbi.nlm.nih.gov/" class="uri">https://submit.ncbi.nlm.nih.gov/</a></p>
-<p>Sign in to the NCBI account that will own the submission.</p>
-<p>If ORCID has been linked to the NCBI account, ORCID can be used as a third-party sign-in method.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The same NCBI account should preferably be used for the BioProject, BioSample, and genome submission so that the records and submissions are easier to manage.</p>
-</div>
-</div>
-</section>
-<section id="create-the-bioproject" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> 2. Create the BioProject</h1>
-<p>From the NCBI Submission Portal, start a <strong>BioProject</strong> submission.</p>
-<p>Fill in all required fields. The exact questions depend on the project type, but commonly include:</p>
-<ul>
-<li>project title;</li>
-<li>project description;</li>
-<li>organism or taxonomic scope;</li>
-<li>project data type;</li>
-<li>sample scope;</li>
-<li>relevance or project category;</li>
-<li>submitting organization and contact information;</li>
-<li>release date.</li>
-</ul>
-<p>Use a title and description that describe the <strong>overall research project</strong>, not only the filename or one individual sequence.</p>
-<section id="set-the-bioproject-release-date" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="set-the-bioproject-release-date"><span class="header-section-number">4.1</span> Set the BioProject release date</h2>
-<p>If the project should remain private until publication, choose the option to <strong>release on a specified date</strong> rather than immediate release.</p>
-<p>Choose a date that is safely later than the expected manuscript submission or publication date.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A BioProject can become public earlier than its scheduled date if public sequence data linked to it are released. Release dates therefore need to be coordinated across the BioProject, BioSample, SRA data if applicable, and the genome assembly.</p>
-</div>
-</div>
-<p>Submit the BioProject and record the accession number when it is assigned.</p>
-<pre class="text"><code>BioProject accession: PRJNA________________</code></pre>
-</section>
-</section>
-<section id="create-the-biosample" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> 3. Create the BioSample</h1>
-<p>A genome submission also requires a <strong>BioSample</strong> describing the biological material from which the genome was generated.</p>
-<p>Depending on the submission workflow, NCBI may prompt you to create the BioSample after or during creation of the BioProject. It can also be created separately through the BioSample submission portal.</p>
-<p>Fill in all required fields for the selected BioSample package.</p>
-<p>For a fungal isolate, relevant information may include:</p>
-<ul>
-<li>organism;</li>
-<li>isolate or strain;</li>
-<li>host;</li>
-<li>tissue or isolation source;</li>
-<li>collection date;</li>
-<li>geographic location;</li>
-<li>latitude and longitude, when available;</li>
-<li>sample name;</li>
-<li>additional environmental or experimental information required by the selected BioSample package.</li>
-</ul>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Keep metadata consistent
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The organism name, isolate/strain identifier, host, collection information, and other overlapping metadata should agree across the BioSample and genome submission.</p>
-<p>Conflicting metadata can cause the genome submission to stop during validation while NCBI asks for clarification.</p>
-</div>
-</div>
-<section id="set-the-biosample-release-date" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="set-the-biosample-release-date"><span class="header-section-number">5.1</span> Set the BioSample release date</h2>
-<p>If the sample should remain private, choose <strong>release on a specified date</strong>.</p>
-<p>NCBI states that a BioSample scheduled for future release will be released on the selected date <strong>or when data referencing that BioSample are released, whichever occurs first</strong>.</p>
-<p>Submit the BioSample and record the accession.</p>
-<pre class="text"><code>BioSample accession: SAMN________________</code></pre>
-</section>
-</section>
-<section id="wait-for-bioproject-and-biosample-processing" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> 4. Wait for BioProject and BioSample Processing</h1>
-<p>Before proceeding, confirm that the BioProject and BioSample submissions have been processed successfully and accession numbers have been assigned.</p>
-<p>Record both accessions somewhere safe:</p>
-<pre class="text"><code>BioProject: PRJNA________________
-BioSample:  SAMN________________</code></pre>
-<p>These identifiers will be used to connect the genome assembly to the correct project and biological sample.</p>
-</section>
-<section id="start-the-genome-submission" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> 5. Start the Genome Submission</h1>
-<p>Return to the NCBI Submission Portal:</p>
-<p><a href="https://submit.ncbi.nlm.nih.gov/" class="uri">https://submit.ncbi.nlm.nih.gov/</a></p>
-<p>Choose:</p>
-<p><strong>GenBank-Genome / Genome (Prokaryotic and Eukaryotic)</strong></p>
-<p>For one assembly, choose a <strong>Single genome</strong> submission.</p>
-<p>NCBI’s Genome Submission Portal accepts both prokaryotic and eukaryotic genome assemblies.</p>
-</section>
-<section id="associate-the-existing-bioproject-and-biosample" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 6. Associate the Existing BioProject and BioSample</h1>
-<p>When the genome submission asks whether a BioProject and BioSample already exist, indicate that they have already been registered.</p>
-<p>Enter the previously assigned accessions:</p>
-<pre class="text"><code>BioProject: PRJNA________________
-BioSample:  SAMN________________</code></pre>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Do not create a new BioProject or BioSample if the appropriate records already exist. Duplicate records can create problems later when connecting the genome, sequencing reads, and publication.</p>
-</div>
-</div>
-</section>
-<section id="complete-the-genome-assembly-information" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> 7. Complete the Genome Assembly Information</h1>
-<p>Fill out all fields required by the Genome Submission Portal.</p>
-<p>Common assembly metadata include:</p>
-<ul>
-<li>assembly method;</li>
-<li>assembly software version;</li>
-<li>genome coverage;</li>
-<li>sequencing technology;</li>
-<li>assembly date;</li>
-<li>assembly name, if used;</li>
-<li>whether the submitted sequence represents the full genome;</li>
-<li>whether the assembly is de novo or reference guided;</li>
-<li>gap information;</li>
-<li>chromosome, plasmid, or organelle assignments when applicable;</li>
-<li>authors;</li>
-<li>sequence title;</li>
-<li>release date.</li>
-</ul>
-<p>For an <strong>unannotated genome</strong>, NCBI accepts the genome assembly as FASTA.</p>
-<p>If submitting annotation together with the genome, follow NCBI’s annotated-genome submission requirements rather than treating the annotation files as ordinary FASTA uploads.</p>
-</section>
-<section id="set-the-genome-release-date" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> 8. Set the Genome Release Date</h1>
-<p>Choose the appropriate release option in the genome submission.</p>
-<p>If the genome should remain private until publication, select a <strong>specific future release date</strong>.</p>
-<p>Whenever practical, use the same planned release date used for the associated BioProject and BioSample.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>NCBI states that a genome held for future release will be released on the selected date or upon publication/public availability, whichever occurs first.</p>
-<p>If the manuscript is delayed and the genome must remain private longer, update the release date before the existing release date is reached.</p>
-</div>
-</div>
-</section>
-<section id="prepare-the-genome-file-on-sapelo2" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> 9. Prepare the Genome File on Sapelo2</h1>
-<p>Use the <strong>final genome assembly FASTA</strong> that is intended for NCBI.</p>
-<p>Before uploading, confirm the file name and size.</p>
-<p>For example:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ls</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">-lh</span> genome_assembly.fasta</span></code></pre></div></div>
-<p>Optionally inspect the FASTA headers:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">grep</span> <span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'^&gt;'</span> genome_assembly.fasta</span></code></pre></div></div>
-<p>If the file is compressed, confirm that the format is accepted by the specific NCBI upload step being used. Otherwise, use the final FASTA file requested by the submission form.</p>
-</section>
-<section id="log-in-to-the-sapelo2-transfer-node" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> 10. Log in to the Sapelo2 Transfer Node</h1>
-<p>Large external data transfers should be performed from the Sapelo2 <strong>transfer node</strong> rather than from a regular compute node.</p>
-<p>From your local terminal or PuTTY session:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ssh</span> username@xfer.gacrc.uga.edu</span></code></pre></div></div>
-<p>Replace <code>username</code> with your Sapelo2 username.</p>
-<p>After logging in, navigate to the directory containing the final genome assembly.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">cd</span> /path/to/genome/assembly</span></code></pre></div></div>
-<p>Confirm that the file is present:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">pwd</span></span>
-<span id="cb9-2"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ls</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">-lh</span></span></code></pre></div></div>
-</section>
-<section id="obtain-the-ftp-instructions-from-ncbi" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> 11. Obtain the FTP Instructions from NCBI</h1>
-<p>In the Genome Submission Portal, open the option for uploading or <strong>preloading files using FTP</strong>.</p>
-<p>NCBI will provide the current upload information, including:</p>
-<ul>
-<li>FTP server address;</li>
-<li>username;</li>
-<li>password;</li>
-<li>your personal upload directory.</li>
-</ul>
-<p>Current NCBI documentation lists the FTP server as:</p>
-<pre class="text"><code>ftp-private.ncbi.nlm.nih.gov</code></pre>
-<p>and the upload username as:</p>
-<pre class="text"><code>subftp</code></pre>
-<p>The password and personal directory are generated/provided by NCBI and should be copied from the submission portal.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Always use the FTP credentials and personal directory shown in <strong>your current NCBI submission page</strong>. Do not reuse another person’s upload directory or an old password.</p>
-</div>
-</div>
-</section>
-<section id="start-the-ftp-connection-from-the-xfer-node" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> 12. Start the FTP Connection from the xfer Node</h1>
-<p>From the directory containing the genome FASTA, start FTP.</p>
-<p>One convenient form is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ftp</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">-i</span> ftp-private.ncbi.nlm.nih.gov</span></code></pre></div></div>
-<p>Alternatively:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ftp</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">-i</span></span></code></pre></div></div>
-<p>and then at the FTP prompt:</p>
-<pre class="text"><code>open ftp-private.ncbi.nlm.nih.gov</code></pre>
-<p>The <code>-i</code> option disables interactive confirmation for multiple-file transfers. It does not affect a normal single-file <code>put</code>.</p>
-<p>When prompted for the username, enter:</p>
-<pre class="text"><code>subftp</code></pre>
-<p>When prompted for the password, paste the password provided by NCBI.</p>
-<p>The password may not appear on the screen while typing or pasting. This is normal.</p>
-</section>
-<section id="navigate-to-your-personal-ncbi-upload-directory" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> 13. Navigate to Your Personal NCBI Upload Directory</h1>
-<p>After connecting, move to the personal upload directory provided by NCBI.</p>
-<p>The exact directory is account-specific. For example:</p>
-<pre class="text"><code>cd uploads/your_personal_directory</code></pre>
-<p>Use the exact path displayed by NCBI.</p>
-</section>
-<section id="create-a-submission-subfolder" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> 14. Create a Submission Subfolder</h1>
-<p><strong>This step is required.</strong></p>
-<p>Create a new subfolder for the genome submission.</p>
-<p>For example:</p>
-<pre class="text"><code>mkdir genome_submission</code></pre>
-<p>Then enter the folder:</p>
-<pre class="text"><code>cd genome_submission</code></pre>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Do not upload the genome into the root upload directory
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>NCBI specifically states that files uploaded directly into the root personal upload directory <strong>will not be visible for selection during the genome submission</strong>.</p>
-<p>Always create a subfolder and upload the genome file inside it.</p>
-</div>
-</div>
-<p>Choose a simple folder name without spaces. For example:</p>
-<pre class="text"><code>genome_submission</code></pre>
-<p>or:</p>
-<pre class="text"><code>isolate_genome</code></pre>
-</section>
-<section id="upload-the-genome-assembly" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> 15. Upload the Genome Assembly</h1>
-<p>Upload the FASTA file using <code>put</code>.</p>
-<p>For example:</p>
-<pre class="text"><code>put genome_assembly.fasta</code></pre>
-<p>Wait for FTP to report that the transfer completed successfully.</p>
-<p>You can confirm the transfer status from the FTP messages displayed after <code>put</code>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If the local file is not found, remember that <code>put</code> reads from the local directory where <code>ftp</code> was started. Exit FTP, navigate to the correct Sapelo2 directory, and reconnect.</p>
-</div>
-</div>
-</section>
-<section id="exit-ftp" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> 16. Exit FTP</h1>
-<p>After the transfer completes, close the FTP connection:</p>
-<pre class="text"><code>bye</code></pre>
-<p>or:</p>
-<pre class="text"><code>quit</code></pre>
-<p>You should return to the Sapelo2 shell prompt.</p>
-</section>
-<section id="wait-for-ncbi-to-process-the-uploaded-folder" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> 17. Wait for NCBI to Process the Uploaded Folder</h1>
-<p>Return to the NCBI Genome Submission Portal.</p>
-<p>The uploaded folder will not necessarily appear immediately.</p>
-<p>NCBI currently states that it takes <strong>approximately 10 minutes after upload</strong> for preloaded files to become available in the submission.</p>
-<p>You may begin checking after about 10 minutes, but allow approximately 15 minutes or longer before troubleshooting.</p>
-<p>Once the folder appears under the <strong>Select folder</strong> or equivalent preload-file option:</p>
-<ol type="1">
-<li>select the folder you created;</li>
-<li>confirm that the correct genome FASTA is listed;</li>
-<li>continue the genome submission.</li>
-</ol>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>NCBI treats the upload subfolder as the unit associated with the submission. Keep only the sequence file(s) intended for that submission in the folder. Do not place unrelated files in it.</p>
-</div>
-</div>
-</section>
-<section id="complete-the-remaining-genome-submission-fields" class="level1" data-number="20">
-<h1 data-number="20"><span class="header-section-number">20</span> 18. Complete the Remaining Genome Submission Fields</h1>
-<p>Continue through the submission portal and answer all required questions.</p>
-<p>Review carefully:</p>
-<ul>
-<li>BioProject accession;</li>
-<li>BioSample accession;</li>
-<li>organism;</li>
-<li>isolate/strain;</li>
-<li>sequencing technology;</li>
-<li>assembly method and version;</li>
-<li>coverage;</li>
-<li>assembly status/type;</li>
-<li>chromosome assignments, if applicable;</li>
-<li>gaps;</li>
-<li>authors;</li>
-<li>genome title;</li>
-<li>release date;</li>
-<li>uploaded FASTA filename.</li>
-</ul>
-<p>Correct any validation errors before continuing.</p>
-</section>
-<section id="review-and-submit" class="level1" data-number="21">
-<h1 data-number="21"><span class="header-section-number">21</span> 19. Review and Submit</h1>
-<p>At the final review page:</p>
-<ol type="1">
-<li>confirm the BioProject and BioSample;</li>
-<li>confirm that the intended genome file is attached;</li>
-<li>confirm the release date;</li>
-<li>review all assembly metadata;</li>
-<li>verify author and contact information;</li>
-<li>click <strong>Submit</strong>.</li>
-</ol>
-<p>NCBI will assign a temporary submission identifier similar to:</p>
-<pre class="text"><code>SUB########</code></pre>
-<p>Record this identifier. It is useful when communicating with NCBI support before the genome assembly accession has been assigned.</p>
-</section>
-<section id="monitor-the-submission" class="level1" data-number="22">
-<h1 data-number="22"><span class="header-section-number">22</span> 20. Monitor the Submission</h1>
-<p>After submission, return to <strong>My submissions</strong> in the NCBI Submission Portal and monitor the status.</p>
-<p>Genome submissions undergo automated validation and NCBI staff review.</p>
-<p>Possible statuses include:</p>
-<ul>
-<li><strong>Queued</strong> – waiting for initial review;</li>
-<li><strong>Error</strong> – a problem must be corrected;</li>
-<li><strong>Processing</strong> – validation/review is in progress;</li>
-<li><strong>Processed</strong> – the genome has been publicly released.</li>
-</ul>
-<p>If NCBI detects a problem, the submission portal and/or email notification will provide instructions.</p>
-<p>Common issues include:</p>
-<ul>
-<li>metadata inconsistencies between BioSample and genome submission;</li>
-<li>contamination;</li>
-<li>invalid FASTA formatting;</li>
-<li>sequence-name problems;</li>
-<li>unexpected genome size;</li>
-<li>incorrect chromosome assignments;</li>
-<li>problems with annotated-genome files.</li>
-</ul>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Do not create a completely new submission just because NCBI reports an error in the existing genome submission. Follow the correction instructions associated with the existing <code>SUB########</code> whenever possible.</p>
-</div>
-</div>
-</section>
-<section id="ftp-command-summary" class="level1" data-number="23">
-<h1 data-number="23"><span class="header-section-number">23</span> FTP Command Summary</h1>
-<p>The following is the minimal command sequence for uploading one genome assembly from the Sapelo2 transfer node.</p>
-<section id="from-your-local-computer" class="level2" data-number="23.1">
-<h2 data-number="23.1" class="anchored" data-anchor-id="from-your-local-computer"><span class="header-section-number">23.1</span> From your local computer</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ssh</span> username@xfer.gacrc.uga.edu</span></code></pre></div></div>
-</section>
-<section id="on-the-xfer-node" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="on-the-xfer-node"><span class="header-section-number">23.2</span> On the xfer node</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">cd</span> /path/to/genome/assembly</span>
-<span id="cb26-2"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ls</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">-lh</span> genome_assembly.fasta</span>
-<span id="cb26-3"></span>
-<span id="cb26-4"><span class="fu" style="color: #4758AB;
-background-color: null;
-font-style: inherit;">ftp</span> <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">-i</span> ftp-private.ncbi.nlm.nih.gov</span></code></pre></div></div>
-</section>
-<section id="inside-ftp" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="inside-ftp"><span class="header-section-number">23.3</span> Inside FTP</h2>
-<pre class="text"><code>Name: subftp
-Password: [password provided by NCBI]
-
-cd uploads/your_personal_directory
-mkdir genome_submission
-cd genome_submission
-put genome_assembly.fasta
-bye</code></pre>
-<p>Then return to the NCBI Genome Submission Portal and wait approximately <strong>15 minutes</strong> for the folder to become selectable.</p>
-<p>Before clicking the final <strong>Submit</strong> button, confirm the details. Once confirmed, you can then hit <strong>Submit</strong> to finish the process.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Final reminder
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>NCBI occasionally changes wording, page layout, credentials, or portal options. Use this guide for the workflow, but use the <strong>current values and instructions displayed in your NCBI Submission Portal</strong> for account-specific fields, FTP credentials, and upload directories.</p>
-</div>
-</div>
-
-
-</section>
-</section>
-
- ]]></description>
-  <category>NCBI</category>
-  <category>FTP</category>
-  <category>Sapelo2</category>
-  <category>SMSLab</category>
-  <category>BioProject</category>
-  <guid>https://rayparcon.com/blog/for_smslab/sub_data_ncbi.html</guid>
-  <pubDate>Sun, 16 Aug 2026 16:30:47 GMT</pubDate>
+  <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://rayparcon.com/blog/for_smslab/featured.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>How to Run STRUCTURE on HPC (Sapelo2) Using Structure_threader and Visualize Results Using R</title>
