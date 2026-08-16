@@ -305,7 +305,7 @@
     "href": "blog/for_smslab/sub_data_ncbi.html#inside-ftp",
     "title": "Guide to Submitting a Whole-Genome Assembly to NCBI",
     "section": "Inside FTP",
-    "text": "Inside FTP\nName: subftp\nPassword: [password provided by NCBI]\n\ncd uploads/your_personal_directory\nmkdir genome_submission\ncd genome_submission\nput genome_assembly.fasta\nbye\nThen return to the NCBI Genome Submission Portal and wait approximately 15 minutes for the folder to become selectable.\nBefore clicking the final Submit button, confirm the details. Once confirmed, you can then hit Submit to finish the process.\n\n\n\n\n\n\nNoteFinal reminder\n\n\n\nNCBI occasionally changes wording, page layout, credentials, or portal options. Use this guide for the workflow, but use the current values and instructions displayed in your NCBI Submission Portal for account-specific fields, FTP credentials, and upload directories."
+    "text": "Inside FTP\nName: subftp\nPassword: [password provided by NCBI]\n\ncd uploads/your_personal_directory\nmkdir genome_submission\ncd genome_submission\nput genome_assembly.fasta\nbye\nThen return to the NCBI Genome Submission Portal and wait approximately 15 minutes for the folder to become selectable.\nBefore clicking the final Submit button, confirm the details. Once confirmed, you can then hit Submit to complete the submission.\n\n\n\n\n\n\nNoteFinal reminder\n\n\n\nNCBI occasionally changes wording, page layout, credentials, or portal options. Use this guide for the workflow, but use the current values and instructions displayed in your NCBI Submission Portal for account-specific fields, FTP credentials, and upload directories."
   },
   {
     "objectID": "blog/2025-08-06-soy-aps/index.html",

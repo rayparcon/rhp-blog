@@ -621,7 +621,7 @@ cd genome_submission
 put genome_assembly.fasta
 bye</code></pre>
 <p>Then return to the NCBI Genome Submission Portal and wait approximately <strong>15 minutes</strong> for the folder to become selectable.</p>
-<p>Before clicking the final <strong>Submit</strong> button, confirm the details. Once confirmed, you can then hit <strong>Submit</strong> to finish the process.</p>
+<p>Before clicking the final <strong>Submit</strong> button, confirm the details. Once confirmed, you can then hit <strong>Submit</strong> to complete the submission.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -648,7 +648,7 @@ bye</code></pre>
   <category>BioProject</category>
   <guid>https://rayparcon.com/blog/for_smslab/sub_data_ncbi.html</guid>
   <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://rayparcon.com/blog/for_smslab/featured.png" medium="image" type="image/png"/>
+  <media:content url="https://rayparcon.com/blog/for_smslab/featured.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 <item>
   <title>Moving Files and Navigating SMS Lab Filesystems in Sapelo2</title>
@@ -858,7 +858,7 @@ Warning
   <category>SMSLab</category>
   <guid>https://rayparcon.com/blog/for_smslab/nav_filesystems.html</guid>
   <pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://rayparcon.com/blog/for_smslab/featured.png" medium="image" type="image/png"/>
+  <media:content url="https://rayparcon.com/blog/for_smslab/featured.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 <item>
   <title>How to Run STRUCTURE on HPC (Sapelo2) Using Structure_threader and Visualize Results Using R</title>
