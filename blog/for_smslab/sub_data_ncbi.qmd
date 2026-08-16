@@ -561,7 +561,7 @@ bye
 
 Then return to the NCBI Genome Submission Portal and wait approximately **15 minutes** for the folder to become selectable.
 
-Before clicking the final **Submit** button, confirm the details. Once confirmed, you can then hit **Submit** to finish the process.
+Before clicking the final **Submit** button, confirm the details. Once confirmed, you can then hit **Submit** to complete the submission.
 
 ::: {.callout-note}
 ## Final reminder
