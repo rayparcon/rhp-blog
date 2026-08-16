@@ -2,7 +2,7 @@
 title: "Moving Files and Navigating SMS Lab Filesystems in Sapelo2"
 description: "Quick guide for navigating Sapelo2 filesystems"
 author: "Raymond Parcon"
-date: last-modified
+date: "2026-07-09"
 slug: "navigate-filesystem-sapelo2"
 categories: ["Linux", "Sapelo2", "SMSLab"]
 format:
@@ -12,6 +12,7 @@ format:
     number-sections: false
 execute:
   eval: false
+image: "featured.png"
 ---
 
 ## Overview

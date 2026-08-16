@@ -2,17 +2,18 @@
 title: "Guide to Submitting a Whole-Genome Assembly to NCBI"
 subtitle: "BioProject, BioSample, Genome Submission, and FTP Upload from Sapelo2"
 author: "Raymond Parcon"
-date: last-modified
+date: "2026-08-16"
 slug: "submit-data-ncbi-sapelo2"
 categories: ["NCBI","FTP", "Sapelo2", "SMSLab", "BioProject"]
 format:
   html:
     toc: true
     toc-depth: 3
-    number-sections: true
+    number-sections: false
     code-copy: true
 execute:
   echo: true
+image: "featured.png"
 ---
 
 # Overview
