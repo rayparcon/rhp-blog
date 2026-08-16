@@ -1,0 +1,572 @@
+---
+title: "Guide to Submitting a Whole-Genome Assembly to NCBI"
+subtitle: "BioProject, BioSample, Genome Submission, and FTP Upload from Sapelo2"
+author: "Raymond Parcon"
+date: last-modified
+slug: "submit-data-ncbi-sapelo2"
+categories: ["NCBI","FTP", "Sapelo2", "SMSLab", "BioProject"]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-copy: true
+  pdf:
+    toc: true
+    number-sections: false
+execute:
+  echo: true
+---
+
+# Overview
+
+This guide describes a practical workflow for submitting a **whole-genome assembly** to NCBI, beginning with creation of the BioProject and BioSample and ending with upload of the genome assembly from the **Sapelo2 transfer (`xfer`) node** to NCBI using FTP.
+
+The general order is:
+
+1. Sign in to NCBI.
+2. Create a BioProject.
+3. Create the associated BioSample.
+4. Wait for the BioProject and BioSample accessions to be assigned.
+5. Start a Genome submission.
+6. Associate the existing BioProject and BioSample with the genome submission.
+7. Set the genome release date.
+8. Upload the genome assembly to NCBI from Sapelo2 using FTP.
+9. Select the uploaded folder in the NCBI Genome Submission Portal.
+10. Complete, review, and submit the genome submission.
+11. Monitor the submission for validation messages or requests from NCBI.
+
+::: {.callout-important}
+## Avoid duplicate records
+
+If a BioProject or BioSample has already been created for the genome, **do not create another one**. Use the existing accession numbers in the genome submission.
+
+Typical accession formats are:
+
+- BioProject: `PRJNA######`
+- BioSample: `SAMN########`
+- Genome submission temporary ID: `SUB########`
+- Genome assembly after processing: `GCA_#########.1`
+:::
+
+# Before Starting
+
+Prepare the information that will be needed throughout the submission.
+
+| Information | Example / Notes |
+|---|---|
+| NCBI account | Sign in using a linked third-party account such as ORCID, if configured |
+| Organism | Scientific name recognized by NCBI Taxonomy |
+| Isolate or strain name | Use the same identifier consistently |
+| BioProject title | Short description of the overall research project |
+| BioProject description | Purpose and scope of the sequencing project |
+| BioSample name | Unique sample identifier |
+| Collection information | Date, location, host, tissue, etc., as applicable |
+| Genome assembly FASTA | Final cleaned assembly file |
+| Sequencing technology | e.g., PacBio Sequel II, Illumina |
+| Assembly software | e.g., hifiasm |
+| Assembly software version | Version used for the submitted assembly |
+| Genome coverage | Estimated sequencing depth, e.g., `100x` |
+| Assembly date | `YYYY`, `YYYY-MM`, or `YYYY-MM-DD` |
+| Assembly name | Optional short assembly identifier |
+| Planned release date | Coordinate among BioProject, BioSample, and genome submission |
+
+::: {.callout-tip}
+## Genome quality control
+
+Before submitting, use the final version of the assembly and complete the appropriate quality-control steps. NCBI currently recommends screening genome assemblies with the **Foreign Contamination Screen (FCS)** before submission.
+
+Do not upload intermediate assemblies, QC reports, log files, or unrelated files into the NCBI genome-upload folder.
+:::
+
+# 1. Sign in to NCBI
+
+Go to the NCBI Submission Portal:
+
+<https://submit.ncbi.nlm.nih.gov/>
+
+Sign in to the NCBI account that will own the submission.
+
+If ORCID has been linked to the NCBI account, ORCID can be used as a third-party sign-in method.
+
+::: {.callout-note}
+The same NCBI account should preferably be used for the BioProject, BioSample, and genome submission so that the records and submissions are easier to manage.
+:::
+
+# 2. Create the BioProject
+
+From the NCBI Submission Portal, start a **BioProject** submission.
+
+Fill in all required fields. The exact questions depend on the project type, but commonly include:
+
+- project title;
+- project description;
+- organism or taxonomic scope;
+- project data type;
+- sample scope;
+- relevance or project category;
+- submitting organization and contact information;
+- release date.
+
+Use a title and description that describe the **overall research project**, not only the filename or one individual sequence.
+
+## Set the BioProject release date
+
+If the project should remain private until publication, choose the option to **release on a specified date** rather than immediate release.
+
+Choose a date that is safely later than the expected manuscript submission or publication date.
+
+::: {.callout-warning}
+A BioProject can become public earlier than its scheduled date if public sequence data linked to it are released. Release dates therefore need to be coordinated across the BioProject, BioSample, SRA data if applicable, and the genome assembly.
+:::
+
+Submit the BioProject and record the accession number when it is assigned.
+
+```text
+BioProject accession: PRJNA________________
+```
+
+# 3. Create the BioSample
+
+A genome submission also requires a **BioSample** describing the biological material from which the genome was generated.
+
+Depending on the submission workflow, NCBI may prompt you to create the BioSample after or during creation of the BioProject. It can also be created separately through the BioSample submission portal.
+
+Fill in all required fields for the selected BioSample package.
+
+For a fungal isolate, relevant information may include:
+
+- organism;
+- isolate or strain;
+- host;
+- tissue or isolation source;
+- collection date;
+- geographic location;
+- latitude and longitude, when available;
+- sample name;
+- additional environmental or experimental information required by the selected BioSample package.
+
+::: {.callout-important}
+## Keep metadata consistent
+
+The organism name, isolate/strain identifier, host, collection information, and other overlapping metadata should agree across the BioSample and genome submission.
+
+Conflicting metadata can cause the genome submission to stop during validation while NCBI asks for clarification.
+:::
+
+## Set the BioSample release date
+
+If the sample should remain private, choose **release on a specified date**.
+
+NCBI states that a BioSample scheduled for future release will be released on the selected date **or when data referencing that BioSample are released, whichever occurs first**.
+
+Submit the BioSample and record the accession.
+
+```text
+BioSample accession: SAMN________________
+```
+
+# 4. Wait for BioProject and BioSample Processing
+
+Before proceeding, confirm that the BioProject and BioSample submissions have been processed successfully and accession numbers have been assigned.
+
+Record both accessions somewhere safe:
+
+```text
+BioProject: PRJNA________________
+BioSample:  SAMN________________
+```
+
+These identifiers will be used to connect the genome assembly to the correct project and biological sample.
+
+# 5. Start the Genome Submission
+
+Return to the NCBI Submission Portal:
+
+<https://submit.ncbi.nlm.nih.gov/>
+
+Choose:
+
+**GenBank-Genome / Genome (Prokaryotic and Eukaryotic)**
+
+For one assembly, choose a **Single genome** submission.
+
+NCBI's Genome Submission Portal accepts both prokaryotic and eukaryotic genome assemblies.
+
+# 6. Associate the Existing BioProject and BioSample
+
+When the genome submission asks whether a BioProject and BioSample already exist, indicate that they have already been registered.
+
+Enter the previously assigned accessions:
+
+```text
+BioProject: PRJNA________________
+BioSample:  SAMN________________
+```
+
+::: {.callout-warning}
+Do not create a new BioProject or BioSample if the appropriate records already exist. Duplicate records can create problems later when connecting the genome, sequencing reads, and publication.
+:::
+
+# 7. Complete the Genome Assembly Information
+
+Fill out all fields required by the Genome Submission Portal.
+
+Common assembly metadata include:
+
+- assembly method;
+- assembly software version;
+- genome coverage;
+- sequencing technology;
+- assembly date;
+- assembly name, if used;
+- whether the submitted sequence represents the full genome;
+- whether the assembly is de novo or reference guided;
+- gap information;
+- chromosome, plasmid, or organelle assignments when applicable;
+- authors;
+- sequence title;
+- release date.
+
+For an **unannotated genome**, NCBI accepts the genome assembly as FASTA.
+
+If submitting annotation together with the genome, follow NCBI's annotated-genome submission requirements rather than treating the annotation files as ordinary FASTA uploads.
+
+# 8. Set the Genome Release Date
+
+Choose the appropriate release option in the genome submission.
+
+If the genome should remain private until publication, select a **specific future release date**.
+
+Whenever practical, use the same planned release date used for the associated BioProject and BioSample.
+
+::: {.callout-important}
+NCBI states that a genome held for future release will be released on the selected date or upon publication/public availability, whichever occurs first.
+
+If the manuscript is delayed and the genome must remain private longer, update the release date before the existing release date is reached.
+:::
+
+# 9. Prepare the Genome File on Sapelo2
+
+Use the **final genome assembly FASTA** that is intended for NCBI.
+
+Before uploading, confirm the file name and size.
+
+For example:
+
+```bash
+ls -lh genome_assembly.fasta
+```
+
+Optionally inspect the FASTA headers:
+
+```bash
+grep '^>' genome_assembly.fasta
+```
+
+If the file is compressed, confirm that the format is accepted by the specific NCBI upload step being used. Otherwise, use the final FASTA file requested by the submission form.
+
+# 10. Log in to the Sapelo2 Transfer Node
+
+Large external data transfers should be performed from the Sapelo2 **transfer node** rather than from a regular compute node.
+
+From your local terminal or PuTTY session:
+
+```bash
+ssh username@xfer.gacrc.uga.edu
+```
+
+Replace `username` with your Sapelo2 username.
+
+After logging in, navigate to the directory containing the final genome assembly.
+
+```bash
+cd /path/to/genome/assembly
+```
+
+Confirm that the file is present:
+
+```bash
+pwd
+ls -lh
+```
+
+# 11. Obtain the FTP Instructions from NCBI
+
+In the Genome Submission Portal, open the option for uploading or **preloading files using FTP**.
+
+NCBI will provide the current upload information, including:
+
+- FTP server address;
+- username;
+- password;
+- your personal upload directory.
+
+Current NCBI documentation lists the FTP server as:
+
+```text
+ftp-private.ncbi.nlm.nih.gov
+```
+
+and the upload username as:
+
+```text
+subftp
+```
+
+The password and personal directory are generated/provided by NCBI and should be copied from the submission portal.
+
+::: {.callout-warning}
+Always use the FTP credentials and personal directory shown in **your current NCBI submission page**. Do not reuse another person's upload directory or an old password.
+:::
+
+# 12. Start the FTP Connection from the xfer Node
+
+From the directory containing the genome FASTA, start FTP.
+
+One convenient form is:
+
+```bash
+ftp -i ftp-private.ncbi.nlm.nih.gov
+```
+
+Alternatively:
+
+```bash
+ftp -i
+```
+
+and then at the FTP prompt:
+
+```text
+open ftp-private.ncbi.nlm.nih.gov
+```
+
+The `-i` option disables interactive confirmation for multiple-file transfers. It does not affect a normal single-file `put`.
+
+When prompted for the username, enter:
+
+```text
+subftp
+```
+
+When prompted for the password, paste the password provided by NCBI.
+
+The password may not appear on the screen while typing or pasting. This is normal.
+
+# 13. Navigate to Your Personal NCBI Upload Directory
+
+After connecting, move to the personal upload directory provided by NCBI.
+
+The exact directory is account-specific. For example:
+
+```text
+cd uploads/your_personal_directory
+```
+
+Use the exact path displayed by NCBI.
+
+# 14. Create a Submission Subfolder
+
+**This step is required.**
+
+Create a new subfolder for the genome submission.
+
+For example:
+
+```text
+mkdir genome_submission
+```
+
+Then enter the folder:
+
+```text
+cd genome_submission
+```
+
+::: {.callout-important}
+## Do not upload the genome into the root upload directory
+
+NCBI specifically states that files uploaded directly into the root personal upload directory **will not be visible for selection during the genome submission**.
+
+Always create a subfolder and upload the genome file inside it.
+:::
+
+Choose a simple folder name without spaces. For example:
+
+```text
+genome_submission
+```
+
+or:
+
+```text
+isolate_genome
+```
+
+# 15. Upload the Genome Assembly
+
+Upload the FASTA file using `put`.
+
+For example:
+
+```text
+put genome_assembly.fasta
+```
+
+Wait for FTP to report that the transfer completed successfully.
+
+You can confirm the transfer status from the FTP messages displayed after `put`.
+
+::: {.callout-tip}
+If the local file is not found, remember that `put` reads from the local directory where `ftp` was started. Exit FTP, navigate to the correct Sapelo2 directory, and reconnect.
+:::
+
+# 16. Exit FTP
+
+After the transfer completes, close the FTP connection:
+
+```text
+bye
+```
+
+or:
+
+```text
+quit
+```
+
+You should return to the Sapelo2 shell prompt.
+
+# 17. Wait for NCBI to Process the Uploaded Folder
+
+Return to the NCBI Genome Submission Portal.
+
+The uploaded folder will not necessarily appear immediately.
+
+NCBI currently states that it takes **approximately 10 minutes after upload** for preloaded files to become available in the submission.
+
+You may begin checking after about 10 minutes, but allow approximately 15 minutes or longer before troubleshooting.
+
+Once the folder appears under the **Select folder** or equivalent preload-file option:
+
+1. select the folder you created;
+2. confirm that the correct genome FASTA is listed;
+3. continue the genome submission.
+
+::: {.callout-warning}
+NCBI treats the upload subfolder as the unit associated with the submission. Keep only the sequence file(s) intended for that submission in the folder. Do not place unrelated files in it.
+:::
+
+# 18. Complete the Remaining Genome Submission Fields
+
+Continue through the submission portal and answer all required questions.
+
+Review carefully:
+
+- BioProject accession;
+- BioSample accession;
+- organism;
+- isolate/strain;
+- sequencing technology;
+- assembly method and version;
+- coverage;
+- assembly status/type;
+- chromosome assignments, if applicable;
+- gaps;
+- authors;
+- genome title;
+- release date;
+- uploaded FASTA filename.
+
+Correct any validation errors before continuing.
+
+# 19. Review and Submit
+
+At the final review page:
+
+1. confirm the BioProject and BioSample;
+2. confirm that the intended genome file is attached;
+3. confirm the release date;
+4. review all assembly metadata;
+5. verify author and contact information;
+6. click **Submit**.
+
+NCBI will assign a temporary submission identifier similar to:
+
+```text
+SUB########
+```
+
+Record this identifier. It is useful when communicating with NCBI support before the genome assembly accession has been assigned.
+
+# 20. Monitor the Submission
+
+After submission, return to **My submissions** in the NCBI Submission Portal and monitor the status.
+
+Genome submissions undergo automated validation and NCBI staff review.
+
+Possible statuses include:
+
+- **Queued** -- waiting for initial review;
+- **Error** -- a problem must be corrected;
+- **Processing** -- validation/review is in progress;
+- **Processed** -- the genome has been publicly released.
+
+If NCBI detects a problem, the submission portal and/or email notification will provide instructions.
+
+Common issues include:
+
+- metadata inconsistencies between BioSample and genome submission;
+- contamination;
+- invalid FASTA formatting;
+- sequence-name problems;
+- unexpected genome size;
+- incorrect chromosome assignments;
+- problems with annotated-genome files.
+
+::: {.callout-important}
+Do not create a completely new submission just because NCBI reports an error in the existing genome submission. Follow the correction instructions associated with the existing `SUB########` whenever possible.
+:::
+
+# FTP Command Summary
+
+The following is the minimal command sequence for uploading one genome assembly from the Sapelo2 transfer node.
+
+## From your local computer
+
+```bash
+ssh username@xfer.gacrc.uga.edu
+```
+
+## On the xfer node
+
+```bash
+cd /path/to/genome/assembly
+ls -lh genome_assembly.fasta
+
+ftp -i ftp-private.ncbi.nlm.nih.gov
+```
+
+## Inside FTP
+
+```text
+Name: subftp
+Password: [password provided by NCBI]
+
+cd uploads/your_personal_directory
+mkdir genome_submission
+cd genome_submission
+put genome_assembly.fasta
+bye
+```
+
+Then return to the NCBI Genome Submission Portal and wait approximately **15 minutes** for the folder to become selectable.
+
+Before clicking the final **Submit** button, confirm the details. Once confirmed, you can then hit **Submit** to finish the process.
+
+::: {.callout-note}
+## Final reminder
+
+NCBI occasionally changes wording, page layout, credentials, or portal options. Use this guide for the workflow, but use the **current values and instructions displayed in your NCBI Submission Portal** for account-specific fields, FTP credentials, and upload directories.
+:::
