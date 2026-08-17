@@ -1,5 +1,5 @@
 ---
-title: "Thoughts on APS Plant Health 2026"
+title: "Five Thoughts on APS Plant Health 2026"
 author: "Ray Parcon"
 date: "2026-08-16"
 slug: "plant-health-2026-poster"
