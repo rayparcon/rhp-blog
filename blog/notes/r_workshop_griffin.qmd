@@ -1,0 +1,106 @@
+# Exploring R Data Structures
+
+One of R's most powerful features is its ability to deal with tabular data - such as you may already have in a spreadsheet or a CSV file.
+
+Let's start by creating a toy dataset of `feline-data.csv` in `data/` directory (folder)
+
+But if `data/` directory does not exist, create it first.
+
+Start with orienting yourself in the R environment. Where am I?
+
+```{r}
+getwd() # prints the current working directory "where am I?"
+dir.create("data") # creates a new directory called "data"
+setwd("C:/Users/rhpar/Documents/data") # sets the working directory to "data"
+```
+::: {.callout-important}
+Check if all sticky notes are green
+:::
+
+Now, we are inside the `data/` directory. We can now create a toy dataset of feline data and save it as `feline-data.csv`.
+
+First, let's create a data frame in R:
+
+```{r}
+cats <- data.frame(coat = c("calico", "black", "tabby"),
+                    weight = c(2.1, 5.0, 3.2),
+                    likes_catnip = c(1, 0, 1))
+```
+We can now save `cats` as a CSV file using the `write.csv()` function:
+```{r}
+write.csv(cats, "feline-data.csv", row.names = FALSE) # it is important to call the argument row.names = FALSE to avoid writing row numbers to the CSV file
+```
+The contents of the `feline-data.csv` file will look like this:
+```{r}
+coat,weight,likes_catnip
+calico,2.1,1
+black,5.0,0
+tabby,3.2,1
+```
+```{r}
+cats <- read.csv(file = "data/feline-data.csv")
+cats
+```
+`read.csv()` is a function that reads a CSV file or **comma-separated values** file and creates a data frame in R. The `file` argument specifies the path to the CSV file. In this case, we are reading the `feline-data.csv` file from the `data/` directory.
+
+You can check out other function like `read.delim` for **tab-separated values** file but for now, we will stick with `read.csv`.
+
+::: {.callout-important}
+Check if all sticky notes are green
+:::
+
+::: {.callout-important}
+Check your data for factors
+:::
+
+```{r}
+str(cats)
+```
+We should only see numeric and character data types. If you see factors, we can prevent R from automatically creating “factor” data by using the `options(stringsAsFactors = FALSE)` function.
+
+Then re-read the `feline-data.csv` file for the changes to take effect.
+
+We can beging exploring our dataset right away, pulling out columns by specifying them using the `$` operator:
+
+```{r}
+cats$weight # prints the weight column
+
+cats$coat # prints the coat column
+
+```
+
+We can also do operation on the columns:
+```{r}
+## Say we discovered that the scale weigh is two Kg lighter then we have to add 2 Kg to the values in weight column.
+cats$weight + 2 # does not change the original data frame, but prints the new values
+```
+
+::: {.callout-important}
+
+## Not included in the guide
+```{r}
+cats$weight <- cats$weight + 2 # changes the original data frame by adding 2 Kg to the values in weight column
+```
+:::
+
+```{r}
+paste("My cat is", cats$coat)
+```
+But what about
+```{r}
+cats$weight + cats$coat
+```
+```{r}
+Error in `cats$weight + cats$coat`:
+! non-numeric argument to binary operator
+```
+Understanding what happened here is key to successfully analyzing data in R.
+
+::: {.callout-important}
+Any guesses why there is an error message? What do you think the error message means?
+:::
+
+The error message is telling us that we cannot add a numeric vector (the weight column) to a character vector (the coat column). This is because R does not know how to combine these two different types of data.
+
+
+
