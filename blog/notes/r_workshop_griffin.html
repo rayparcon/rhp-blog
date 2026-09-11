@@ -9,7 +9,7 @@
 <meta name="author" content="Raymond Parcon">
 <meta name="dcterms.date" content="2026-09-12">
 
-<title>Griffin R Workshop Notes by R. Parcon – Raymond Parcon</title>
+<title>Griffin R Workshop Notes – Raymond Parcon</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -123,7 +123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../css/styles.css">
 <link rel="stylesheet" href="../../css/blog.css">
 <link rel="stylesheet" href="../../css/papers.css">
-<meta property="og:title" content="Griffin R Workshop Notes by R. Parcon – Raymond Parcon">
+<meta property="og:title" content="Griffin R Workshop Notes – Raymond Parcon">
 <meta property="og:description" content="Learning Data Structures and Exploring Data Frames in R">
 <meta property="og:site_name" content="Raymond Parcon">
 </head>
@@ -183,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exploring-r-data-structures-lesson" id="toc-exploring-r-data-structures-lesson" class="nav-link active" data-scroll-target="#exploring-r-data-structures-lesson">Exploring R Data Structures Lesson</a>
+  <li><a href="#exploring-r-data-structures" id="toc-exploring-r-data-structures" class="nav-link active" data-scroll-target="#exploring-r-data-structures">Exploring R Data Structures</a>
   <ul class="collapse">
   <li><a href="#setting-up-directory-and-creating-a-toy-dataset" id="toc-setting-up-directory-and-creating-a-toy-dataset" class="nav-link" data-scroll-target="#setting-up-directory-and-creating-a-toy-dataset">Setting up Directory and Creating a Toy Dataset</a></li>
   </ul></li>
@@ -195,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Griffin R Workshop Notes by R. Parcon</h1>
+<h1 class="title">Griffin R Workshop Notes</h1>
 <p class="subtitle lead">Learning Data Structures and Exploring Data Frames in R</p>
   <div class="quarto-categories">
     <div class="quarto-category">Workshop</div>
@@ -229,8 +229,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="exploring-r-data-structures-lesson" class="level1">
-<h1>Exploring R Data Structures Lesson</h1>
+<section id="exploring-r-data-structures" class="level1">
+<h1>Exploring R Data Structures</h1>
 <section id="setting-up-directory-and-creating-a-toy-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-directory-and-creating-a-toy-dataset">Setting up Directory and Creating a Toy Dataset</h2>
 <p>One of R’s most powerful features is its ability to deal with tabular data - such as you may already have in a spreadsheet or a CSV file.</p>
@@ -250,11 +250,24 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Check if all sticky notes are green</p>
+<p><strong>Check if all sticky notes are green</strong></p>
 </div>
 </div>
 <p>Now, we are inside the <code>data/</code> directory. We can now create a toy dataset of feline data and save it as <code>feline-data.csv</code>.</p>
 <p>First, let’s create a data frame in R:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>data frame</strong> is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column. It is similar to a spreadsheet or SQL table, or a data frame in Python’s pandas library.</p>
+</div>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">coat =</span> <span class="fu">c</span>(<span class="st">"calico"</span>, <span class="st">"black"</span>, <span class="st">"tabby"</span>),</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">weight =</span> <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">5.0</span>, <span class="fl">3.2</span>),</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">likes_catnip =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -265,6 +278,7 @@ Important
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>calico,<span class="fl">2.1</span>,<span class="dv">1</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>black,<span class="fl">5.0</span>,<span class="dv">0</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>tabby,<span class="fl">3.2</span>,<span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can now load this in our R environment using the <code>read.csv()</code> function:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cats <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"data/feline-data.csv"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cats</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>read.csv()</code> is a function that reads a CSV file or <strong>comma-separated values</strong> file and creates a data frame in R. The <code>file</code> argument specifies the path to the CSV file. In this case, we are reading the <code>feline-data.csv</code> file from the <code>data/</code> directory.</p>
@@ -279,65 +293,65 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Check if all sticky notes are green</p>
+<p><strong>Check if all sticky notes are green</strong></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+<span class="screen-reader-only">Warning</span>Check your data for factors
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Check your data for factors</p>
+<p>We should only see numeric and character data types. If you see factors, we can prevent R from automatically creating “factor” data by using the <code>options(stringsAsFactors = FALSE)</code> function. Then re-read the <code>feline-data.csv</code> file for the changes to take effect.</p>
 </div>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>We should only see numeric and character data types. If you see factors, we can prevent R from automatically creating “factor” data by using the <code>options(stringsAsFactors = FALSE)</code> function.</p>
-<p>Then re-read the <code>feline-data.csv</code> file for the changes to take effect.</p>
-<p>We can beging exploring our dataset right away, pulling out columns by specifying them using the <code>$</code> operator:</p>
+<p>Now, We can begin exploring our dataset, pulling out columns by specifying them using the <code>$</code> operator:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cats<span class="sc">$</span>weight <span class="co"># prints the weight column</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cats<span class="sc">$</span>coat <span class="co"># prints the coat column</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>We can also do operation on the columns:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Say we discovered that the scale weigh is two Kg lighter then we have to add 2 Kg to the values in weight column.</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>cats<span class="sc">$</span>weight <span class="sc">+</span> <span class="dv">2</span> <span class="co"># does not change the original data frame, but prints the new values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-important callout-titled">
+<p>Say we discovered that the scale weighs two Kg lighter, then we have to add 2 Kg to the values in weight column.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cats<span class="sc">$</span>weight <span class="sc">+</span> <span class="dv">2</span> <span class="co"># does not change the original data frame, but prints the new values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Not included in the guide
+<span class="screen-reader-only">Tip</span>But what if we want to change the original data frame?
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cats<span class="sc">$</span>weight <span class="ot">&lt;-</span> cats<span class="sc">$</span>weight <span class="sc">+</span> <span class="dv">2</span> <span class="co"># changes the original data frame by adding 2 Kg to the values in weight column</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
+<p>If we wanted to write a sentence about our cats, we can use the <code>paste()</code> function to combine the values in the coat column with a string:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">"My cat is"</span>, cats<span class="sc">$</span>coat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>But what about</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cats<span class="sc">$</span>weight <span class="sc">+</span> cats<span class="sc">$</span>coat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="st">`</span><span class="at">cats$weight + cats$coat</span><span class="st">`</span><span class="sc">:</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> non<span class="sc">-</span>numeric argument to binary operator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>But what about adding the weight column to the coat column? Let’s try it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cats<span class="sc">$</span>weight <span class="sc">+</span> cats<span class="sc">$</span>coat</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="st">`</span><span class="at">cats$weight + cats$coat</span><span class="st">`</span><span class="sc">:</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span> non<span class="sc">-</span>numeric argument to binary operator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Understanding what happened here is key to successfully analyzing data in R.</p>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Any guesses why there is an error message? What do you think the error message means?</p>
-</div>
-</div>
 <p>The error message is telling us that we cannot add a numeric vector (the weight column) to a character vector (the coat column). This is because R does not know how to combine these two different types of data.</p>
+</div>
+</div>
 
 
 </section>

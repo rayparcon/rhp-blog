@@ -18,7 +18,7 @@
 <generator>quarto-1.10.18</generator>
 <lastBuildDate>Sat, 12 Sep 2026 00:00:00 GMT</lastBuildDate>
 <item>
-  <title>Griffin R Workshop Notes by R. Parcon</title>
+  <title>Griffin R Workshop Notes</title>
   <dc:creator>Raymond Parcon</dc:creator>
   <link>https://rayparcon.com/blog/notes/r_workshop_griffin.html</link>
   <description><![CDATA[ 
@@ -26,8 +26,8 @@
 
 
 
-<section id="exploring-r-data-structures-lesson" class="level1">
-<h1>Exploring R Data Structures Lesson</h1>
+<section id="exploring-r-data-structures" class="level1">
+<h1>Exploring R Data Structures</h1>
 <section id="setting-up-directory-and-creating-a-toy-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-directory-and-creating-a-toy-dataset">Setting up Directory and Creating a Toy Dataset</h2>
 <p>One of R’s most powerful features is its ability to deal with tabular data - such as you may already have in a spreadsheet or a CSV file.</p>
@@ -63,11 +63,24 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Check if all sticky notes are green</p>
+<p><strong>Check if all sticky notes are green</strong></p>
 </div>
 </div>
 <p>Now, we are inside the <code>data/</code> directory. We can now create a toy dataset of feline data and save it as <code>feline-data.csv</code>.</p>
 <p>First, let’s create a data frame in R:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A <strong>data frame</strong> is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column. It is similar to a spreadsheet or SQL table, or a data frame in Python’s pandas library.</p>
+</div>
+</div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">cats <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
@@ -134,6 +147,7 @@ background-color: null;
 font-style: inherit;">3.2</span>,<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span></span></code></pre></div></div>
+<p>We can now load this in our R environment using the <code>read.csv()</code> function:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">cats <span class="ot" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
@@ -156,28 +170,26 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Check if all sticky notes are green</p>
+<p><strong>Check if all sticky notes are green</strong></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+<span class="screen-reader-only">Warning</span>Check your data for factors
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Check your data for factors</p>
+<p>We should only see numeric and character data types. If you see factors, we can prevent R from automatically creating “factor” data by using the <code>options(stringsAsFactors = FALSE)</code> function. Then re-read the <code>feline-data.csv</code> file for the changes to take effect.</p>
 </div>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">str</span>(cats)</span></code></pre></div></div>
-<p>We should only see numeric and character data types. If you see factors, we can prevent R from automatically creating “factor” data by using the <code>options(stringsAsFactors = FALSE)</code> function.</p>
-<p>Then re-read the <code>feline-data.csv</code> file for the changes to take effect.</p>
-<p>We can beging exploring our dataset right away, pulling out columns by specifying them using the <code>$</code> operator:</p>
+<p>Now, We can begin exploring our dataset, pulling out columns by specifying them using the <code>$</code> operator:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">cats<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span>weight <span class="co" style="color: #5E5E5E;
@@ -190,10 +202,8 @@ font-style: inherit;">$</span>coat <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># prints the coat column</span></span></code></pre></div></div>
 <p>We can also do operation on the columns:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="do" style="color: #5E5E5E;
-background-color: null;
-font-style: italic;">## Say we discovered that the scale weigh is two Kg lighter then we have to add 2 Kg to the values in weight column.</span></span>
-<span id="cb8-2">cats<span class="sc" style="color: #5E5E5E;
+<p>Say we discovered that the scale weighs two Kg lighter, then we have to add 2 Kg to the values in weight column.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1">cats<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span>weight <span class="sc" style="color: #5E5E5E;
 background-color: null;
@@ -202,13 +212,13 @@ background-color: null;
 font-style: inherit;">2</span> <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># does not change the original data frame, but prints the new values</span></span></code></pre></div></div>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Not included in the guide
+<span class="screen-reader-only">Tip</span>But what if we want to change the original data frame?
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -227,6 +237,7 @@ background-color: null;
 font-style: inherit;"># changes the original data frame by adding 2 Kg to the values in weight column</span></span></code></pre></div></div>
 </div>
 </div>
+<p>If we wanted to write a sentence about our cats, we can use the <code>paste()</code> function to combine the values in the coat column with a string:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
@@ -234,15 +245,16 @@ background-color: null;
 font-style: inherit;">"My cat is"</span>, cats<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span>coat)</span></code></pre></div></div>
-<p>But what about</p>
+<p>But what about adding the weight column to the coat column? Let’s try it:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">cats<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">$</span>weight <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> cats<span class="sc" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">$</span>coat</span></code></pre></div></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1">Error <span class="cf" style="color: #003B4F;
+font-style: inherit;">$</span>coat</span>
+<span id="cb11-2"></span>
+<span id="cb11-3">Error <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">in</span> <span class="st" style="color: #20794D;
@@ -254,26 +266,26 @@ background-color: null;
 font-style: inherit;">`</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span></span>
-<span id="cb12-2"><span class="sc" style="color: #5E5E5E;
+<span id="cb11-4"><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!</span> non<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span>numeric argument to binary operator</span></code></pre></div></div>
 <p>Understanding what happened here is key to successfully analyzing data in R.</p>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Any guesses why there is an error message? What do you think the error message means?</p>
-</div>
-</div>
 <p>The error message is telling us that we cannot add a numeric vector (the weight column) to a character vector (the coat column). This is because R does not know how to combine these two different types of data.</p>
+</div>
+</div>
 
 
 </section>
