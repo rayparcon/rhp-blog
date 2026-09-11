@@ -16,6 +16,275 @@
 <link>https://rayparcon.com/blog/blog.html#category=R</link>
 </image>
 <generator>quarto-1.10.18</generator>
-<lastBuildDate>Sun, 30 Aug 2026 16:26:12 GMT</lastBuildDate>
+<lastBuildDate>Sat, 12 Sep 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Griffin R Workshop Notes by R. Parcon</title>
+  <dc:creator>Raymond Parcon</dc:creator>
+  <link>https://rayparcon.com/blog/notes/r_workshop_griffin.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="exploring-r-data-structures-lesson" class="level1">
+<h1>Exploring R Data Structures Lesson</h1>
+<section id="setting-up-directory-and-creating-a-toy-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-directory-and-creating-a-toy-dataset">Setting up Directory and Creating a Toy Dataset</h2>
+<p>One of R’s most powerful features is its ability to deal with tabular data - such as you may already have in a spreadsheet or a CSV file.</p>
+<p>Let’s start by creating a toy dataset of <code>feline-data.csv</code> in <code>data/</code> directory (folder)</p>
+<p>But if <code>data/</code> directory does not exist, create it first.</p>
+<p>Start with orienting yourself in the R environment. Where am I?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">getwd</span>() <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># prints the current working directory "where am I?"</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">dir.create</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"data"</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># creates a new directory called "data"</span></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">setwd</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"C:/Users/rhpar/Documents/data"</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># sets the working directory to "data"</span></span></code></pre></div></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Check if all sticky notes are green</p>
+</div>
+</div>
+<p>Now, we are inside the <code>data/</code> directory. We can now create a toy dataset of feline data and save it as <code>feline-data.csv</code>.</p>
+<p>First, let’s create a data frame in R:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">cats <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data.frame</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">coat =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"calico"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"black"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"tabby"</span>),</span>
+<span id="cb2-2">                    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">weight =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.1</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5.0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.2</span>),</span>
+<span id="cb2-3">                    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">likes_catnip =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>))</span></code></pre></div></div>
+<p>We can now save <code>cats</code> as a CSV file using the <code>write.csv()</code> function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">write.csv</span>(cats, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"feline-data.csv"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">row.names =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># it is important to call the argument row.names = FALSE to avoid writing row numbers to the CSV file</span></span></code></pre></div></div>
+<p>The contents of the <code>feline-data.csv</code> file will look like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1">coat,weight,likes_catnip</span>
+<span id="cb4-2">calico,<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.1</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb4-3">black,<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5.0</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span></span>
+<span id="cb4-4">tabby,<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.2</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">cats <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">read.csv</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">file =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"data/feline-data.csv"</span>)</span>
+<span id="cb5-2">cats</span></code></pre></div></div>
+<p><code>read.csv()</code> is a function that reads a CSV file or <strong>comma-separated values</strong> file and creates a data frame in R. The <code>file</code> argument specifies the path to the CSV file. In this case, we are reading the <code>feline-data.csv</code> file from the <code>data/</code> directory.</p>
+<p>You can check out other function like <code>read.delim</code> for <strong>tab-separated values</strong> file but for now, we will stick with <code>read.csv</code>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Check if all sticky notes are green</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Check your data for factors</p>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str</span>(cats)</span></code></pre></div></div>
+<p>We should only see numeric and character data types. If you see factors, we can prevent R from automatically creating “factor” data by using the <code>options(stringsAsFactors = FALSE)</code> function.</p>
+<p>Then re-read the <code>feline-data.csv</code> file for the changes to take effect.</p>
+<p>We can beging exploring our dataset right away, pulling out columns by specifying them using the <code>$</code> operator:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>weight <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># prints the weight column</span></span>
+<span id="cb7-2"></span>
+<span id="cb7-3">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>coat <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># prints the coat column</span></span></code></pre></div></div>
+<p>We can also do operation on the columns:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><span class="do" style="color: #5E5E5E;
+background-color: null;
+font-style: italic;">## Say we discovered that the scale weigh is two Kg lighter then we have to add 2 Kg to the values in weight column.</span></span>
+<span id="cb8-2">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>weight <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># does not change the original data frame, but prints the new values</span></span></code></pre></div></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Not included in the guide
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>weight <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>weight <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># changes the original data frame by adding 2 Kg to the values in weight column</span></span></code></pre></div></div>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">paste</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"My cat is"</span>, cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>coat)</span></code></pre></div></div>
+<p>But what about</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>weight <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>coat</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1">Error <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">cats$weight + cats$coat</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span></span>
+<span id="cb12-2"><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span> non<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>numeric argument to binary operator</span></code></pre></div></div>
+<p>Understanding what happened here is key to successfully analyzing data in R.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Any guesses why there is an error message? What do you think the error message means?</p>
+</div>
+</div>
+<p>The error message is telling us that we cannot add a numeric vector (the weight column) to a character vector (the coat column). This is because R does not know how to combine these two different types of data.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>Workshop</category>
+  <category>R</category>
+  <guid>https://rayparcon.com/blog/notes/r_workshop_griffin.html</guid>
+  <pubDate>Sat, 12 Sep 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://rayparcon.com/blog/notes" medium="image"/>
+</item>
 </channel>
 </rss>
