@@ -1,5 +1,5 @@
 ---
-title: "Griffin R Workshop Notes by R. Parcon"
+title: "Griffin R Workshop Notes"
 subtitle: "Learning Data Structures and Exploring Data Frames in R"
 author: "Raymond Parcon"
 date: "2026-09-12"
@@ -16,8 +16,7 @@ execute:
 image: ""
 ---
 
-
-# Exploring R Data Structures Lesson
+# Exploring R Data Structures
 
 ## Setting up Directory and Creating a Toy Dataset
 
@@ -35,12 +34,16 @@ dir.create("data") # creates a new directory called "data"
 setwd("C:/Users/rhpar/Documents/data") # sets the working directory to "data"
 ```
 ::: {.callout-important}
-Check if all sticky notes are green
+**Check if all sticky notes are green**
 :::
 
 Now, we are inside the `data/` directory. We can now create a toy dataset of feline data and save it as `feline-data.csv`.
 
 First, let's create a data frame in R:
+
+::: {.callout-note}
+A **data frame** is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column. It is similar to a spreadsheet or SQL table, or a data frame in Python's pandas library.
+:::
 
 ```r
 cats <- data.frame(coat = c("calico", "black", "tabby"),
@@ -48,40 +51,43 @@ cats <- data.frame(coat = c("calico", "black", "tabby"),
                     likes_catnip = c(1, 0, 1))
 ```
 We can now save `cats` as a CSV file using the `write.csv()` function:
+
 ```r
 write.csv(cats, "feline-data.csv", row.names = FALSE) # it is important to call the argument row.names = FALSE to avoid writing row numbers to the CSV file
 ```
+
 The contents of the `feline-data.csv` file will look like this:
+
 ```r
 coat,weight,likes_catnip
 calico,2.1,1
 black,5.0,0
 tabby,3.2,1
 ```
+We can now load this in our R environment using the `read.csv()` function:
+
 ```r
 cats <- read.csv(file = "data/feline-data.csv")
 cats
 ```
+
 `read.csv()` is a function that reads a CSV file or **comma-separated values** file and creates a data frame in R. The `file` argument specifies the path to the CSV file. In this case, we are reading the `feline-data.csv` file from the `data/` directory.
 
 You can check out other function like `read.delim` for **tab-separated values** file but for now, we will stick with `read.csv`.
 
 ::: {.callout-important}
-Check if all sticky notes are green
+**Check if all sticky notes are green**
 :::
 
-::: {.callout-important}
-Check your data for factors
+::: {.callout-warning}
+## Check your data for factors
+We should only see numeric and character data types. If you see factors, we can prevent R from automatically creating “factor” data by using the `options(stringsAsFactors = FALSE)` function. Then re-read the `feline-data.csv` file for the changes to take effect.
 :::
 
 ```r
 str(cats)
 ```
-We should only see numeric and character data types. If you see factors, we can prevent R from automatically creating “factor” data by using the `options(stringsAsFactors = FALSE)` function.
-
-Then re-read the `feline-data.csv` file for the changes to take effect.
-
-We can beging exploring our dataset right away, pulling out columns by specifying them using the `$` operator:
+Now, We can begin exploring our dataset, pulling out columns by specifying them using the `$` operator:
 
 ```r
 cats$weight # prints the weight column
@@ -91,37 +97,41 @@ cats$coat # prints the coat column
 ```
 
 We can also do operation on the columns:
+
+Say we discovered that the scale weighs two Kg lighter, then we have to add 2 Kg to the values in weight column.
+
 ```r
-## Say we discovered that the scale weigh is two Kg lighter then we have to add 2 Kg to the values in weight column.
 cats$weight + 2 # does not change the original data frame, but prints the new values
 ```
 
-::: {.callout-important}
+::: {.callout-tip}
+## But what if we want to change the original data frame?
 
-## Not included in the guide
 ```r
 cats$weight <- cats$weight + 2 # changes the original data frame by adding 2 Kg to the values in weight column
 ```
 :::
 
+If we wanted to write a sentence about our cats, we can use the `paste()` function to combine the values in the coat column with a string:
+
 ```r
 paste("My cat is", cats$coat)
 ```
-But what about
+But what about adding the weight column to the coat column? Let's try it:
+
 ```r
 cats$weight + cats$coat
-```
-```r
+
 Error in `cats$weight + cats$coat`:
 ! non-numeric argument to binary operator
 ```
 Understanding what happened here is key to successfully analyzing data in R.
 
-::: {.callout-important}
+::: {.callout-tip}
 Any guesses why there is an error message? What do you think the error message means?
-:::
 
 The error message is telling us that we cannot add a numeric vector (the weight column) to a character vector (the coat column). This is because R does not know how to combine these two different types of data.
+:::
 
 
 
