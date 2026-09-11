@@ -1,4 +1,25 @@
-# Exploring R Data Structures
+---
+title: "Griffin R Workshop Notes by R. Parcon"
+subtitle: "Learning Data Structures and Exploring Data Frames in R"
+author: "Raymond Parcon"
+date: "2026-09-12"
+slug: "r-workshop-griffin"
+categories: ["Workshop","R"]
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    code-copy: true
+execute:
+  eval: false
+image: ""
+---
+
+
+# Exploring R Data Structures Lesson
+
+## Setting up Directory and Creating a Toy Dataset
 
 One of R's most powerful features is its ability to deal with tabular data - such as you may already have in a spreadsheet or a CSV file.
 
