@@ -50,7 +50,7 @@ font-style: inherit;"># creates a new directory called "data"</span></span>
 background-color: null;
 font-style: inherit;">setwd</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"working/directory"</span>) <span class="co" style="color: #5E5E5E;
+font-style: inherit;">"working/directory/data"</span>) <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># sets the working directory to the working directory</span></span></code></pre></div></div>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -456,7 +456,8 @@ font-style: inherit;">length =</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">3</span>)</span>
 <span id="cb25-2">my_vector</span></code></pre></div></div>
-<p>A vector in R is essentially an ordered list of things, with the special condition that everything in the vector must be the same basic data type. If no data type is specified, R creates a vector of type <code>logical</code> (TRUE/FALSE) when we use the <code>vector()</code> function.</p>
+<p>A vector in R is simply a collection of values of the same basic type stored together.</p>
+<p>If no data type is specified, R creates a vector of type <code>logical</code> (TRUE/FALSE) when we use the <code>vector()</code> function.</p>
 <p>Let’s try to create a vector of type <code>character</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1">another_vector <span class="ot" style="color: #003B4F;
 background-color: null;
@@ -501,9 +502,449 @@ font-style: inherit;">$</span>weight)</span></code></pre></div></div>
 </div>
 <section id="coercion-by-combining-vectors" class="level3">
 <h3 class="anchored" data-anchor-id="coercion-by-combining-vectors">Coercion by combining vectors</h3>
-
-
+<p>You can also make vectors with explicit contents with the combine function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1">combine_vector <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)</span>
+<span id="cb29-2">combine_vector</span></code></pre></div></div>
+<p>Given what we’ve learned so far, what do you think the following will produce?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1">quiz_vector <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'3'</span>)</span></code></pre></div></div>
+<p>This is something called type coercion, and it is the source of many surprises and the reason why we need to be aware of the basic data types and how R will interpret them. When R encounters a mix of types (here <code>double</code> and <code>character</code>) to be combined into a single vector, it will force them all to be the same type. Consider:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1">coercion_vector <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'a'</span>, <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span>
+<span id="cb31-2">coercion_vector</span></code></pre></div></div>
 </section>
+<section id="the-type-of-hierarchy" class="level3">
+<h3 class="anchored" data-anchor-id="the-type-of-hierarchy">The type of hierarchy</h3>
+<p>The coercion rules go: <code>logical</code> -&gt; <code>integer</code> -&gt; <code>double</code> (“<code>numeric</code>”) -&gt; <code>complex</code> -&gt; <code>character</code>, where “-&gt;” can be read as are transformed into. For example, combining <code>logical</code> and <code>character</code> transforms the result to <code>character</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'a'</span>, <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Transforms it to character</span></span></code></pre></div></div>
+<p>A quick way to recognize <code>character</code> vectors is by the quotes that enclose them when they are printed.</p>
+<p>You can try to force coercion against this flow using the <code>as.</code> functions:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1">character_vector_example <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'0'</span>,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'2'</span>,<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'4'</span>)</span>
+<span id="cb33-2">character_vector_example</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1">character_coerced_to_double <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.double</span>(character_vector_example)</span>
+<span id="cb34-2">character_coerced_to_double</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1">double_coerced_to_logical <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.logical</span>(character_coerced_to_double)</span>
+<span id="cb35-2">double_coerced_to_logical</span></code></pre></div></div>
+<p>As you can see some surprising things can happen if R forces one basic data type into another! So we have to understand how coercion works and make sure everything is the same type in your vectors and your columns of data.frames, or we will get a uncalled surprises!</p>
+<p>But coercion can also be very useful! For example, in our cats data likes_catnip is numeric, but we know that the 1s and 0s actually represent TRUE and FALSE (a common way of representing them). We should use the logical datatype here, which has two states: TRUE or FALSE, which is exactly what our data represents. We can ‘coerce’ this column to be logical by using the as.logical function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>likes_catnip</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>likes_catnip <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.logical</span>(cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>likes_catnip)</span>
+<span id="cb37-2">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>likes_catnip</span></code></pre></div></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Check if all sticky notes are green</strong></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Challenge 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Using the object <code>cats2</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 1. Print the data</span></span>
+<span id="cb38-2">cats2</span>
+<span id="cb38-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">print</span>(cats2)</span>
+<span id="cb38-4"></span>
+<span id="cb38-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 2. Show an overview of the table with all data types</span></span>
+<span id="cb38-6"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str</span>(cats2)</span>
+<span id="cb38-7"></span>
+<span id="cb38-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 3. The "weight" column has the incorrect data type "character".</span></span>
+<span id="cb38-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#    The correct data type is: "double/numerical".</span></span>
+<span id="cb38-10"></span>
+<span id="cb38-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 4. Correct the 4th weight data point with the mean of the two given values</span></span>
+<span id="cb38-12">cats2<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>weight[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>] <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.35</span></span>
+<span id="cb38-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#    print the data again to see the effect</span></span>
+<span id="cb38-14">cats2</span>
+<span id="cb38-15"></span>
+<span id="cb38-16"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># 5. Convert the weight to the right data type</span></span>
+<span id="cb38-17">cats2<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>weight <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.double</span>(cats2<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>weight)</span>
+<span id="cb38-18"></span>
+<span id="cb38-19"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#    Calculate the mean to test yourself</span></span>
+<span id="cb38-20"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mean</span>(cats2<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>weight)</span>
+<span id="cb38-21"></span>
+<span id="cb38-22"><span class="do" style="color: #5E5E5E;
+background-color: null;
+font-style: italic;">## [1] 3.1625</span></span>
+<span id="cb38-23"></span>
+<span id="cb38-24"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># If you see the correct mean value (and not NA), you did the exercise correctly!</span></span></code></pre></div></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="list" class="level2">
+<h2 class="anchored" data-anchor-id="list">List</h2>
+<p>Another data structure you’ll want to be aware of is the <code>list</code>. A list is simpler in some ways than the other types, because you can put anything you want in it. Remember everything in the <code>vector</code> must be of the same basic data type, but a <code>list</code> can have different data types:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1">list_example <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"a"</span>, <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>i)</span>
+<span id="cb39-2">list_example</span></code></pre></div></div>
+<p>When printing the object structure with <code>str()</code>, we see the data types of all elements:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str</span>(list_example)</span></code></pre></div></div>
+<p>What is the use of lists? They can <strong>organize data of different types</strong>. For example, you can organize different tables that belong together, similar to spreadsheets in Excel. But there are many other uses, too.</p>
+<p>We will see another example that will maybe surprise you in the next chapter.</p>
+<p>To retrieve one of the elements of a list, use the double bracket:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1">list_example[[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>]]</span></code></pre></div></div>
+<p>The elements of lists also can have <strong>names</strong>, they can be given by prepending them to the values, separated by an equals sign:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1">another_list <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">title =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Numbers"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">numbers =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span> )</span>
+<span id="cb42-2">another_list</span></code></pre></div></div>
+<p>This results in a <strong>named list</strong>. Now we have a new function of our object! We can access single elements by an additional way!</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1">another_list<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>title</span></code></pre></div></div>
+</section>
+<section id="names" class="level2">
+<h2 class="anchored" data-anchor-id="names">Names</h2>
+<p>With names, we can give meaning to elements. It is the first time that we do not only have the data, but also explaining information. It is <strong><em>metadata</em></strong> that can be stuck to the object like a label. In R, this is called an attribute. Some attributes enable us to do more with our object, for example, like here, accessing an element by a self-defined name.</p>
+<section id="accessing-vectors-and-lists-by-name" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-vectors-and-lists-by-name">Accessing vectors and lists by name</h3>
+<p>We have already seen how to generate a named list. The way to generate a named vector is very similar. You have seen this function before:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1">pizza_price <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>( <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">pizzasubito =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5.64</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">pizzafresh =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6.60</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">callapizza =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4.50</span> )</span></code></pre></div></div>
+<p>The way to retrieve elements is different, though:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1">pizza_price[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"pizzasubito"</span>]</span></code></pre></div></div>
+<p>The approach used for the list does not work:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1">pizza_price<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>pizzafresh</span></code></pre></div></div>
+<p>It means that you have just tried accessing an element like it was in a list, but it is actually in a vector.</p>
+</section>
+<section id="accessing-and-changing-names" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-and-changing-names">Accessing and changing names</h3>
+<p>If you are only interested in the names, use the <code>names()</code> function:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">names</span>(pizza_price)</span></code></pre></div></div>
+<p>We have seen how to access and change single elements of a vector. The same is possible for names:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">names</span>(pizza_price)[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>]</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">names</span>(pizza_price)[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>] <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"call-a-pizza"</span></span>
+<span id="cb49-2">pizza_price</span></code></pre></div></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Challenge 2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>What is the data type of the names of <code>pizza_price</code>? You can find out using the <code>str()</code> or <code>typeof()</code> functions.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">typeof</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">names</span>(pizza)) </span></code></pre></div></div>
+<p>alternatively, use a new variable if this is easier for you to read:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1">n <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">names</span>(pizza)</span>
+<span id="cb51-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">typeof</span>(n)</span></code></pre></div></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-frames" class="level2">
+<h2 class="anchored" data-anchor-id="data-frames">Data Frames</h2>
+<p>We have data frames at the very beginning of this lesson, they represent a table of data. We didn’t go much further into detail with our example cat data frame:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1">cats</span></code></pre></div></div>
+<p>We can now understand something a bit surprising in our data.frame; what happens if we run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">typeof</span>(cats)</span></code></pre></div></div>
+<p>We see that <code>data.frames</code> look like lists ‘under the hood’. Think again what we heard about what lists can be used for:</p>
+<p>Lists organize data of different types</p>
+<p>Columns of a data frame are vectors of different types, that are organized by belonging to the same table.</p>
+<p>A data.frame is really a list of vectors. It is a special list in which all the vectors must have the same length.</p>
+<p>How is this “special”-ness written into the object, so that R does not treat it like any other list, but as a table?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">class</span>(cats)</span></code></pre></div></div>
+<p>A class, just like names, is an attribute attached to the object. It tells us what this object means for humans.</p>
+<p>You might wonder: Why do we need another what-type-of-object-is-this-function? We already have <code>typeof()</code>? That function tells us how the object is constructed in the computer. The <code>class</code> is the meaning of the object for humans. Consequently, what <code>typeof()</code> returns is fixed in R (mainly the five data types), whereas the output of <code>class()</code> is diverse and extendable by R packages.</p>
+<p>In our <code>cats</code> example, we have an integer, a double and a logical variable. As we have seen already, each column of data.frame is a vector.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>coat</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1">cats[,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">typeof</span>(cats[,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>])</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str</span>(cats[,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>])</span></code></pre></div></div>
+<p>Each row is an observation of different variables, itself a data.frame, and thus can be composed of elements of different types.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1">cats[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,]</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">typeof</span>(cats[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,])</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str</span>(cats[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,])</span></code></pre></div></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Challenge 3
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>There are several subtly different ways to call variables, observations, and elements from data.frames:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb62" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1">cats[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span>
+<span id="cb62-2">cats[[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]]</span>
+<span id="cb62-3">cats<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">$</span>coat</span>
+<span id="cb62-4">cats[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"coat"</span>]</span>
+<span id="cb62-5">cats[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span>
+<span id="cb62-6">cats[, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>]</span>
+<span id="cb62-7">cats[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, ]</span></code></pre></div></div>
+<p>Try out these examples and explain what is returned by each one.</p>
+<p>Hint: Use the function <code>typeof()</code> to examine what is returned in each case.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb63" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">typeof</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">names</span>(pizza)) </span></code></pre></div></div>
+<p>alternatively, use a new variable if this is easier for you to read:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb64" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1">n <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">names</span>(pizza)</span>
+<span id="cb64-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">typeof</span>(n)</span></code></pre></div></div>
+</div>
+</div>
+</div>
+
+
 </section>
 </section>
 
