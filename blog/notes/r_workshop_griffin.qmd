@@ -29,7 +29,7 @@ But if `data/` directory does not exist, create it first.
 
 Start with orienting yourself in the R environment. Where am I?
 
-```{r}
+```r
 getwd() # prints the current working directory "where am I?"
 dir.create("data") # creates a new directory called "data"
 setwd("C:/Users/rhpar/Documents/data") # sets the working directory to "data"
@@ -42,23 +42,23 @@ Now, we are inside the `data/` directory. We can now create a toy dataset of fel
 
 First, let's create a data frame in R:
 
-```{r}
+```r
 cats <- data.frame(coat = c("calico", "black", "tabby"),
                     weight = c(2.1, 5.0, 3.2),
                     likes_catnip = c(1, 0, 1))
 ```
 We can now save `cats` as a CSV file using the `write.csv()` function:
-```{r}
+```r
 write.csv(cats, "feline-data.csv", row.names = FALSE) # it is important to call the argument row.names = FALSE to avoid writing row numbers to the CSV file
 ```
 The contents of the `feline-data.csv` file will look like this:
-```{r}
+```r
 coat,weight,likes_catnip
 calico,2.1,1
 black,5.0,0
 tabby,3.2,1
 ```
-```{r}
+```r
 cats <- read.csv(file = "data/feline-data.csv")
 cats
 ```
@@ -74,7 +74,7 @@ Check if all sticky notes are green
 Check your data for factors
 :::
 
-```{r}
+```r
 str(cats)
 ```
 We should only see numeric and character data types. If you see factors, we can prevent R from automatically creating “factor” data by using the `options(stringsAsFactors = FALSE)` function.
@@ -83,7 +83,7 @@ Then re-read the `feline-data.csv` file for the changes to take effect.
 
 We can beging exploring our dataset right away, pulling out columns by specifying them using the `$` operator:
 
-```{r}
+```r
 cats$weight # prints the weight column
 
 cats$coat # prints the coat column
@@ -91,7 +91,7 @@ cats$coat # prints the coat column
 ```
 
 We can also do operation on the columns:
-```{r}
+```r
 ## Say we discovered that the scale weigh is two Kg lighter then we have to add 2 Kg to the values in weight column.
 cats$weight + 2 # does not change the original data frame, but prints the new values
 ```
@@ -99,19 +99,19 @@ cats$weight + 2 # does not change the original data frame, but prints the new va
 ::: {.callout-important}
 
 ## Not included in the guide
-```{r}
+```r
 cats$weight <- cats$weight + 2 # changes the original data frame by adding 2 Kg to the values in weight column
 ```
 :::
 
-```{r}
+```r
 paste("My cat is", cats$coat)
 ```
 But what about
-```{r}
+```r
 cats$weight + cats$coat
 ```
-```{r}
+```r
 Error in `cats$weight + cats$coat`:
 ! non-numeric argument to binary operator
 ```
