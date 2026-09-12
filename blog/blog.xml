@@ -943,6 +943,238 @@ font-style: inherit;">typeof</span>(n)</span></code></pre></div></div>
 </div>
 </div>
 </div>
+</section>
+<section id="matrices" class="level2">
+<h2 class="anchored" data-anchor-id="matrices">Matrices</h2>
+<p>Last but not least is the matrix. We can declare a matrix full of zeros:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb65" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1">matrix_example <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">matrix</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ncol=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">nrow=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)</span>
+<span id="cb65-2">matrix_example</span></code></pre></div></div>
+<p>What makes it special is the <code>dim()</code> attribute:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb66" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">dim</span>(matrix_example)</span></code></pre></div></div>
+<p>And similar to other data structures, we can ask things about our matrix:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb67" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">typeof</span>(matrix_example)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb68" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str</span>(matrix_example)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb69" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">nrow</span>(matrix_example)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb70" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ncol</span>(matrix_example)</span></code></pre></div></div>
+<p>::: ## Challenge 4 4.1. What do you think will be the result of <code>length(matrix_example)</code>? Try it. Were you right? Why / why not?</p>
+<p>Because a matrix is a vector with added dimension attributes, length gives you the total number of elements in the matrix.</p>
+<p>4.2. Make another matrix, this time containing the numbers 1:50, with 5 columns and 10 rows. Did the <code>matrix</code> function fill your matrix by column, or by row, as its default behaviour? See if you can figure out how to change this. (hint: read the documentation for <code>matrix</code>!)</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb71" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1">x <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">matrix</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ncol=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">nrow=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>)</span>
+<span id="cb71-2">x <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">matrix</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ncol=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">nrow=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">byrow =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># to fill by row</span></span></code></pre></div></div>
+<p>4.3. Consider the R output of the matrix below:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb72" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1">     [,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>] [,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>]</span>
+<span id="cb72-2">[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,]    <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>    <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb72-3">[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>,]    <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>    <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span></span>
+<span id="cb72-4">[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,]   <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>    <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span></span></code></pre></div></div>
+<p>What was the correct command used to write this matrix? Examine each command and try to figure out the correct one before typing them. Think about what matrices the other commands will produce.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb73" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">matrix</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">nrow =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>)</span>
+<span id="cb73-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">matrix</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ncol =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">byrow =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span>
+<span id="cb73-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">matrix</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">nrow =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)</span>
+<span id="cb73-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">matrix</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ncol =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">byrow =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb74" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">matrix</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">ncol =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">byrow =</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># answer</span></span></code></pre></div></div>
+<p>:::</p>
 
 
 </section>
