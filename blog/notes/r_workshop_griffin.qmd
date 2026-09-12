@@ -469,6 +469,62 @@ typeof(n)
 
 :::
 
+## Matrices
+
+Last but not least is the matrix. We can declare a matrix full of zeros:
+
+```r
+matrix_example <- matrix(0, ncol=6, nrow=3)
+matrix_example
+```
+What makes it special is the `dim()` attribute:
+```r
+dim(matrix_example)
+```
+
+And similar to other data structures, we can ask things about our matrix:
+```r
+typeof(matrix_example)
+```
+```r
+str(matrix_example)
+```
+```r
+nrow(matrix_example)
+```
+```r
+ncol(matrix_example)
+```
+:::
+## Challenge 4
+4.1. What do you think will be the result of `length(matrix_example)`? Try it. Were you right? Why / why not?
+
+Because a matrix is a vector with added dimension attributes, length gives you the total number of elements in the matrix.
+
+4.2. Make another matrix, this time containing the numbers 1:50, with 5 columns and 10 rows. Did the `matrix` function fill your matrix by column, or by row, as its default behaviour? See if you can figure out how to change this. (hint: read the documentation for `matrix`!)
+
+```r
+x <- matrix(1:50, ncol=5, nrow=10)
+x <- matrix(1:50, ncol=5, nrow=10, byrow = TRUE) # to fill by row
+```
+4.3. Consider the R output of the matrix below:
+```r
+     [,1] [,2]
+[1,]    4    1
+[2,]    9    5
+[3,]   10    7
+```
+What was the correct command used to write this matrix? Examine each command and try to figure out the correct one before typing them. Think about what matrices the other commands will produce.
+```r
+matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)
+matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)
+matrix(c(4, 9, 10, 1, 5, 7), nrow = 2)
+matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)
+```
+```r
+matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE) # answer
+```
+:::
 
 
 
